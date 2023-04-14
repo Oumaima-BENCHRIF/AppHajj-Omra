@@ -1,0 +1,123 @@
+#example {
+    border-radius: 10px;
+}
+.tabulator {
+    border: 1px solid #e7e7e7 !important;
+    background-color: #fff !important;
+    border: 1px solid #e7e7e7 !important;
+    border-radius: 6px !important;
+}
+
+.taille {
+    width: 150px !important;
+}
+
+.tabulator-col-sorter {
+    display: none !important;
+}
+
+.tabulator-selectable > .tabulator-cell ~ .tabulator-cell:before {
+    content: none;
+}
+
+.tabulator-selectable > .tabulator-cell:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 0.125rem;
+    height: calc(100%);
+    content: "";
+    background-color: #315dccdb;
+}
+
+.tabulator-arrow {
+    display: none !important;
+}
+
+.tabulator-row.tabulator-group {
+    background-color: #1A488E !important;
+    color: #fff;
+    border: none !important;
+    border-bottom: 1px solid #e7e7e7 !important;
+}
+
+.tabulator-header {
+    background-color: #fff !important;
+    border: none;
+    border-bottom: 1px solid #e7e7e7 !important;
+}
+
+
+
+.tabulator-responsive-collapse:hover {
+    background-color: #fff;
+}
+
+/* .tabulator-selectable:hover {
+    background-color: #fff !important;
+} */
+
+.tabulator-footer {
+    border-top: none !important;
+}
+
+.tabulator-col[aria-sort="none"] .tabulator-col-sorter i {
+    color: #999;
+}
+
+.tabulator .tabulator-selectable {
+    border-bottom-width: 0px !important;
+}
+
+/* Define the style when the column is sorted in ascending order */
+.tabulator-col[aria-sort="asc"] .tabulator-col-sorter i {
+    color: #f00;
+}
+
+/* Define the style when the column is sorted in descending order */
+.tabulator-col[aria-sort="desc"] .tabulator-col-sorter i {
+    color: #f00;
+    transform: scaleY(-1);
+    /* flip the icon vertically so the arrow points down */
+}
+.tabulator-footer-contents {
+    border-top: 1px solid #e7e7e7 !important;
+}
+.top-bar {
+    border-bottom: none;
+}
+.tabulator-arrow {
+    display: none !important;
+}
+/* Style the total pages */
+.tabulator-print-total-pages {
+    font-weight: bold;
+}
+/* Style the hovered rows */
+.tabulator-print-table tr:hover {
+    background-color: #ddd;
+}
+/* Style the page number */
+.tabulator-print-page-number {
+    font-weight: bold;
+}
+.tabulator-print-footer {
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #ffe4c4;
+}
+.tabulator-footer {
+    background-color: #fff !important;
+    border-top: 1px solid #e7e7e7 !important;
+}
+.tabulator-paginator {
+    align-items: flex-start !important;
+    padding-top: 10px !important;
+    padding-bottom: 9px !important;
+}
