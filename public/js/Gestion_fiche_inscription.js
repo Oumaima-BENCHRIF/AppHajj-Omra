@@ -938,6 +938,7 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
         success: function (responce) {
             // Je récupère la réponse du fichier PHP
             jQuery.each(responce.Detail_Fiche_Insc, function (key, item) {
+                
                 if (responce.Detail_Fiche_Insc.length == 0) {
                     
                 }
