@@ -30,6 +30,11 @@
     }
     .w-85{
         width:85%;  
+       
+    }
+    .h-5
+    {
+        height: 5px;
     }
     .w-15{
         width:15%;   
@@ -55,20 +60,31 @@
     .border{
         border:1px solid black;
     }
-    table tr,th,td{
-        border: 1px solid #d2d2d2;
+    table tr,td{
+        border-right: 1px solid #d2d2d2;
+        border-left: 1px solid #d2d2d2;
         border-collapse:collapse;
         padding:7px 8px;
     }
     table tr th{
         background: #F4F4F4;
         font-size:15px;
+        border: 1px solid #d2d2d2;
+        padding-top:10px;
+        padding-bottom:10px;
     }
     table tr td{
         font-size:13px;
+    
+       
     }
+   
     table{
+        margin-top: 20px !important;
+       
         border-collapse:collapse;
+        border-bottom:1px solid #d2d2d2;
+       
         
     }
     .box-text p{
@@ -109,70 +125,87 @@
     display: block;
 }
 
+.h-100
+{
+    height: 100%;
+}
+.tbl{
+        border: 1px solid #d2d2d2;
+      
+        border-collapse:collapse;
+    }
+
+
+
 </style>
 <body>
 <div class="w-50  logo mt-10">
 <img src="https://www.nicesnippets.com/image/imgpsh_fullsize.png"> 
     </div>  
 <div class="w-50 float-left  mt-10">
-
-        <table class="table w-85 mt-10">
-      
-      <tr>
-          <td> Code Client</td> <td>{{$data->Code_client}}</td>
+@foreach($info_facture as $info)
+         
+        <table class=" w-85 mt-10">
+        <tr>
+          <td class="tbl">Code Client</td> <td  class="tbl" id="numfichier"> {{ $info->Code_client }}</td>
        </tr>
+      
+
        <tr>
-        <td> Facture N°</td> <td> </td>
+        <td class="tbl" > Facture N°</td> <td class="tbl" id='numfacture'>{{ $info->numero_facture }} </td>
         </tr>
        <tr> 
-           <td>Dossier N°</td> <td> </td>
+           <td class="tbl" >Dossier N°</td> <td id='numdossier' class="tbl"> {{ $info->Numero_dossier }}</td>
            </tr>
        <tr>
-           <td>Bon de Commande</td> <td> </td>
+           <td class="tbl" >Bon de Commande</td> <td id='bncommande' class="tbl"> {{ $info->bon_commande }}</td>
            </tr>
        <tr>
-          <td>Date</td> <td> </td>
+          <td class="tbl" >Date</td> <td id="date_inscri" class="tbl"> {{ $info->date }}</td>
           </tr>
        <tr>
-          <td>Vos Réf</td> <td> </td> 
+          <td class="tbl" >Vos Réf</td> <td  class="tbl" id="ref"> </td> 
     </tr>
+    
   </table> 
     </div>
 <div class="add-detail mt-10">
  
     <div class="w-50 float-left mt-10 info">
-    <p class="center">Nom</p>
-       <p class="center">Adresse</p>
-       <p class="center">Ville</p>
+    <p id="nom" class="center">{{ $info->Nom_client }}</p>
+       <p id="adresse" class="center">{{ $info->adresse }}</p>
+       <p id="ville" class="center">{{ $info->ville}}</p>
     </div>
   
     <div style="clear: both;"></div>
 </div>
 
 
-<div class="table-section bill-tbl w-100 mt-10">
-    <table class="table w-100 mt-10">
-        <tr>
-            <th class="w-50">Désignation</th>
-            <th class="w-50">Arrivés</th>
-            <th class="w-50">Départs</th>
-            <th class="w-50">Qte</th>
-            <th class="w-50">Nts</th>
-            <th class="w-50">P.U</th>
-            <th class="w-50">TOTAL</th>
+
+    <table class="table w-100 mt-10 ">
+        <tr >
+            <th class="w-50 ">Désignation</th>
+            <th class="">Arrivés</th>
+            <th class="">Départs</th>
+            <th class="">TOTAL</th>
         </tr>
         <tr>
-            <td >Cash On DeliveryCashOnDeliveryCashOn Delivery Cash On Delivery</td>
-            <td>Free </td>
-            <td>Cash </td>
-            <td>Free </td>
-            <td>Cash </td>
-            <td>Free </td>
-            <td>Cash </td>
-            
+            <td class="pl5">{{ $info->designation }}</td>
+            <td >{{ $info->date_Arrives }}</td>
+            <td >{{ $info->date_departs }}</td>
+            <td ></td>
         </tr>
+        @endforeach
+        @foreach($detail_facture as $info_detail)    
+        <tr>
+            <td >{{ $info_detail->nom_complet }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ $info_detail->prix }}</td>
+        </tr>
+        @endforeach
     </table>
-</div>
+
 <div class="table-section bill-tbl w-100 mt-10">
  
                     <div class="total-left w-85 float-left" align="right">

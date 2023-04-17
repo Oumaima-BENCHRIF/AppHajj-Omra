@@ -91,6 +91,12 @@ Route::middleware('auth')->group(function () {
     // gestion_facturation
     Route::get('/facturation', 'App\Http\Controllers\GestionFichesInscriptionController@print')->name('facturation.print');
     Route::get('/generate', 'App\Http\Controllers\PDFController@index')->name('generate.index');
+   // gestion_facturation
+   Route::GET('/facturation/{id}', 'App\Http\Controllers\FactureController@index')->name('facturation.index');
+   Route::GET('/generate/{id}','App\Http\Controllers\FactureController@print')->name('generate.print');
+   Route::post('facturation_List', 'App\Http\Controllers\FactureController@Liste_facture')->name('facturation.list');
+   //gestion gestion_fiche_client
+   Route::post('facturation_store', 'App\Http\Controllers\FactureController@store')->name('facturation.store');
     //gestion gestion_fiche_client
 
     Route::get('/fiche_client', 'App\Http\Controllers\Fiche_clientsController@index')->name('fiche_client.index')->middleware('checkPermission:G.ClientAgente');

@@ -23,7 +23,8 @@ class Factures extends Model
     'Nom_client', 
     'adresse', 
     'ville', 
-    'Total'];
+    'Total',
+    'fk_fiche'];
 
     protected $dates=['deleted_at'];
 }

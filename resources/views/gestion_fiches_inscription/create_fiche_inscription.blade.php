@@ -95,6 +95,7 @@ if ($id_dossier && $id_prg) {
             <div class="form-inline mt-2">
                 <div class="flex flex-1   items-center justify-center lg:justify-start">
                     <div class="intro-y w4 px-1">
+                        <input type="hidden" id="id_fiche" name="id_fiche">
                         <label for="num_fichier" class="form-label  mbt-2 text-size">N° Fiche</label>
                         <select id="num_fichier" name="num_fichier" class="form-control py-1">
                             <option value="">Sélectionnez</option>
@@ -491,19 +492,22 @@ if ($id_dossier && $id_prg) {
             <!-- End: Informations passeport -->
             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end  w-52 mx-auto ">
                 <button type="Submit" class="btn  w-full" style="background-color: #015C92   ; color: #ffffff;">Ajouter</button>
+                
             </div>
+
             <input type="hidden" id="parsed">
         </form>
     </div>
     <div class="overflow-x-auto scrollbar-hidden">
         <div id="liste_fiche_insc" class="mt-5 table-report--tabulator"></div>
     </div>
-    <div class="intro-y col-span-12 flex items-center mt-5 justify-end left w-100">
-    <a href="{{ route('facturation.print') }}" class="btn btn-primary" target="_blank">facturation</a>
-            </div>
+   
+    <input type="hidden" id="id_fiche" name="id_fiche">
+
+   
+   
 </div>
-<!-- END:   information passeport -->
-<!-- BEGIN: Delete Confirmation Modal -->
+<button id="facture"class="btn btn-primary"  >facturation</button>
 <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -563,4 +567,7 @@ if ($id_dossier && $id_prg) {
 @endsection
 @section('jqscripts')
 <script type="text/javascript" src="{{URL::asset('js/Gestion_fiche_inscription.js')}}"></script>
+<script>
+ 
+</script>
 @endsection

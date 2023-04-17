@@ -15,13 +15,14 @@ use App\Models\Gestion_chambres;
 use App\Models\Gestion_inclus;
 use App\Models\Gestion_detail_fiches_inscriptions;
 use App\Models\datail_hotel_programmes;
-use App\Models\Factures;
+
+use App\Models\gestion_dossiers;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 // use Illuminate\Http\Input;
 class GestionFichesInscriptionController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $Detail_Fiche_Insc = Gestion_detail_fiches_inscriptions::where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
             ->get();
@@ -30,6 +31,7 @@ class GestionFichesInscriptionController extends Controller
             'Detail_Fiche_Insc' => $Detail_Fiche_Insc
         ]);
     }
+    
     public function store(Request $request)
     {
         try {
@@ -117,27 +119,7 @@ class GestionFichesInscriptionController extends Controller
         }
     }
     
-    public function print(Request $request){
-        $data=new Factures;
-        $data->Code_client= $request->input('num_fichier');
-    
-       $data->numero_facture= $request->input('num_fichier');
-       $data->Numero_dossier=  $request->id_dossier;
-       $data->bon_commande= $request->input('bon_commande');
-       $data->date=$request->input('date_fiche_inscription');
-    //    $data->Vos_ref= $request->input('num_fichier');
-    //    $data->Nom_client= $request->input('num_fichier');
-    //    $data->adresse= $request->input('num_fichier');
-    //    $data->ville= $request->input('num_fichier');
-    //    $data->Total= $request->input('num_fichier');
-       
-        $pdf = PDF::loadView('myPDF',
-        ['data'=>$data ]);
-
-        return $pdf->download('facture.pdf');
-    
-    }
-
+   
     // info fiche inscription
     public function info_fiche_insc(Request $request, $id_prg, $id_detail_hotel)
     {
@@ -195,8 +177,8 @@ class GestionFichesInscriptionController extends Controller
             ->where('gestion_detail_fiches_inscriptions.FK_detail_hotel_prg', $id_hotel)
             ->get();
 
-          
-          
+
+
         if ($Detail_Fiche_Insc != null) {
             return response()->json([
                 'Detail_Fiche_Insc' => $Detail_Fiche_Insc,

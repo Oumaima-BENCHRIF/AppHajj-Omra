@@ -8,6 +8,7 @@ use App\Models\gestion_dossiers;
 use App\Models\Villes;
 use Illuminate\Support\Facades\Validator;
 use App\Models\gestion_programmes;
+use Carbon\Carbon;
 
 class Gestion_DossierController extends Controller
 {
@@ -116,6 +117,25 @@ class Gestion_DossierController extends Controller
         ]);
         // return view('gestion_dossier.create');
     }
+    //generate Numero dossier
+    private function NumDossier()
+    {
+        $lastRecord = gestion_dossiers::latest('id')->withTrashed()->first();;
+        if( $lastRecord!=null)
+        {
+        $num=$lastRecord->num_dossier;
+        $conteur =substr($num,5);
+        $conteur = +1;
+        $result = sprintf('%04d', $conteur);
+       $code= 'D'.Carbon::now()->year.$result;
+       return $code;
+        }
+        else
+        {
+            return 'D'.Carbon::now()->year.'0001';
+        }
+
+    }
     //Enregister gestion_dossiers
     public function store(Request $request)
     {
@@ -134,6 +154,7 @@ class Gestion_DossierController extends Controller
             } else {
                 $gestion_dossiers = new gestion_dossiers();
                 $gestion_dossiers->nom_dossier = $request->input('nom_dossier');
+                $gestion_dossiers->num_dossier = $this->NumDossier();
                 $gestion_dossiers->hijri_date = $request->input('hijri_date');
                 // $gestion_dossiers->Date_debut = explode('-', $request->input('date_dossier'))[0];
                 // $gestion_dossiers->Date_fin = explode('-', $request->input('date_dossier'))[1];
