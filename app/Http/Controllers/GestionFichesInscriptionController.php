@@ -629,7 +629,37 @@ class GestionFichesInscriptionController extends Controller
 
                         $Gestion_detail_fiches_inscriptions->FK_type_chambre_makka  = $request->input('type_chambre_makka');
                         $Gestion_detail_fiches_inscriptions->FK_chambre_makka  = $request->input('chambre_makka');
-
+ 
+                        $Gestion_inclus = new Gestion_inclus();
+                        /* ************** checkPost Billet*/
+                        $Gestion_inclus->exclu_Billet = $request->Billet;
+                        $Gestion_inclus->Reduction_Billet = $request->Reduction_Billet;
+                        $Gestion_inclus->Raison_Billet = $request->raison_billet;
+        
+                        /* ************** checkPost Transport*/
+                        $Gestion_inclus->exclu_Transport = $request->Transport;
+                        $Gestion_inclus->Reduction_Transport = $request->Reduction_Transport;
+                        $Gestion_inclus->Raison_Transport = $request->raison_Transport;
+        
+                        /* ************** checkPost Hotel Meedina*/
+                        $Gestion_inclus->exclu_Hotel_Meedina = $request->Hotel_Meedina;
+                        $Gestion_inclus->Reduction_Hotel_Meedina = $request->Reduction_Hotel_Meedina;
+                        $Gestion_inclus->Raison_Hotel_Meedina = $request->raison_hotel_medina;
+        
+                        /* ************** checkPost Hotel Makka*/
+                        $Gestion_inclus->exclu_Hotel_Makka = $request->Hotel_Makka;
+                        $Gestion_inclus->Reduction_Hotel_Makka = $request->Reduction_Hotel_Makka;
+                        $Gestion_inclus->Raison_Hotel_Makka = $request->raison_hotel_makka;
+        
+                        /* ************** checkPost Hotel Makka*/
+                        $Gestion_inclus->exclu_Visa = $request->Visa;
+                        $Gestion_inclus->Reduction_Visa = $request->Reduction_Visa;
+                        $Gestion_inclus->Raison_Visa = $request->raison_visa;
+        
+                        // Ajouter inclus
+                        $Gestion_inclus->save();
+                        
+                        $Gestion_detail_fiches_inscriptions->FK_inclus = $Gestion_inclus->id;
                         $Gestion_detail_fiches_inscriptions->save();
                         return response()->json([
                             'status' => 200,
@@ -652,36 +682,7 @@ class GestionFichesInscriptionController extends Controller
 
 
 
-                // $Gestion_inclus = new Gestion_inclus();
-                /* ************** checkPost Billet*/
-                // $Gestion_inclus->exclu_Billet = $request->Billetcheq;
-                // $Gestion_inclus->Reduction_Billet = $request->Reduction_Billet;
-                // $Gestion_inclus->Raison_Billet = $request->raison_billet;
-
-                /* ************** checkPost Transport*/
-                // $Gestion_inclus->exclu_Transport = $request->Transportcheq;
-                // $Gestion_inclus->Reduction_Transport = $request->Reduction_Transport;
-                // $Gestion_inclus->Raison_Transport = $request->raison_Transport;
-
-                /* ************** checkPost Hotel Meedina*/
-                // $Gestion_inclus->exclu_Hotel_Meedina = $request->hotel_meedinacheq;
-                // $Gestion_inclus->Reduction_Hotel_Meedina = $request->Reduction_Hotel_Meedina;
-                // $Gestion_inclus->Raison_Hotel_Meedina = $request->raison_hotel_medina;
-
-                /* ************** checkPost Hotel Makka*/
-                // $Gestion_inclus->exclu_Hotel_Makka = $request->hotel_makkacheq;
-                // $Gestion_inclus->Reduction_Hotel_Makka = $request->Reduction_Hotel_Makka;
-                // $Gestion_inclus->Raison_Hotel_Makka = $request->raison_hotel_makka;
-
-                /* ************** checkPost Hotel Makka*/
-                // $Gestion_inclus->exclu_Visa = $request->Visacheq;
-                // $Gestion_inclus->Reduction_Visa = $request->Reduction_Visa;
-                // $Gestion_inclus->Raison_Visa = $request->raison_visa;
-
-                // Ajouter inclus
-                // $Gestion_inclus->save();
-
-                // $Gestion_information_clients->FK_inclus = $Gestion_inclus->id;
+              
 
                 // Ajouter a fiche d'inscription
 
