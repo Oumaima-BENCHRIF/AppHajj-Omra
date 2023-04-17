@@ -663,51 +663,51 @@ $(document).ready(function () {
     var chkId = "";
     $("input").on("click", function () {
         if ($("#Billetcheq").is(":checked")) {
+            document.getElementById("Billet").value='';
             document.getElementById("Reduction_Billet").style.display = "none";
             document.getElementById("raison_billet").style.display = "none";
         } else {
+            document.getElementById("Billet").value='Billet';
             document.getElementById("Reduction_Billet").style.display = "block";
             document.getElementById("raison_billet").style.display = "block";
         }
 
         if ($("#Transportcheq").is(":checked")) {
-            document.getElementById("Reduction_Transport").style.display =
-                "none";
+            document.getElementById("Transport").value='';
+            document.getElementById("Reduction_Transport").style.display ="none";
             document.getElementById("raison_Transport").style.display = "none";
         } else {
-            document.getElementById("Reduction_Transport").style.display =
-                "block";
+            document.getElementById("Transport").value='Transport';
+            document.getElementById("Reduction_Transport").style.display ="block";
             document.getElementById("raison_Transport").style.display = "block";
         }
 
         if ($("#hotel_meedinacheq").is(":checked")) {
-            document.getElementById("Reduction_Hotel_Meedina").style.display =
-                "none";
-            document.getElementById("raison_hotel_medina").style.display =
-                "none";
+            document.getElementById("Hotel_Meedina").value='';
+            document.getElementById("Reduction_Hotel_Meedina").style.display ="none";
+            document.getElementById("raison_hotel_medina").style.display ="none";
         } else {
-            document.getElementById("Reduction_Hotel_Meedina").style.display =
-                "block";
-            document.getElementById("raison_hotel_medina").style.display =
-                "block";
+            document.getElementById("Hotel_Meedina").value='Hotel Meedina';
+            document.getElementById("Reduction_Hotel_Meedina").style.display ="block";
+            document.getElementById("raison_hotel_medina").style.display ="block";
         }
 
         if ($("#hotel_makkacheq").is(":checked")) {
-            document.getElementById("Reduction_Hotel_Makka").style.display =
-                "none";
-            document.getElementById("raison_hotel_makka").style.display =
-                "none";
+            document.getElementById("Hotel_Makka").value='';
+            document.getElementById("Reduction_Hotel_Makka").style.display ="none";
+            document.getElementById("raison_hotel_makka").style.display ="none";
         } else {
-            document.getElementById("Reduction_Hotel_Makka").style.display =
-                "block";
-            document.getElementById("raison_hotel_makka").style.display =
-                "block";
+            document.getElementById("Hotel_Makka").value='Hotel_Makka';
+            document.getElementById("Reduction_Hotel_Makka").style.display ="block";
+            document.getElementById("raison_hotel_makka").style.display ="block";
         }
 
         if ($("#Visacheq").is(":checked")) {
+            document.getElementById("Visa").value='';
             document.getElementById("Reduction_Visa").style.display = "none";
             document.getElementById("raison_visa").style.display = "none";
         } else {
+            document.getElementById("Visa").value='Visa';
             document.getElementById("Reduction_Visa").style.display = "block";
             document.getElementById("raison_visa").style.display = "block";
         }
