@@ -91,11 +91,12 @@ class FactureController extends Controller
        ->get();
      
        $Detail_Fiche_Insc = Gestion_detail_fiches_inscriptions::select('gestion_detail_fiches_inscriptions.*')
-       ->join('gestion_fiches_inscriptions','gestion_fiches_inscriptions.id','gestion_detail_fiches_inscriptions.Fk_fiche_inscription')
+       ->join('gestion_fiches_inscriptions','gestion_detail_fiches_inscriptions.Fk_fiche_inscription','gestion_detail_fiches_inscriptions.id')
        ->where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
+       ->where('gestion_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.id', $fiche)
        ->get();
-
+       
     $programe = gestion_programmes::select('gestion__programmes.nom_programme','gestion__programmes.type_programme','gestion_vole__deeparts.date_depart','gestion_vole__reetours.date_retour')
     ->join('gestion_detail_fiches_inscriptions','gestion__programmes.id','gestion_detail_fiches_inscriptions.FK_programme')
     ->join('gestion_vole__deeparts','gestion__programmes.FK_Num_vole_depart','gestion_vole__deeparts.id')
@@ -216,12 +217,11 @@ class FactureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function liste_facture()
+    public function Liste_facture()
     {
-        $Liste_Facture = Factures::all(); 
-        
+        $Liste_Facture = Factures::get(); 
         return view('gestion_Facturation/List_facture', [
-            'Liste_Facture' => $Liste_Facture
+            'Facture' => $Liste_Facture
         ]);
        
     }

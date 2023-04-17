@@ -17,7 +17,7 @@ use App\Models\Gestion_detail_fiches_inscriptions;
 use App\Models\datail_hotel_programmes;
 
 use App\Models\gestion_dossiers;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 
 // use Illuminate\Http\Input;
 class GestionFichesInscriptionController extends Controller
@@ -176,9 +176,7 @@ class GestionFichesInscriptionController extends Controller
             ->where('gestion_detail_fiches_inscriptions.FK_programme', $id_prg)
             ->where('gestion_detail_fiches_inscriptions.FK_detail_hotel_prg', $id_hotel)
             ->get();
-
-
-
+           
         if ($Detail_Fiche_Insc != null) {
             return response()->json([
                 'Detail_Fiche_Insc' => $Detail_Fiche_Insc,

@@ -77,11 +77,12 @@ function table_Facture() {
       // dataFilter: 'json', //forme data
          
       success: function (responce) {
-        console.log('rrrr');
+        
           // Je récupère la réponse du fichier PHP
-          jQuery.each(responce.Liste_Facture, function (key, item) {
-         console.log(responce.Liste_Facture);
-              $tabledata = responce.Liste_Facture;
+          jQuery.each(responce.Facture, function (key, item) {
+      
+              $tabledata = responce.Facture;
+              console.log($tabledata);
           });
 
           var table = new Tabulator("#Liste_Facture", {
