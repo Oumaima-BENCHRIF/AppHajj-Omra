@@ -107,7 +107,7 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
                     '<option value="' +
                     item.id_fiche_ins +
                     '">' +
-                    item.id_fiche_ins +
+                    item.num_fichier +
                     "</option>";
                 if (cpt1 < item.id) {
                     cpt1 = item.id;
@@ -120,7 +120,7 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
                 document.getElementById("nom_societe").value = item.nom_societe;
                 document.getElementById("bon_commande").value =
                     item.bon_commande;
-
+                    document.getElementById("Num_Fich_insc").value =item.id;
                 table_fiche_insc(item.id_fiche_ins, id_prg, id_detail_hotel);
             });
             $("#num_fichier").html($select_fiche_insc);
@@ -335,8 +335,8 @@ $(document).ready(function () {
         var id_dossier = v.split("/")[5];
         var id_prg = v.split("/")[7];
         var id_detail_hotel = v.split("/")[9];
-        var num_fichier = $("#num_fichier").val();
-
+        var num_fichier = $("#Num_Fich_insc").val();
+console.log(num_fichier);
         var formData = new FormData($(this)[0]);
         var $this = jQuery(this);
 
