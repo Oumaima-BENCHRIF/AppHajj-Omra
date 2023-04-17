@@ -101,7 +101,7 @@ if ($id_dossier && $id_prg) {
                             <option value="">Sélectionnez</option>
                         </select>
                     </div>
-                    <input type="hidden"  id="Num_Fich_insc" name="Num_Fich_insc">
+                    <input type="text"  id="Num_Fich_insc" name="Num_Fich_insc">
                     <div class="intro-y w4 px-1">
                         <label for="date_fiche_inscription" class="form-label mbt-2 text-size">Date</label>
                         <input id="date_fiche_inscription" name="date_fiche_inscription" type="date" class="form-control py-1" required>
@@ -287,6 +287,7 @@ if ($id_dossier && $id_prg) {
                                                 <div class="text-xs">Inclus</div>
 
                                                 <div>
+                                                    <input type="hidden" name="Billet" id="Billet">
                                                     <label for="Billet"><input class="mycheckboxs" type="checkbox" name="Billetcheq" value="Billet" id="Billetcheq" checked /> Billet </label>
                                                     <div class="grid gap-3 grid-cols-2">
                                                         <input type="number" min="0" name="Reduction_Billet" id="Reduction_Billet" placeholder="Réduction" class="form-control">
@@ -297,6 +298,7 @@ if ($id_dossier && $id_prg) {
                                                 <div>
                                                     <label for="Transport"><input class="mycheckboxs" type="checkbox" name="Transportcheq" value="Transport" id="Transportcheq" checked /> Transport</label>
                                                     <div class="grid gap-3 grid-cols-2">
+                                                        <input type="hidden" name="Transport" id="Transport">
                                                         <input type="number" min="0" name="Reduction_Transport" id="Reduction_Transport" placeholder="Réduction" class="form-control">
                                                         <input type="text" name="raison_Transport" id="raison_Transport" placeholder="Raison" class="form-control">
 
@@ -306,6 +308,7 @@ if ($id_dossier && $id_prg) {
                                                 <div>
                                                     <label for="hotel_meedina"><input class="mycheckboxs" type="checkbox" name="hotel_meedinacheq" value="hotel meedina" id="hotel_meedinacheq" checked /> Hotel Meedina</label>
                                                     <div class="grid gap-3 grid-cols-2">
+                                                        <input type="hidden" name="Hotel_Meedina" id="Hotel_Meedina">
                                                         <input type="number" min="0" name="Reduction_Hotel_Meedina" id="Reduction_Hotel_Meedina" placeholder="Réduction" class="form-control">
                                                         <input type="text" name="raison_hotel_medina" id="raison_hotel_medina" placeholder="Raison" class="form-control">
                                                     </div>
@@ -314,6 +317,7 @@ if ($id_dossier && $id_prg) {
                                                 <div>
                                                     <label for="hotel_makka"><input class="mycheckboxs" type="checkbox" name="hotel_makkacheq" value="hotel makka" id="hotel_makkacheq" checked /> Hotel Makka</label>
                                                     <div class="grid gap-3 grid-cols-2">
+                                                        <input type="hidden" id="Hotel_Makka" name="Hotel_Makka">
                                                         <input type="number" min="0" name="Reduction_Hotel_Makka" id="Reduction_Hotel_Makka" placeholder="Réduction" class="form-control">
                                                         <input type="text" name="raison_hotel_makka" id="raison_hotel_makka" placeholder="Raison" class="form-control">
                                                     </div>
@@ -322,6 +326,7 @@ if ($id_dossier && $id_prg) {
                                                 <div>
                                                     <label for="Visa"><input class="mycheckboxs" type="checkbox" name="Visacheq" value="Visa" id="Visacheq" checked /> Visa</label>
                                                     <div class="grid gap-3 grid-cols-2">
+                                                        <input type="hidden" name="Visa" id="Visa">
                                                         <input type="number" min="0" name="Reduction_Visa" id="Reduction_Visa" placeholder="Réduction" class="form-control">
                                                         <input type="text" name="raison_visa" id="raison_visa" placeholder="Raison" class="form-control">
                                                     </div>
@@ -329,7 +334,7 @@ if ($id_dossier && $id_prg) {
                                             </div>
 
                                             <div class="flex items-center mt-3">
-                                                <button type="button" class="btn btn-outline-secondary w-24 mr-1">Anuuler</button>
+                                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Anuuler</button>
                                                 <button onclick="showChecked()" class="btn btn-primary w-32 ml-2">Enregistrer</button>
                                             </div>
                                         </div>
