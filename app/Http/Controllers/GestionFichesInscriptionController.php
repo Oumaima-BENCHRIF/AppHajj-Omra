@@ -230,6 +230,7 @@ class GestionFichesInscriptionController extends Controller
     }
     public function info_GFiche_Insc($id)
     {
+      
         $info_GFiche_Insc = Gestion_detail_fiches_inscriptions::where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
             ->where('gestion_detail_fiches_inscriptions.id', $id)->get();
 
