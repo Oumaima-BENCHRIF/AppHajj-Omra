@@ -4,22 +4,7 @@
 <title>Gestion Fiche d'inscription</title>
 @endsection
 <style>
-    .tbl{
-        border: 1px solid #d2d2d2;
-        padding: 5px;
-        border-collapse:collapse;
-    }
-   
-    button {
-  display: block;
-}
-
-button.hidden {
-  display: none;
-}
-button.hidden {
-  display: none;
-}
+  
 
 
  </style>
@@ -60,6 +45,10 @@ button.hidden {
             
             <div class="py-5 px-5  mt-5">
                 <div class="font-medium text-center text-lg">Gestion facturation</div>
+            </div>
+            
+            <div class="overflow-x-auto scrollbar-hidden">
+                <div id="Liste_Facture" class="mt-5 table-report--tabulator"></div>
             </div>
             </div>
 </div> </div>

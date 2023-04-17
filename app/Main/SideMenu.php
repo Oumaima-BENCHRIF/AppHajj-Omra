@@ -128,6 +128,14 @@ class SideMenu
                         ],
                         'title' => 'G.TO'
                     ],
+                    'Facturation' => [
+                        'icon' => '',
+                        'route_name' => 'facturation.list',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'G.Facturation'
+                    ],
                     'G_Programme' => [
                         'icon' => '',
                         'title' => 'G.Programme',

@@ -91,7 +91,7 @@ Route::middleware('auth')->group(function () {
    // gestion_facturation
    Route::GET('/facturation/{id}', 'App\Http\Controllers\FactureController@index')->name('facturation.index');
    Route::GET('/generate/{id}','App\Http\Controllers\FactureController@print')->name('generate.print');
-   Route::post('facturation_List', 'App\Http\Controllers\FactureController@Liste_facture')->name('facturation.list');
+   Route::get('/facturation_List', 'App\Http\Controllers\FactureController@Liste_facture')->name('facturation.list');
    //gestion gestion_fiche_client
    Route::post('facturation_store', 'App\Http\Controllers\FactureController@store')->name('facturation.store');
     //gestion gestion_fiche_client
