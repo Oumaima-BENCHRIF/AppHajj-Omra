@@ -219,8 +219,8 @@ class FactureController extends Controller
     public function liste_facture()
     {
         $Liste_Facture = Factures::all(); 
-        return response()->json([
-   
+        
+        return view('gestion_Facturation/List_facture', [
             'Liste_Facture' => $Liste_Facture
         ]);
        
