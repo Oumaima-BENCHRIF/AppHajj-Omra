@@ -3,6 +3,26 @@
 @section('subhead')
 <title>Gestion Fiche d'inscription</title>
 @endsection
+<style>
+    .tbl{
+        border: 1px solid #d2d2d2;
+        padding: 5px;
+        border-collapse:collapse;
+    }
+   
+    button {
+  display: block;
+}
+
+button.hidden {
+  display: none;
+}
+button.hidden {
+  display: none;
+}
+
+
+ </style>
 
 @section('subcontent')
 <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
@@ -37,140 +57,174 @@
 
     <div id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
         <div class="tab-content intro-y box py-5 px-5  mt-5" id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
-
+            
             <div class="py-5 px-5  mt-5">
                 <div class="font-medium text-center text-lg">Gestion facturation</div>
             </div>
-            <!-- @if (Auth::user()->permissions->contains('name','Ajouter_Compagnies')) -->
-            <form id="Add_compagnie" action="{{ url('Compagnies_Store') }}" method="post">
+            
+
+            <form id="Add_facture" name="Add_facture" action="{{ url('facturation_store') }}" method="post">
                 {{ csrf_field() }}
-                <div class="py-5 px-2  container">
-                    <div class="form-inline">
-
-                        <div class="intro-y w4 px-1  @if ($errors->get('code_cie')) has-error @endif">
-                            <label for="Code_client" class="form-label mbt-2 text-size">Code client</label>
-
-                            <input type="text" id="Code_client" name="Code_client" class="form-control py-1 @if ($errors->get('Code_client')) is-invalid @endif" placeholder="Entrer Code client">
-
-                            <!-- @if ($errors->get('code_cie'))
-                            @foreach ($errors->get('code_cie') as $message)
-                            <li class="text-danger">{{ $message }}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-
-                        <div class="intro-y w4 px-1  @if ($errors->get('nom_client')) has-error @endif">
-                            <label for="nom_client" class="form-label mbt-2 text-size">nom client</label>
-                            <input id="nom_client" name="nom_client" type="text" class="form-control py-1 @if($errors->get('compagnie')) is-invalid @endif" >
-                            <!-- @if($errors->get('compagnie'))
-                            @foreach($errors->get('compagnie') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-                        <div class="intro-y w4 px-1 @if($errors->get('adressse')) has-error @endif">
-                            <label for="adressse" class="form-label mbt-2 text-size">adressse</label>
-                            <input id="adressse" name="adressse" type="text" class="form-control py-1 @if($errors->get('adressse')) is-invalid @endif" >
-                            <!-- @if($errors->get('telephone'))
-                            @foreach($errors->get('telephone') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-
-                        <div class="intro-y w4 px-1 @if($errors->get('ville')) has-error @endif">
-                            <label for="ville" class="form-label mbt-2 text-size">vile</label>
-                            <input id="ville" name="ville" type="text" class="form-control py-1 @if($errors->get('ville')) is-invalid @endif" placeholder="Entrer ville">
-
-                            <!-- @if($errors->get('fax'))
-                            @foreach($errors->get('fax') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-                    
-                  </div>
-                  <div class="form-inline mt-2">
-                  <div class="intro-y w4 px-1 @if($errors->get('date_fac')) has-error @endif">
-                            <label for="date_fac" class="form-label mbt-2 text-size">Date</label>
-                           
-                            <input id="date_fac" name="date_fac" type="date" class="form-control py-1 @if($errors->get('date')) is-invalid @endif" required="">
-                            <!-- @if($errors->get('nom_en_arabe'))
-                            @foreach($errors->get('nom_en_arabe') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-                  <div class="intro-y w4 px-1 @if($errors->get('N_facture')) has-error @endif"> 
-                            <label for="N_facture" class="form-label mbt-2 text-size">N° facture</label>
-                            <input id="N_facture" name="N_facture" class="form-control py-1 @if($errors->get('N_facture')) is-invalid @endif" type="text" class="form-control" placeholder="Entrer N° facture">
-
-                            <!-- @if($errors->get('adresse'))
-                            @foreach($errors->get('adresse') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                   </div>
-
-                     <div class="intro-y w4 px-1 @if($errors->get('N_dossier')) has-error @endif">
-                            <label for="N_dossier" class="form-label mbt-2 text-size">N° dossier</label>
-                            <input id="N_dossier" name="N_dossier" type="text" class="form-control py-1 @if($errors->get('N_dossier')) is-invalid @endif" placeholder="Entrer N° dossier">
-                            <!-- @if($errors->get('directeur'))
-                            @foreach($errors->get('directeur') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                    </div>
-                    <div class="intro-y w4 px-1 @if($errors->get('Bon_commande')) has-error @endif">
-                            <label for="Bon_commande" class="form-label mbt-2 text-size">Bon de commande</label>
-                            <input id="Bon_commande" name="Bon_commande" type="text" class="form-control py-1 @if($errors->get('Bon_commande')) is-invalid @endif" placeholder="Entrer Bon de commande">
-                            <!-- @if($errors->get('tel_directeur'))
-                            @foreach($errors->get('tel_directeur') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                     </div>
-                     </div>
-                     <div class="form-inline mt-2">      
-                     <div class="intro-y w4 px-1 @if($errors->get('vos_ref')) has-error @endif">
-                            <label for="vos_ref" class="form-label mbt-2 text-size">vos ref</label>
-                            <input id="vos_ref" name="vos_ref" type="text" class="form-control py-1 @if($errors->get('vos_ref')) is-invalid @endif" placeholder="Entrer vos ref">
-                            <!-- @if($errors->get('compte_comptable_BSP'))
-                            @foreach($errors->get('compte_comptable_BSP') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif -->
-                        </div>
-                        <div class="intro-y w4 px-1">
-                            <label for="type" class="form-label mbt-2 text-size">fiche inscription</label>
-                            <!-- <input id="type" name="type" type="text" value="" class="form-control " placeholder="type"> -->
-                            <select name="type" id="type" class="form-control py-">
-                                <option value="">Transport</option>
-                                <option value="">Guide</option>
-                                <option value="">Restaurant </option>
-                                <option value="">Autre</option>
-                            </select>
-                         </div>
-                         <div class="intro-y w4 px-1">
-                            {{-- <a class="btn btn-secondary w-24" >Liste</a> --}}
-                            <button type="Submit" class="btn btn-primary mt-6 py-1 mr-1">importer</button>
-                        </div>
-               
-                        </div>
-                     </div>
-            </form>
-            <a href="{{ route('generate.index') }}" class="btn btn-primary" target="_blank">Print Invoice</a>
-            @endif
-            </div>
-             <!-- debut de liste hotel fourni -->
-          
-            <!-- Fin de liste date depart hotel fourni -->
+               <div class="form-inline">
+                <div class="w50 intro-y mr-2">
+                  @foreach($data2 as $info)
+                  <input type="hidden" id="id_fiche" name="id_fiche" value="{{$id}}"> 
+                 <table class="table-info  w-full mt-10">
+                 <tr class="tbl">
+                 <input type="hidden" id="numfichier" name="numfichier" value="{{$info->num_fichier}}"> 
+                 <td class="tbl"> Code Client</td> <td  class="tbl">{{$info->num_fichier}}</td>
+                 </tr>
+                 <tr class="tbl">
+        <td class="tbl"> Facture N°</td> <td id='numfacture' class="tbl">{{$numfacture}}
+            <input type="hidden" id="numfacture" name="numfacture" value="{{$numfacture}}">
+         </td>
+        </tr>
+       <tr class="tbl"> 
+           <td class="tbl">Dossier N°</td> <td id='numdossier' class="tbl"> @foreach($numdossier as $num){{$num->num_dossier}} @endforeach
+            <input type="hidden" name="num_dossier" value="{{$num->num_dossier}}"></td>
+           </tr>
+       <tr class="tbl">
+           <td class="tbl">Bon de Commande</td> <td  class="tbl">{{$info->bon_commande}}
+           <input type="hidden" id="bon_commande" name="bon_commande" value="{{$info->bon_commande}}"> 
+           </td>
+           </tr>
+       <tr class="tbl">
+          <td class="tbl" >Date</td> <td  class="tbl">{{$info->date_fiche_inscription}}
+          <input type="hidden" id="date_fiche_inscription" name="date_fiche_inscription" value="{{$info->date_fiche_inscription}}"> 
+          </td>
+          </tr >
+       <tr>
+          <td class="tbl">Vos Réf</td> <td class="tbl" id="ref"> </td> 
+    </tr>
     
+  </table> 
+  @endforeach
+    </div>
+
+ <div class="w50 intro-y info ml-2 text-center" style="margin-bottom: auto; margin-top: 4.5%;">
+    <div class="py-2">
+    @foreach($societe as $info)
+     <p  class="center mb-1">{{$info->nom}}</p><input type="hidden" id="nom" name="nom" value="{{$info->nom}}"> 
+       <p  class="center mb-1">{{$info->adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$info->adresse}}"> 
+       <p  class="center">{{$info->ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$info->ville_client}}"> 
+       @endforeach
+    </div>
+  
+    <div style="clear: both;"></div>
+ </div>
+</div>
+<!--     
+<div class="form-inline mt-5">
+    <div class="w22 intro-y">programme </div>
+    <div class="intro-y">:  {{ $programme->nom_programme }} </div> 
+</div>
+<div class="form-inline">
+    <div class="w22 intro-y">type programme</div>
+    <div class="intro-y">:  {{ $programme->type_programme }}</div> 
+</div>
+<div class="form-inline">
+    <div class="w22 intro-y">Arrives </div>
+    <div class="intro-y">:  {{ $programme->date_retour }} </div> 
+</div>
+<div class="form-inline">
+    <div class="w22 intro-y">téparts</div>
+    <div class="intro-y">:  {{ $programme->date_depart }}</div> 
+</div>
+                                             -->
+<div class="overflow-x-auto mt-3">
+    <table class="table table-striped  mt-3" id="mytable">
+        <thead class="table-header">
+            <tr>
+            <th class="whitespace-nowrap">Déscription</th>
+          <th class="whitespace-nowrap">Arrivés</th>
+          <th class="whitespace-nowrap">départs</th>
+         
+          <th class="whitespace-nowrap">TOTAL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <td class="editable" data-field="désignation"> {{ $programme->nom_programme }}  {{ $programme->type_programme }}</td>
+            <input type="hidden" id="designation" name="designation" value="{{ $programme->nom_programme }}  {{ $programme->type_programme }}"> 
+              <td class="editable" data-field="arrives">{{ $programme->date_retour }} </td>
+              <input type="hidden" id="date_retour" name="date_retour" value="{{$programme->date_retour}}"> 
+              <td  class="editable" data-field="departs">{{ $programme->date_depart }}</td>
+              <input type="hidden" id="date_depart" name="date_depart" value="{{$programme->date_depart}}"> 
+              <td class="editable" data-field="total"></td>
+            </tr>
+        @foreach($Detail_Fiche as $table)
+          
+          <tr>
+              <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_client }} {{ $table->prenom_client}}</td>
+              <td class="editable" data-field="arrives"></td>
+              <td class="editable" data-field="departs"></td>
+              <td class="editable" data-field="total">{{ $table->prix }}</td>
+              
+           
+          </tr>
+      @endforeach
+        </tbody>
+    </table>
+  
+</div>
+<div class="form-inline mt-5">
+  <div class="intro-y w50"></div>
+  <div class="intro-y w50">
+                    <div style="font-size: 1rem; padding-right:10px;" class="lable-total " align="right">
+                        <p>TOTAL :  <span>330.00</span></p>
+                      
+                    </div>
+                    
+                    <div style="clear: both;"></div>
+    </div> </div>
+    <div align="right" class="mt-3">
+    @if($exist==false) 
+      <button type="submit" id="button1" class="btn btn-primary mt-3"  onclick="toggleButtons()">Enregister </button>
+      @endif  
+    </form>
+    
+    @if($exist==false)   
+    <a id='print' class="btn btn-primary hidden" >Print</a>
+      
+      @endif  
+      @if($exist==true)  
+      
+      <a id='print'  class="btn btn-primary"  >Print</a>
+      @endif 
+      </form>
+     
+    </div>
+   </div>
 </div>
 
 
 
 @endsection
 @section('jqscripts')
+<script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>
+<script>
+     const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            const currentValue = cell.innerText;
+            cell.innerHTML = `<input type="text" value="${currentValue}">`;
+            const input = cell.querySelector('input');
+            input.focus();
+            input.addEventListener('blur', () => {
+                const newValue = input.value;
+                cell.innerText = newValue;
+               
+            });
+        });
+    });
 
+    function toggleButtons() {
+  var button1 = document.getElementById("button1");
+  var button2 = document.getElementById("print");
+  console
+  button1.classList.add("hidden");
+  button2.classList.remove("hidden");
+}
+</script>
 @endsection

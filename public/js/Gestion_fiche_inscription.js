@@ -63,9 +63,10 @@ function Trajet_Dossier(id_dossier, id_prg, id_detail_hotel) {
         },
     });
 }
-function facture(){
-    
-}
+
+
+
+
 // liste prg
 function liste_prg() {
     jQuery.ajax({
@@ -112,8 +113,11 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
                 if (cpt1 < item.id) {
                     cpt1 = item.id;
                 }
+                console.log(item);
                 document.getElementById("date_fiche_inscription").value =
                     item.date_fiche_inscription;
+                    document.getElementById("id_fiche").value =
+                    item.id;
                 document.getElementById("num_prg_inscription").value =
                     item.FK_programme;
                 document.getElementById("code_societe").value = item.FK_societe;
@@ -122,6 +126,7 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
                     item.bon_commande;
 
                 table_fiche_insc(item.id_fiche_ins, id_prg, id_detail_hotel);
+                
             });
             $("#num_fichier").html($select_fiche_insc);
         },
@@ -374,7 +379,7 @@ $(document).ready(function () {
     // ******Ajouter fiche inscription******
     $("#form_gestion_fiche_insc").on("submit", function (e) {
         e.preventDefault();
-        console.log('ok');
+      
         var $this = jQuery(this);
         var formData = jQuery($this).serializeArray();
         jQuery.ajax({
@@ -402,6 +407,26 @@ $(document).ready(function () {
             },
         });
     });
+
+     // ******redirection facture*******
+    $("#facture").on("click",function()
+    {
+        let id=$('#id_fiche').val();
+      
+        jQuery.ajax({
+            url: "/facturation/"+id,
+            type: "GET",
+            data: id,
+            success: function(response){
+                window.location.href = "/facturation/"+id;
+            },
+            error: function(xhr, status, error){
+                // handle any errors that occur during the AJAX request
+                console.log("Error:", error);
+            }
+        });
+    })
+  
     // ******delete fiche inscription*******
     $("#delet_Client").on("submit", function (e) {
         e.preventDefault();
@@ -533,7 +558,9 @@ $(document).ready(function () {
             },
         });
     });
+   
 });
+
 function viderchamp() {
     document.getElementById("date_fiche_inscription").value = "";
     document.getElementById("code_societe").value = "";
@@ -749,6 +776,7 @@ function afficherinfo() {
 }
 $("#num_fichier").change(function () {
     var value = $(this).val();
+    console.log(value);
     jQuery.ajax({
         url: "/info_GFiche_Insc/" + value,
         type: "GET",
@@ -758,6 +786,7 @@ $("#num_fichier").change(function () {
             jQuery.each(responce.info_fiche_Insc, function (key, item) {
                 document.getElementById("date_fiche_inscription").value =
                     item.date_fiche_inscription;
+               
                 document.getElementById("num_prg_inscription").value =
                     item.FK_programme;
                 document.getElementById("code_societe").value = item.FK_societe;
@@ -910,9 +939,10 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
             // Je récupère la réponse du fichier PHP
             jQuery.each(responce.Detail_Fiche_Insc, function (key, item) {
                 if (responce.Detail_Fiche_Insc.length == 0) {
-                    console.log("ok");
+                    
                 }
                 $tabledata = responce.Detail_Fiche_Insc;
+                
             });
             var table = new Tabulator("#liste_fiche_insc", {
                 printAsHtml: true,

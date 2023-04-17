@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('factures', function (Blueprint $table) {
+        Schema::connection('mysql_portal')->create('factures', function (Blueprint $table) {
             $table->id();
             $table->longText('Code_client')->nullable();
             $table->longText('numero_facture')->nullable();
@@ -25,6 +25,9 @@ return new class extends Migration
             $table->longText('adresse')->nullable();
             $table->longText('ville')->nullable();
             $table->longText('Total')->nullable();
+            $table->longText('designation')->nullable();
+            $table->longText('date_departs')->nullable();
+            $table->longText('date_Arrives')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
