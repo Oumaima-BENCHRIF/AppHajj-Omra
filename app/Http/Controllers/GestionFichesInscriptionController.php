@@ -195,6 +195,7 @@ class GestionFichesInscriptionController extends Controller
     public function information_client(Request $request)
     {
         $info_client = Gestion_detail_fiches_inscriptions::where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
+            ->join('gestion_inclus','gestion_detail_fiches_inscriptions.FK_inclus','gestion_inclus.id')
             ->where('gestion_detail_fiches_inscriptions.id', $request->Fk_fiche)
             ->get();
         if ($info_client != null) {
