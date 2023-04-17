@@ -34,13 +34,13 @@ Route::middleware('auth')->group(function () {
 
     // hotel_transports
     // Route::get('/hotel_transports','App\Http\Controllers\hotel_transportsController@wizardLayout1')->name('hotel_transports.index');
-   
+
     Route::get('/test', function () {
       return view('test');;
     });
-    Route::get('/dashboard','App\Http\Controllers\DashboardController@index')->name('Dashboard.index')->middleware('checkPermission:Consult_Dashboard');
-     
-     //gestion hotel transports
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('Dashboard.index')->middleware('checkPermission:Consult_Dashboard');
+
+    //gestion hotel transports
 
 
     Route::get('/hotel_transports_liste', 'App\Http\Controllers\hotel_transportsController@liste')->name('hotel_transports.create');
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/Accompagnateurs_delete', 'App\Http\Controllers\AccompagnateursController@destroy')->name('Accompagnateurs.delete');
     Route::post('Accompagnateurs_Stores', 'App\Http\Controllers\AccompagnateursController@store')->name('Accompagnateurs.store');
     Route::get('/liste_Accompagnateurs', 'App\Http\Controllers\AccompagnateursController@liste_Accompagnateurs')->name('liste_Accompagnateurs.index');
-    
+
     // 
     //gestion Agents
 
@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('Agents_infos/{id}', 'App\Http\Controllers\AgentsController@infos')->name('Agents.infos');
     Route::post('Agents_Delete', 'App\Http\Controllers\AgentsController@destroy')->name('Agents.delete');
     Route::get('/liste_Agents', 'App\Http\Controllers\AgentsController@liste_Compagnies')->name('liste_Agents.index');
-   
+
     // 
     //gestion Compagnies
 
@@ -90,7 +90,7 @@ Route::middleware('auth')->group(function () {
 
     // gestion_facturation
     Route::get('/facturation', 'App\Http\Controllers\GestionFichesInscriptionController@print')->name('facturation.print');
-    Route::get('/generate','App\Http\Controllers\PDFController@index')->name('generate.index');
+    Route::get('/generate', 'App\Http\Controllers\PDFController@index')->name('generate.index');
     //gestion gestion_fiche_client
 
     Route::get('/fiche_client', 'App\Http\Controllers\Fiche_clientsController@index')->name('fiche_client.index')->middleware('checkPermission:G.ClientAgente');
@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
     //gestion gestion_fiche_client
 
     Route::get('/To', 'App\Http\Controllers\TosController@index')->name('To.index')->middleware('checkPermission:G.To');
-    
+
     Route::get('/To_Liste', 'App\Http\Controllers\TosController@liste')->name('To.create');
     Route::post('To_Store', 'App\Http\Controllers\TosController@store')->name('To.store');
     Route::post('To_Edit', 'App\Http\Controllers\TosController@update')->name('To.edit');
@@ -159,7 +159,6 @@ Route::middleware('auth')->group(function () {
     Route::post('gestion_programme_infos', 'App\Http\Controllers\GestionAllotementsController@infos')->name('gestion_programme.infos');
     Route::post('gestion_programme_Delete', 'App\Http\Controllers\GestionAllotementsController@destroy')->name('gestion_programme.delete');
     Route::get('/programmes_dossier/{id}', 'App\Http\Controllers\GestionAllotementsController@index')->name('programmes_dossier.index');
-    // test prg {id}
     // **************************************
     Route::get('/programmes_info/{id}', 'App\Http\Controllers\GestionAllotementsController@programmes_info');
     Route::get('/Allotement_id/{id}', 'App\Http\Controllers\Gestion_AllotementController@Allotement_id');
@@ -175,7 +174,7 @@ Route::middleware('auth')->group(function () {
     Route::get('Programme_index', 'App\Http\Controllers\Gestion_ProgrammeController@index_Programme')->name('Programme.index');
     Route::get('Programme_infos/{id}/{FKdossier}', 'App\Http\Controllers\Gestion_ProgrammeController@infos_Programme')->name('Programme.infos');
     Route::get('Programme_info/{id}/{FKdossier}', 'App\Http\Controllers\Gestion_ProgrammeController@infos_Programme')->name('Programme.infos');
- 
+
     Route::get('liste_programme/{id}', 'App\Http\Controllers\Gestion_ProgrammeController@liste_gestion_programmes')->name('programe.select');
 
     // Gestion hotel prog
@@ -275,21 +274,20 @@ Route::middleware('auth')->group(function () {
     // Gestion allotement
     Route::post('allotement_Update', 'App\Http\Controllers\Gestion_AllotementController@update_allotement')->name('allotement.update');
     Route::get('allotement_infos/{id}', 'App\Http\Controllers\Gestion_AllotementController@infos_allotement')->name('allotement.infos');
-
     Route::post('allotement_Delete', 'App\Http\Controllers\Gestion_AllotementController@destroy_allotement')->name('allotement.delete');
-
     Route::post('allotement_Store', 'App\Http\Controllers\Gestion_AllotementController@store_allotement')->name('allotement.store');
     Route::get('allotement_index', 'App\Http\Controllers\Gestion_AllotementController@indexallotement')->name('allotement.index');
-
     Route::get('liste_prg_FKdossier/{id}', 'App\Http\Controllers\Gestion_ProgrammeController@liste_prg_FKdossier')->name('FK_dossier_prg.select');
     // G reservation
     Route::get('Reservation/{id_dossier}/{id_prg}', 'App\Http\Controllers\Gestion_reservation@index')->name('reservation.index');
     Route::get('Liste_Reservation/{id_dossier}/{id_prg}', 'App\Http\Controllers\Gestion_reservation@Liste_Reservation')->name('reservation.liste');
     Route::post('Add_gender_prg_hotel/{id}', 'App\Http\Controllers\Gestion_reservation@Add_gender');
-    
-    Route::post('update_type_chambre/{id}', 'App\Http\Controllers\Gestion_ProgrammeController@update_type_chambre');
 
-    
+    Route::post('update_type_chambre/{id}', 'App\Http\Controllers\Gestion_ProgrammeController@update_type_chambre');
+    // *****************************************
+    // Gestion état par Hôtel
+    Route::get('gestion_Etat/', 'App\Http\Controllers\Gestion_reservation@index')->name('Etat_hotel.index');
+
     Route::get('dashboard-overview-2-page', 'dashboardOverview2')->name('dashboard-overview-2');
     Route::get('dashboard-overview-3-page', 'dashboardOverview3')->name('dashboard-overview-3');
     Route::get('dashboard-overview-4-page', 'dashboardOverview4')->name('dashboard-overview-4');

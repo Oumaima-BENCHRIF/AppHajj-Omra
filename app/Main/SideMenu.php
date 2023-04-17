@@ -128,52 +128,29 @@ class SideMenu
                         ],
                         'title' => 'G.TO'
                     ],
-                    'G_Programme' => [
-                        'icon' => '',
-                        'title' => 'G.Programme',
-                        'sub_menu' => [
-                            // 'Reference_Programme' => [
-                            //     'icon' => '',
-                            //     'route_name' => 'Reference_programmes.index',
-                            //     'params' => [
-                            //         'layout' => 'side-menu'
-                            //     ],
-                            //     'title' => 'Référence Programme'
-                            // ],
-                            'Hotels_programme' => [
-                                'icon' => '',
-                                'route_name' => 'product-grid',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Hôtels du programme'
-                            ],
-                            'Transfert_Aeriens' => [
-                                'icon' => '',
-                                'route_name' => 'product-grid',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Transfert Aériens'
-                            ],
-                            'Itineraire_informations_supplementaires' => [
-                                'icon' => '',
-                                'route_name' => 'product-grid',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Itinéraire & informations supplémentaires'
-                            ],
-                            'Autres Services' => [
-                                'icon' => '',
-                                'route_name' => 'product-grid',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Autres Services'
-                            ]
-                        ]
-                    ]
+                    // 'G_Etat' => [
+                    //     'icon' => '',
+                    //     'title' => 'Gestion Etat',
+                    //     'sub_menu' => [
+                         
+                    //         'Etat_Hotel' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'product-grid',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Etat par Hôtel'
+                    //         ],
+                    //         'Etat_periode' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'product-grid',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Etat par periode'
+                    //         ],
+                    //     ]
+                    // ]
                 ]
             ],
             'gestion_dossier' => [
@@ -272,100 +249,100 @@ class SideMenu
                     ],
                 ]
             ],
-            'e-commerce' => [
+            'G_Etat' => [
                 'icon' => 'shopping-bag',
-                'title' => 'E-Commerce',
+                'title' => 'Gestion Etat',
                 'sub_menu' => [
-                    'categories' => [
+                    'Etat_Hotel' => [
                         'icon' => '',
                         'route_name' => 'categories',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Categories'
+                        'title' => 'Etat par Hôtel'
                     ],
-                    'add-product' => [
+                    'Etat_periode' => [
                         'icon' => '',
                         'route_name' => 'add-product',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'Add Product',
+                        'title' => 'Etat par periode',
                     ],
-                    'products' => [
-                        'icon' => '',
-                        'title' => 'Products',
-                        'sub_menu' => [
-                            'product-list' => [
-                                'icon' => '',
-                                'route_name' => 'product-list',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Product List'
-                            ],
-                            'product-grid' => [
-                                'icon' => '',
-                                'route_name' => 'product-grid',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Product Grid'
-                            ]
-                        ]
-                    ],
-                    'transactions' => [
-                        'icon' => '',
-                        'title' => 'Transactions',
-                        'sub_menu' => [
-                            'transaction-list' => [
-                                'icon' => '',
-                                'route_name' => 'transaction-list',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Transaction List'
-                            ],
-                            'transaction-detail' => [
-                                'icon' => '',
-                                'route_name' => 'transaction-detail',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Transaction Detail'
-                            ]
-                        ]
-                    ],
-                    'sellers' => [
-                        'icon' => '',
-                        'title' => 'Sellers',
-                        'sub_menu' => [
-                            'seller-list' => [
-                                'icon' => '',
-                                'route_name' => 'seller-list',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Seller List'
-                            ],
-                            'seller-detail' => [
-                                'icon' => '',
-                                'route_name' => 'seller-detail',
-                                'params' => [
-                                    'layout' => 'side-menu'
-                                ],
-                                'title' => 'Seller Detail'
-                            ]
-                        ]
-                    ],
-                    'reviews' => [
-                        'icon' => '',
-                        'route_name' => 'reviews',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'Reviews'
-                    ],
+                    // 'products' => [
+                    //     'icon' => '',
+                    //     'title' => 'Products',
+                    //     'sub_menu' => [
+                    //         'product-list' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'product-list',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Product List'
+                    //         ],
+                    //         'product-grid' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'product-grid',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Product Grid'
+                    //         ]
+                    //     ]
+                    // ],
+                    // 'transactions' => [
+                    //     'icon' => '',
+                    //     'title' => 'Transactions',
+                    //     'sub_menu' => [
+                    //         'transaction-list' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'transaction-list',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Transaction List'
+                    //         ],
+                    //         'transaction-detail' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'transaction-detail',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Transaction Detail'
+                    //         ]
+                    //     ]
+                    // ],
+                    // 'sellers' => [
+                    //     'icon' => '',
+                    //     'title' => 'Sellers',
+                    //     'sub_menu' => [
+                    //         'seller-list' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'seller-list',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Seller List'
+                    //         ],
+                    //         'seller-detail' => [
+                    //             'icon' => '',
+                    //             'route_name' => 'seller-detail',
+                    //             'params' => [
+                    //                 'layout' => 'side-menu'
+                    //             ],
+                    //             'title' => 'Seller Detail'
+                    //         ]
+                    //     ]
+                    // ],
+                    // 'reviews' => [
+                    //     'icon' => '',
+                    //     'route_name' => 'reviews',
+                    //     'params' => [
+                    //         'layout' => 'side-menu'
+                    //     ],
+                    //     'title' => 'Reviews'
+                    // ],
                 ]
             ],
             'gestion_programme' => [

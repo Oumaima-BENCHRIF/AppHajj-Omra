@@ -100,7 +100,8 @@ if ($id_dossier && $id_prg) {
                             <option value="">Sélectionnez</option>
                         </select>
                     </div>
-                    <input type="text" style="display:none;" id="Num_Fich_insc" name="Num_Fich_insc">
+                 
+                    <input type="text" id="Num_Fich_insc" name="Num_Fich_insc">
                     <div class="intro-y w4 px-1">
                         <label for="date_fiche_inscription" class="form-label mbt-2 text-size">Date</label>
                         <input id="date_fiche_inscription" name="date_fiche_inscription" type="date" class="form-control py-1" required>
