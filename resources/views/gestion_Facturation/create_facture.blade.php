@@ -197,12 +197,7 @@ button.hidden {
     </div>
    </div>
 </div>
-
-
-
-@endsection
-@section('jqscripts')
-<script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>
+@if (Auth::user()->permissions->contains('name','Update_facture'))
 <script>
      const cells = document.querySelectorAll('td');
     cells.forEach(cell => {
@@ -226,5 +221,33 @@ button.hidden {
   button1.classList.add("hidden");
   button2.classList.remove("hidden");
 }
-</script>
+</script> 
+@endif
+@endsection
+@section('jqscripts')
+<script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>
+<!-- <script>
+     const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            const currentValue = cell.innerText;
+            cell.innerHTML = `<input type="text" value="${currentValue}">`;
+            const input = cell.querySelector('input');
+            input.focus();
+            input.addEventListener('blur', () => {
+                const newValue = input.value;
+                cell.innerText = newValue;
+               
+            });
+        });
+    });
+
+    function toggleButtons() {
+  var button1 = document.getElementById("button1");
+  var button2 = document.getElementById("print");
+  console
+  button1.classList.add("hidden");
+  button2.classList.remove("hidden");
+}
+</script> -->
 @endsection

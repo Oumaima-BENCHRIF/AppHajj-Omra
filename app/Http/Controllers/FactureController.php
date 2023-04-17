@@ -216,9 +216,14 @@ class FactureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function liste_facture()
     {
-        //
+        $Liste_Facture = Factures::all(); 
+        return response()->json([
+   
+            'Liste_Facture' => $Liste_Facture
+        ]);
+       
     }
 
     /**
