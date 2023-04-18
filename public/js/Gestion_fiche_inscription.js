@@ -1734,13 +1734,9 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                                 "Reduction_Visa"
                                             ).style.display = "none";
                                         }
-                                       
-                                    console.log(document.getElementById("remis").val);
-                                        if( document.getElementById("remis").val=="undefined"){
-                                            document.getElementById("Totale_prg").value =calcule_prix-parseInt(document.getElementById("remis").value)
-                                        }else{
+                                     
                                             document.getElementById("Totale_prg").value =calcule_prix;
-                                        }
+                                     
                                      
                                     }
                                 );
@@ -1751,4 +1747,9 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
             });
         },
     });
+}
+// calcule
+function calculeRemis(Totale_prg, remis) {
+    var calculeRemis = parseInt(Totale_prg) - parseInt(remis);
+    document.getElementById("Totale_prg").value = calculeRemis;
 }

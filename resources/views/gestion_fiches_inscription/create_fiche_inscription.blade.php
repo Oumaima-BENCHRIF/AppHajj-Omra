@@ -375,7 +375,7 @@ if ($id_dossier && $id_prg) {
                     </div>
                     <div class="intro-y  px-1">
                         <label for="remis" class="form-label mbt-2 text-size">Remis</label>
-                        <input id="remis" name="remis" type="number" min="0" placeholder="Remis" class="form-control py-1" required>
+                        <input id="remis" name="remis" onblur="javascript:calculeRemis(document.getElementById('Totale_prg').value, document.getElementById('remis').value);" type="number" min="0" placeholder="Remis" class="form-control py-1" required>
                     </div>
                     <div class="intro-y  px-1">
                         <label for="Totale_prg" class="form-label mbt-2 text-size">Totale</label>
