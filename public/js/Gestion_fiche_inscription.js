@@ -1471,6 +1471,7 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                     responce.info_client,
                                     function (key, item) {
                                         console.log(responce.info_client);
+
                                         document.getElementById("genre").value =
                                             item.genre;
                                         document.getElementById(
@@ -1593,6 +1594,8 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                             img_CIN.src =
                                                 "/build/assets/images/update_img.jpg";
                                         }
+                                        var calcule_prix=item.prix;
+
                                         if (item.exclu_Billet != null) {
                                             document.getElementById(
                                                 "raison_billet"
@@ -1600,6 +1603,8 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                             document.getElementById(
                                                 "Reduction_Billet"
                                             ).value = item.Reduction_Billet;
+                                            calcule_prix= calcule_prix- item.Reduction_Billet;
+                                           
                                             // ***********
                                             document.getElementById(
                                                 "Reduction_Billet"
@@ -1626,6 +1631,9 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                                 "Reduction_Hotel_Makka"
                                             ).value =
                                                 item.Reduction_Hotel_Makka;
+                                            calcule_prix=calcule_prix- item.Reduction_Hotel_Makka;
+
+                                            
                                             // ***********
                                             document.getElementById(
                                                 "raison_hotel_makka"
@@ -1652,6 +1660,8 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                                 "Reduction_Hotel_Meedina"
                                             ).value =
                                                 item.Reduction_Hotel_Meedina;
+                                            calcule_prix=calcule_prix- item.Reduction_Hotel_Meedina;
+
                                             // ***********
                                             document.getElementById(
                                                 "raison_hotel_medina"
@@ -1677,6 +1687,8 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                             document.getElementById(
                                                 "Reduction_Transport"
                                             ).value = item.Reduction_Transport;
+                                            calcule_prix=calcule_prix- item.Reduction_Transport;
+
                                             // ***********
                                             document.getElementById(
                                                 "raison_Transport"
@@ -1702,6 +1714,8 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                             document.getElementById(
                                                 "Reduction_Visa"
                                             ).value = item.Reduction_Visa;
+                                            calcule_prix=calcule_prix- item.Reduction_Visa;
+
                                             // ***********
                                             document.getElementById(
                                                 "raison_visa"
@@ -1720,6 +1734,14 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                                 "Reduction_Visa"
                                             ).style.display = "none";
                                         }
+                                       
+                                    console.log(document.getElementById("remis").val);
+                                        if( document.getElementById("remis").val=="undefined"){
+                                            document.getElementById("Totale_prg").value =calcule_prix-parseInt(document.getElementById("remis").value)
+                                        }else{
+                                            document.getElementById("Totale_prg").value =calcule_prix;
+                                        }
+                                     
                                     }
                                 );
                             }
