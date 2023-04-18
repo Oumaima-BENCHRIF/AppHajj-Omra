@@ -28,6 +28,7 @@ photo.onchange = (evt) => {
         img_passp.src = URL.createObjectURL(file);
     }
 };
+
 function Trajet_Dossier(id_dossier, id_prg, id_detail_hotel) {
     jQuery.ajax({
         url:
@@ -293,7 +294,15 @@ function Liste_type_visa() {
         },
     });
 }
+var selectElement = document.getElementById("chambre_medina");
+var modal = document.getElementById("header-footer-modal-preview");
 
+// Ajouter un écouteur d'événement pour détecter le changement de sélection dans l'élément de sélection
+selectElement.addEventListener("click", function () {
+    // Masquer la fenêtre modale
+    console.log("Ok");
+    modal.style.display = "block";
+});
 $(document).ready(function () {
     document.getElementById("Reduction_Billet").style.display = "none";
     document.getElementById("raison_billet").style.display = "none";
@@ -1585,59 +1594,131 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                                 "/build/assets/images/update_img.jpg";
                                         }
                                         if (item.exclu_Billet != null) {
-                                            document.getElementById("raison_billet").value =item.Raison_Billet;
-                                            document.getElementById("Reduction_Billet").value =item.Reduction_Billet;
+                                            document.getElementById(
+                                                "raison_billet"
+                                            ).value = item.Raison_Billet;
+                                            document.getElementById(
+                                                "Reduction_Billet"
+                                            ).value = item.Reduction_Billet;
                                             // ***********
-                                            document.getElementById("Reduction_Billet").style.display = "block";
-                                            document.getElementById("raison_billet").style.display = "block";
-                                            document.getElementById("Billetcheq").checked = false;
-                                        }else{
-                                            document.getElementById("Reduction_Billet").style.display = "none";
-                                            document.getElementById("raison_billet").style.display = "none";
+                                            document.getElementById(
+                                                "Reduction_Billet"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "raison_billet"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Billetcheq"
+                                            ).checked = false;
+                                        } else {
+                                            document.getElementById(
+                                                "Reduction_Billet"
+                                            ).style.display = "none";
+                                            document.getElementById(
+                                                "raison_billet"
+                                            ).style.display = "none";
                                         }
                                         if (item.exclu_Hotel_Makka != null) {
-                                            document.getElementById("raison_hotel_makka").value =item.Raison_Hotel_Makka;
-                                            document.getElementById("Reduction_Hotel_Makka").value =item.Reduction_Hotel_Makka;
-                                             // ***********
-                                             document.getElementById("raison_hotel_makka").style.display = "block";
-                                             document.getElementById("Reduction_Hotel_Makka").style.display = "block";
-                                             document.getElementById("hotel_makkacheq").checked = false;
-                                        }else{
-                                            document.getElementById("raison_hotel_makka").style.display = "none";
-                                            document.getElementById("Reduction_Hotel_Makka").style.display = "none";
+                                            document.getElementById(
+                                                "raison_hotel_makka"
+                                            ).value = item.Raison_Hotel_Makka;
+                                            document.getElementById(
+                                                "Reduction_Hotel_Makka"
+                                            ).value =
+                                                item.Reduction_Hotel_Makka;
+                                            // ***********
+                                            document.getElementById(
+                                                "raison_hotel_makka"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Reduction_Hotel_Makka"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "hotel_makkacheq"
+                                            ).checked = false;
+                                        } else {
+                                            document.getElementById(
+                                                "raison_hotel_makka"
+                                            ).style.display = "none";
+                                            document.getElementById(
+                                                "Reduction_Hotel_Makka"
+                                            ).style.display = "none";
                                         }
                                         if (item.exclu_Hotel_Meedina != null) {
-                                            document.getElementById("raison_hotel_medina").value =item.Raison_Hotel_Meedina;
-                                            document.getElementById("Reduction_Hotel_Meedina").value =item.Reduction_Hotel_Meedina;
-                                             // ***********
-                                             document.getElementById("raison_hotel_medina").style.display = "block";
-                                             document.getElementById("Reduction_Hotel_Meedina").style.display = "block";
-                                             document.getElementById("hotel_meedinacheq").checked = false;
-                                        }else{
-                                            document.getElementById("raison_hotel_medina").style.display = "none";
-                                            document.getElementById("Reduction_Hotel_Meedina").style.display = "none";
+                                            document.getElementById(
+                                                "raison_hotel_medina"
+                                            ).value = item.Raison_Hotel_Meedina;
+                                            document.getElementById(
+                                                "Reduction_Hotel_Meedina"
+                                            ).value =
+                                                item.Reduction_Hotel_Meedina;
+                                            // ***********
+                                            document.getElementById(
+                                                "raison_hotel_medina"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Reduction_Hotel_Meedina"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "hotel_meedinacheq"
+                                            ).checked = false;
+                                        } else {
+                                            document.getElementById(
+                                                "raison_hotel_medina"
+                                            ).style.display = "none";
+                                            document.getElementById(
+                                                "Reduction_Hotel_Meedina"
+                                            ).style.display = "none";
                                         }
                                         if (item.exclu_Transport != null) {
-                                            document.getElementById("raison_Transport").value =item.Raison_Transport;
-                                            document.getElementById("Reduction_Transport").value =item.Reduction_Transport;
-                                             // ***********
-                                             document.getElementById("raison_Transport").style.display = "block";
-                                             document.getElementById("Reduction_Transport").style.display = "block";
-                                             document.getElementById("Transportcheq").checked = false;
-                                        }else{
-                                            document.getElementById("raison_Transport").style.display = "none";
-                                            document.getElementById("Reduction_Transport").style.display = "none";
+                                            document.getElementById(
+                                                "raison_Transport"
+                                            ).value = item.Raison_Transport;
+                                            document.getElementById(
+                                                "Reduction_Transport"
+                                            ).value = item.Reduction_Transport;
+                                            // ***********
+                                            document.getElementById(
+                                                "raison_Transport"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Reduction_Transport"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Transportcheq"
+                                            ).checked = false;
+                                        } else {
+                                            document.getElementById(
+                                                "raison_Transport"
+                                            ).style.display = "none";
+                                            document.getElementById(
+                                                "Reduction_Transport"
+                                            ).style.display = "none";
                                         }
                                         if (item.exclu_Visa != null) {
-                                            document.getElementById("raison_visa").value =item.Raison_Visa;
-                                            document.getElementById("Reduction_Visa").value =item.Reduction_Visa;
-                                             // ***********
-                                             document.getElementById("raison_visa").style.display = "block";
-                                             document.getElementById("Reduction_Visa").style.display = "block";
-                                             document.getElementById("Visacheq").checked = false;
-                                        }else{
-                                            document.getElementById("raison_visa").style.display = "none";
-                                            document.getElementById("Reduction_Visa").style.display = "none";
+                                            document.getElementById(
+                                                "raison_visa"
+                                            ).value = item.Raison_Visa;
+                                            document.getElementById(
+                                                "Reduction_Visa"
+                                            ).value = item.Reduction_Visa;
+                                            // ***********
+                                            document.getElementById(
+                                                "raison_visa"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Reduction_Visa"
+                                            ).style.display = "block";
+                                            document.getElementById(
+                                                "Visacheq"
+                                            ).checked = false;
+                                        } else {
+                                            document.getElementById(
+                                                "raison_visa"
+                                            ).style.display = "none";
+                                            document.getElementById(
+                                                "Reduction_Visa"
+                                            ).style.display = "none";
                                         }
                                     }
                                 );
