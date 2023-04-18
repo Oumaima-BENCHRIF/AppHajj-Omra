@@ -64,9 +64,6 @@ function Trajet_Dossier(id_dossier, id_prg, id_detail_hotel) {
     });
 }
 
-
-
-
 // liste prg
 function liste_prg() {
     jQuery.ajax({
@@ -88,7 +85,7 @@ function liste_prg() {
         },
     });
 }
-cpt1 =34210001;
+cpt1 = 34210001;
 // liste ref prg
 function cpt_fiche_ins(id_prg, id_detail_hotel) {
     jQuery.ajax({
@@ -101,7 +98,7 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
         dataType: "json",
         success: function (responce) {
             $select_fiche_insc = "";
-          
+
             jQuery.each(responce.info_fiche, function (key, item) {
                 $select_fiche_insc =
                     $select_fiche_insc +
@@ -113,20 +110,17 @@ function cpt_fiche_ins(id_prg, id_detail_hotel) {
                 if (cpt1 < item.id) {
                     cpt1 = item.id;
                 }
-                console.log(item);
                 document.getElementById("date_fiche_inscription").value =
                     item.date_fiche_inscription;
-                    document.getElementById("id_fiche").value =
-                    item.id;
+                document.getElementById("id_fiche").value = item.id;
                 document.getElementById("num_prg_inscription").value =
                     item.FK_programme;
                 document.getElementById("code_societe").value = item.FK_societe;
                 document.getElementById("nom_societe").value = item.nom_societe;
                 document.getElementById("bon_commande").value =
                     item.bon_commande;
-                    document.getElementById("Num_Fich_insc").value =item.id;
+                document.getElementById("Num_Fich_insc").value = item.id;
                 table_fiche_insc(item.id_fiche_ins, id_prg, id_detail_hotel);
-                
             });
             $("#num_fichier").html($select_fiche_insc);
         },
@@ -341,7 +335,7 @@ $(document).ready(function () {
         var id_prg = v.split("/")[7];
         var id_detail_hotel = v.split("/")[9];
         var num_fichier = $("#Num_Fich_insc").val();
-console.log(num_fichier);
+        console.log(num_fichier);
         var formData = new FormData($(this)[0]);
         var $this = jQuery(this);
 
@@ -379,7 +373,7 @@ console.log(num_fichier);
     // ******Ajouter fiche inscription******
     $("#form_gestion_fiche_insc").on("submit", function (e) {
         e.preventDefault();
-      
+
         var $this = jQuery(this);
         var formData = jQuery($this).serializeArray();
         jQuery.ajax({
@@ -389,18 +383,11 @@ console.log(num_fichier);
             success: function (response) {
                 toastr.success(response.message);
                 // viderchamp();
-                jQuery.each(
-                    response.update_fiche_insc,
-                    function (key, item) {
-                        
-                        // console.log(response.update_gestion_allot);
-                        document.getElementById("Num_Fich_insc").value =
-                            item.id;
-                        console.log(
-                            document.getElementById("Num_Fich_insc").value
-                        );
-                    }
-                );
+                jQuery.each(response.update_fiche_insc, function (key, item) {
+                    // console.log(response.update_gestion_allot);
+                    document.getElementById("Num_Fich_insc").value = item.id;
+                    console.log(document.getElementById("Num_Fich_insc").value);
+                });
             },
             error: function (response) {
                 toastr.error("Vérifier votre données");
@@ -408,25 +395,24 @@ console.log(num_fichier);
         });
     });
 
-     // ******redirection facture*******
-    $("#facture").on("click",function()
-    {
-        let id=$('#id_fiche').val();
-      
+    // ******redirection facture*******
+    $("#facture").on("click", function () {
+        let id = $("#id_fiche").val();
+
         jQuery.ajax({
-            url: "/facturation/"+id,
+            url: "/facturation/" + id,
             type: "GET",
             data: id,
-            success: function(response){
-                window.location.href = "/facturation/"+id;
+            success: function (response) {
+                window.location.href = "/facturation/" + id;
             },
-            error: function(xhr, status, error){
+            error: function (xhr, status, error) {
                 // handle any errors that occur during the AJAX request
                 console.log("Error:", error);
-            }
+            },
         });
-    })
-  
+    });
+
     // ******delete fiche inscription*******
     $("#delet_Client").on("submit", function (e) {
         e.preventDefault();
@@ -558,7 +544,6 @@ console.log(num_fichier);
             },
         });
     });
-   
 });
 
 function viderchamp() {
@@ -663,51 +648,61 @@ $(document).ready(function () {
     var chkId = "";
     $("input").on("click", function () {
         if ($("#Billetcheq").is(":checked")) {
-            document.getElementById("Billet").value='';
+            document.getElementById("Billet").value = "";
             document.getElementById("Reduction_Billet").style.display = "none";
             document.getElementById("raison_billet").style.display = "none";
         } else {
-            document.getElementById("Billet").value='Billet';
+            document.getElementById("Billet").value = "Billet";
             document.getElementById("Reduction_Billet").style.display = "block";
             document.getElementById("raison_billet").style.display = "block";
         }
 
         if ($("#Transportcheq").is(":checked")) {
-            document.getElementById("Transport").value='';
-            document.getElementById("Reduction_Transport").style.display ="none";
+            document.getElementById("Transport").value = "";
+            document.getElementById("Reduction_Transport").style.display =
+                "none";
             document.getElementById("raison_Transport").style.display = "none";
         } else {
-            document.getElementById("Transport").value='Transport';
-            document.getElementById("Reduction_Transport").style.display ="block";
+            document.getElementById("Transport").value = "Transport";
+            document.getElementById("Reduction_Transport").style.display =
+                "block";
             document.getElementById("raison_Transport").style.display = "block";
         }
 
         if ($("#hotel_meedinacheq").is(":checked")) {
-            document.getElementById("Hotel_Meedina").value='';
-            document.getElementById("Reduction_Hotel_Meedina").style.display ="none";
-            document.getElementById("raison_hotel_medina").style.display ="none";
+            document.getElementById("Hotel_Meedina").value = "";
+            document.getElementById("Reduction_Hotel_Meedina").style.display =
+                "none";
+            document.getElementById("raison_hotel_medina").style.display =
+                "none";
         } else {
-            document.getElementById("Hotel_Meedina").value='Hotel Meedina';
-            document.getElementById("Reduction_Hotel_Meedina").style.display ="block";
-            document.getElementById("raison_hotel_medina").style.display ="block";
+            document.getElementById("Hotel_Meedina").value = "Hotel Meedina";
+            document.getElementById("Reduction_Hotel_Meedina").style.display =
+                "block";
+            document.getElementById("raison_hotel_medina").style.display =
+                "block";
         }
 
         if ($("#hotel_makkacheq").is(":checked")) {
-            document.getElementById("Hotel_Makka").value='';
-            document.getElementById("Reduction_Hotel_Makka").style.display ="none";
-            document.getElementById("raison_hotel_makka").style.display ="none";
+            document.getElementById("Hotel_Makka").value = "";
+            document.getElementById("Reduction_Hotel_Makka").style.display =
+                "none";
+            document.getElementById("raison_hotel_makka").style.display =
+                "none";
         } else {
-            document.getElementById("Hotel_Makka").value='Hotel_Makka';
-            document.getElementById("Reduction_Hotel_Makka").style.display ="block";
-            document.getElementById("raison_hotel_makka").style.display ="block";
+            document.getElementById("Hotel_Makka").value = "Hotel_Makka";
+            document.getElementById("Reduction_Hotel_Makka").style.display =
+                "block";
+            document.getElementById("raison_hotel_makka").style.display =
+                "block";
         }
 
         if ($("#Visacheq").is(":checked")) {
-            document.getElementById("Visa").value='';
+            document.getElementById("Visa").value = "";
             document.getElementById("Reduction_Visa").style.display = "none";
             document.getElementById("raison_visa").style.display = "none";
         } else {
-            document.getElementById("Visa").value='Visa';
+            document.getElementById("Visa").value = "Visa";
             document.getElementById("Reduction_Visa").style.display = "block";
             document.getElementById("raison_visa").style.display = "block";
         }
@@ -786,7 +781,7 @@ $("#num_fichier").change(function () {
             jQuery.each(responce.info_fiche_Insc, function (key, item) {
                 document.getElementById("date_fiche_inscription").value =
                     item.date_fiche_inscription;
-               
+
                 document.getElementById("num_prg_inscription").value =
                     item.FK_programme;
                 document.getElementById("code_societe").value = item.FK_societe;
@@ -938,12 +933,9 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
         success: function (responce) {
             // Je récupère la réponse du fichier PHP
             jQuery.each(responce.Detail_Fiche_Insc, function (key, item) {
-                
                 if (responce.Detail_Fiche_Insc.length == 0) {
-                    
                 }
                 $tabledata = responce.Detail_Fiche_Insc;
-                
             });
             var table = new Tabulator("#liste_fiche_insc", {
                 printAsHtml: true,
@@ -1469,6 +1461,7 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                 jQuery.each(
                                     responce.info_client,
                                     function (key, item) {
+                                        console.log(responce.info_client);
                                         document.getElementById("genre").value =
                                             item.genre;
                                         document.getElementById(
@@ -1590,6 +1583,61 @@ function table_fiche_insc(Fk_fiche_inscription, id_prg, id_hotel) {
                                         if (item.upload_img == null) {
                                             img_CIN.src =
                                                 "/build/assets/images/update_img.jpg";
+                                        }
+                                        if (item.exclu_Billet != null) {
+                                            document.getElementById("raison_billet").value =item.Raison_Billet;
+                                            document.getElementById("Reduction_Billet").value =item.Reduction_Billet;
+                                            // ***********
+                                            document.getElementById("Reduction_Billet").style.display = "block";
+                                            document.getElementById("raison_billet").style.display = "block";
+                                            document.getElementById("Billetcheq").checked = false;
+                                        }else{
+                                            document.getElementById("Reduction_Billet").style.display = "none";
+                                            document.getElementById("raison_billet").style.display = "none";
+                                        }
+                                        if (item.exclu_Hotel_Makka != null) {
+                                            document.getElementById("raison_hotel_makka").value =item.Raison_Hotel_Makka;
+                                            document.getElementById("Reduction_Hotel_Makka").value =item.Reduction_Hotel_Makka;
+                                             // ***********
+                                             document.getElementById("raison_hotel_makka").style.display = "block";
+                                             document.getElementById("Reduction_Hotel_Makka").style.display = "block";
+                                             document.getElementById("hotel_makkacheq").checked = false;
+                                        }else{
+                                            document.getElementById("raison_hotel_makka").style.display = "none";
+                                            document.getElementById("Reduction_Hotel_Makka").style.display = "none";
+                                        }
+                                        if (item.exclu_Hotel_Meedina != null) {
+                                            document.getElementById("raison_hotel_medina").value =item.Raison_Hotel_Meedina;
+                                            document.getElementById("Reduction_Hotel_Meedina").value =item.Reduction_Hotel_Meedina;
+                                             // ***********
+                                             document.getElementById("raison_hotel_medina").style.display = "block";
+                                             document.getElementById("Reduction_Hotel_Meedina").style.display = "block";
+                                             document.getElementById("hotel_meedinacheq").checked = false;
+                                        }else{
+                                            document.getElementById("raison_hotel_medina").style.display = "none";
+                                            document.getElementById("Reduction_Hotel_Meedina").style.display = "none";
+                                        }
+                                        if (item.exclu_Transport != null) {
+                                            document.getElementById("raison_Transport").value =item.Raison_Transport;
+                                            document.getElementById("Reduction_Transport").value =item.Reduction_Transport;
+                                             // ***********
+                                             document.getElementById("raison_Transport").style.display = "block";
+                                             document.getElementById("Reduction_Transport").style.display = "block";
+                                             document.getElementById("Transportcheq").checked = false;
+                                        }else{
+                                            document.getElementById("raison_Transport").style.display = "none";
+                                            document.getElementById("Reduction_Transport").style.display = "none";
+                                        }
+                                        if (item.exclu_Visa != null) {
+                                            document.getElementById("raison_visa").value =item.Raison_Visa;
+                                            document.getElementById("Reduction_Visa").value =item.Reduction_Visa;
+                                             // ***********
+                                             document.getElementById("raison_visa").style.display = "block";
+                                             document.getElementById("Reduction_Visa").style.display = "block";
+                                             document.getElementById("Visacheq").checked = false;
+                                        }else{
+                                            document.getElementById("raison_visa").style.display = "none";
+                                            document.getElementById("Reduction_Visa").style.display = "none";
                                         }
                                     }
                                 );
