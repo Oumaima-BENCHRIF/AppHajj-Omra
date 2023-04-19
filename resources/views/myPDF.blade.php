@@ -211,12 +211,12 @@
 <div class="table-section bill-tbl w-100 mt-10">
  
                     <div class="total-left w-85 float-left" align="right">
-                        <p>Sub Total</p>
+                        <p>Total  :</p>
                       
                     </div>
                     <div class="total-right w-15 float-left text-bold" align="right">
                       
-                        <p>$330.00</p>
+                        <p>{{ $info_facture->Total}}</p>
                     </div>
                     <div style="clear: both;"></div>
     </div> 

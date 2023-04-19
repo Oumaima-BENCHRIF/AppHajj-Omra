@@ -125,18 +125,21 @@ class update_facturesController extends Controller
         $Factures->date_Arrives=$mylis[0]['col1'];
         $Factures->date_departs=$mylis[0]['col2'];
      
-        $Factures->save();
+       
         
          $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$request->_id)
         ->get();
         
-   
+        $total=0;
         
         for ($i = 1; $i < $count; $i++) {
             $detail_facture[$i-1]->nom_complet=$mylis[$i]['col0'];
             $detail_facture[$i-1]->prix = $mylis[$i]['col3'];  
+            $total=$total+$detail_facture[$i-1]->prix;
             $detail_facture[$i-1]->save();
         }
+        $Factures->Total=$total;
+        $Factures->save();
         $detail_facture->save();
        
        

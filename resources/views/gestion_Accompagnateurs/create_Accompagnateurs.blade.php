@@ -52,7 +52,7 @@ use Illuminate\Support\Facades\Session;
                 <div class="font-medium text-center text-lg">gestion Accompagnateurs</div>
             </div>
             @if (Auth::user()->permissions->contains('name','Ajouter_Accompagnateurs'))
-            <form action="{{ url('Accompagnateurs_Stores') }}" method="post" class="validate-form my-5">
+            <form id="Add_Acompagnateur" action="{{ url('Accompagnateurs_Stores') }}" method="post" class="validate-form my-5">
                 {{ csrf_field() }}
                 <div class="py-5 px-2  container">
                     <div class="form-inline">

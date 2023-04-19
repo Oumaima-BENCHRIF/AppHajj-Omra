@@ -98,7 +98,11 @@ class FactureController extends Controller
        ->where('gestion_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.id', $fiche)
        ->get();
-    
+       $Total=0;
+   foreach ($Detail_Fiche_Insc as $key ) {
+    $Total= $Total + $key->Totale_prg;
+   }
+   
     $programe = gestion_programmes::select('gestion__programmes.nom_programme','gestion__programmes.type_programme','gestion_vole__deeparts.date_depart','gestion_vole__reetours.date_retour')
     ->join('gestion_detail_fiches_inscriptions','gestion__programmes.id','gestion_detail_fiches_inscriptions.FK_programme')
     ->join('gestion_vole__deeparts','gestion__programmes.FK_Num_vole_depart','gestion_vole__deeparts.id')
@@ -115,7 +119,8 @@ class FactureController extends Controller
             'Detail_Fiche'=>$Detail_Fiche_Insc,
             'societe'=>$info_sociéte,
             'programme'=>$programe->first(),
-            'exist'=>$exist
+            'exist'=>$exist,
+            'total'=>$Total
         ]);
     }
 
@@ -168,6 +173,7 @@ class FactureController extends Controller
         $Factures->date=$request->input('date_fiche_inscription');
         $Factures->bon_commande=$request->input('bon_commande');
         $Factures->Numero_dossier=$request->input('num_dossier');
+        $Factures->	Total=$request->input('total');
         $Factures->numero_facture=$request->input('numfacture');
         $Factures->Nom_client=$request->input('nom');
         $Factures->adresse=$request->input('adresse');

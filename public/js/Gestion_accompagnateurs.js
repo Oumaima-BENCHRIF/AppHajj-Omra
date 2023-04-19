@@ -6,7 +6,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $this = jQuery(this);
         var formData = jQuery($this).serializeArray();
-       
+        
         jQuery.ajax({
             url: $this.attr("action"),
             type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire

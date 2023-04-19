@@ -71,19 +71,12 @@ class AccompagnateursController extends Controller
         ]);
 
 
-
-        // $Liste_Accompagnateurs= Accompagnateurs::all();
-        // return view('gestion_accompagnateurs.create',[
-        //     'countListeAccompagnateurs' => $Liste_Accompagnateurs->count(),
-        //     'listes_Accompagnateurs'=>$Liste_Accompagnateurs
-        //     ]);
-        // return view('gestion_accompagnateurs.create');
     }
     //Enregister Accompagnateurs
     public function store(Request $request ){
 
         try{
-            
+           
             $Accompagnateurs=new Accompagnateurs();
             $Accompagnateurs->code=$request->input('code');
             $Accompagnateurs->nom_prenom=$request->input('nom_prenom');
@@ -91,7 +84,7 @@ class AccompagnateursController extends Controller
             $Accompagnateurs->fax=$request->input('fax');
             $Accompagnateurs->adresse=$request->input('adresse');
             $Accompagnateurs->prix=$request->input('prix');
-       
+    
             $Accompagnateurs->save();
     
           

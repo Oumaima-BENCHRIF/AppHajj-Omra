@@ -112,24 +112,8 @@ button.hidden {
     <div style="clear: both;"></div>
  </div>
 </div>
-<!--     
-<div class="form-inline mt-5">
-    <div class="w22 intro-y">programme </div>
-    <div class="intro-y">:  {{ $programme->nom_programme }} </div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">type programme</div>
-    <div class="intro-y">:  {{ $programme->type_programme }}</div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">Arrives </div>
-    <div class="intro-y">:  {{ $programme->date_retour }} </div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">téparts</div>
-    <div class="intro-y">:  {{ $programme->date_depart }}</div> 
-</div>
-                                             -->
+
+
 <div class="overflow-x-auto mt-3">
     <table class="table table-striped  mt-3" id="mytable">
         <thead class="table-header">
@@ -158,7 +142,7 @@ button.hidden {
               <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_client }} {{ $table->prenom_client}}</td>
               <td class="editable" data-field="arrives"></td>
               <td class="editable" data-field="departs"></td>
-              <td class="editable" data-field="total">{{ $table->prix }}</td>
+              <td class="editable" data-field="total">{{ $table->Totale_prg}}</td>
               
            
           </tr>
@@ -171,8 +155,8 @@ button.hidden {
   <div class="intro-y w50"></div>
   <div class="intro-y w50">
                     <div style="font-size: 1rem; padding-right:10px;" class="lable-total " align="right">
-                        <p>TOTAL :  <span>330.00</span></p>
-                      
+                        <p>TOTAL :  <span>{{$total}}</span></p>
+                        <input type="hidden" id="total" name="total" value="{{$total}}"> 
                     </div>
                     
                     <div style="clear: both;"></div>
