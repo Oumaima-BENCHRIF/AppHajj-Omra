@@ -220,6 +220,10 @@
 .w5 {
     width: 20%;
 }
+.w10e
+{
+    width: 10rem;
+}
 .text-size
 {
 font-size: 12px;
@@ -246,6 +250,9 @@ font-size: 12px;
 }
 .w78{
     width: 78%;
+}
+.h6{
+    height: 6rem;
 }
 .h9
 {

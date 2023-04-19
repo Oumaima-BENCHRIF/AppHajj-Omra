@@ -414,11 +414,11 @@ console.log(num_fichier);
         let id=$('#id_fiche').val();
       
         jQuery.ajax({
-            url: "/facturation/"+id,
+            url: "/create_facture/"+id,
             type: "GET",
             data: id,
             success: function(response){
-                window.location.href = "/facturation/"+id;
+                window.location.href = "/create_facture/"+id;
             },
             error: function(xhr, status, error){
                 // handle any errors that occur during the AJAX request

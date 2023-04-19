@@ -59,77 +59,66 @@ button.hidden {
         <div class="tab-content intro-y box py-5 px-5  mt-5" id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
             
             <div class="py-5 px-5  mt-5">
-                <div class="font-medium text-center text-lg">Gestion facturation</div>
+                <div class="font-medium text-center text-lg">Modifier factures</div>
             </div>
             
-            <form id="Add_facture" name="Add_facture" action="{{ url('facturation_store') }}" method="post">
+
+            <form id="edit_facture" name="edit_facture" action="{{ url('edit_facture') }}" method="post">
                 {{ csrf_field() }}
                <div class="form-inline">
                 <div class="w50 intro-y mr-2">
-                  @foreach($data2 as $info)
-                  <input type="hidden" id="id_fiche" name="id_fiche" value="{{$id}}"> 
+                  @foreach($facture as $info)
+  
                  <table class="table-info  w-full mt-10">
-                 <tr class="tbl">
-                 <input type="hidden" id="numfichier" name="numfichier" value="{{$info->num_fichier}}"> 
-                 <td class="tbl"> Code Client</td> <td  class="tbl">{{$info->num_fichier}}</td>
+                 <tr class="tbl"><input type="hidden" id="_id" name="_id" value="{{$info->id}}">
+               
+                 <td class="tbl"> Code Client</td> <td  class="tbl">{{$info->Code_client}}</td>
+                 <input type="hidden" id="Code_client" name="Code_client" value="{{$info->Code_client}}"> 
+               
                  </tr>
                  <tr class="tbl">
-        <td class="tbl"> Facture N°</td> <td id='numfacture' class="tbl">{{$numfacture}}
-            <input type="hidden" id="numfacture" name="numfacture" value="{{$numfacture}}">
+        <td class="tbl"> Facture N°</td> <td  class="tbl">{{$info->numero_facture}}
+        <input type="hidden" id="numero_facture" name="numero_facture" value="{{$info->numero_facture}}"> 
          </td>
         </tr>
        <tr class="tbl"> 
-           <td class="tbl">Dossier N°</td> <td id='numdossier' class="tbl"> @foreach($numdossier as $num){{$num->num_dossier}} @endforeach
-            <input type="hidden" name="num_dossier" value="{{$num->num_dossier}}"></td>
+           <td class="tbl">Dossier N°</td> <td  class="tbl"> {{$info->Numero_dossier}}
+           <input type="hidden" id="Numero_dossier" name="Numero_dossier" value="{{$info->Numero_dossier}}"> 
            </tr>
        <tr class="tbl">
-           <td class="tbl">Bon de Commande</td> <td  class="tbl">{{$info->bon_commande}}
+           <td class="tbl">Bon de Commande</td> <td class="tbl">{{$info->bon_commande}}
            <input type="hidden" id="bon_commande" name="bon_commande" value="{{$info->bon_commande}}"> 
            </td>
            </tr>
        <tr class="tbl">
-          <td class="tbl" >Date</td> <td  class="tbl">{{$info->date_fiche_inscription}}
-          <input type="hidden" id="date_fiche_inscription" name="date_fiche_inscription" value="{{$info->date_fiche_inscription}}"> 
+          <td class="tbl" >Date</td> <td  class="tbl">{{$info->date}}
+          <input type="hidden" id="date" name="date" value="{{$info->date}}"> 
           </td>
           </tr >
        <tr>
           <td class="tbl">Vos Réf</td> <td class="tbl" id="ref"> </td> 
+
     </tr>
     
   </table> 
-  @endforeach
+ 
     </div>
 
  <div class="w50 intro-y info ml-2 text-center" style="margin-bottom: auto; margin-top: 4.5%;">
     <div class="py-2">
-    @foreach($societe as $info)
-     <p  class="center mb-1">{{$info->nom}}</p><input type="hidden" id="nom" name="nom" value="{{$info->nom}}"> 
+   
+     <p  class="center mb-1">{{$info->Nom_client}}</p><input type="hidden" id="Nom_client" name="Nom_client" value="{{$info->Nom_client}}"> 
        <p  class="center mb-1">{{$info->adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$info->adresse}}"> 
-       <p  class="center">{{$info->ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$info->ville_client}}"> 
+       <p  class="center">{{$info->ville}}</p><input type="hidden" id="ville" name="ville" value="{{$info->ville}}"> 
        @endforeach
     </div>
   
     <div style="clear: both;"></div>
  </div>
+
 </div>
-<!--     
-<div class="form-inline mt-5">
-    <div class="w22 intro-y">programme </div>
-    <div class="intro-y">:  {{ $programme->nom_programme }} </div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">type programme</div>
-    <div class="intro-y">:  {{ $programme->type_programme }}</div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">Arrives </div>
-    <div class="intro-y">:  {{ $programme->date_retour }} </div> 
-</div>
-<div class="form-inline">
-    <div class="w22 intro-y">téparts</div>
-    <div class="intro-y">:  {{ $programme->date_depart }}</div> 
-</div>
-                                             -->
+
+
 <div class="overflow-x-auto mt-3">
     <table class="table table-striped  mt-3" id="mytable">
         <thead class="table-header">
@@ -144,21 +133,21 @@ button.hidden {
 
         <tbody>
             <tr>
-            <td class="editable" data-field="désignation"> {{ $programme->nom_programme }}  {{ $programme->type_programme }}</td>
-            <input type="hidden" id="designation" name="designation" value="{{ $programme->nom_programme }}  {{ $programme->type_programme }}"> 
-              <td class="editable" data-field="arrives">{{ $programme->date_retour }} </td>
-              <input type="hidden" id="date_retour" name="date_retour" value="{{$programme->date_retour}}"> 
-              <td  class="editable" data-field="departs">{{ $programme->date_depart }}</td>
-              <input type="hidden" id="date_depart" name="date_depart" value="{{$programme->date_depart}}"> 
+            <td class="editable" data-field="désignation"> {{$info->designation}}</td>
+         
+              <td class="editable" data-field="arrives">{{ $info->date_Arrives}} </td>
+             
+              <td  class="editable" data-field="departs">{{ $info->date_departs}}</td>
+             
               <td class="editable" data-field="total"></td>
             </tr>
-        @foreach($Detail_Fiche as $table)
+        @foreach($detail_facture as $table)
           
           <tr>
-              <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_client }} {{ $table->prenom_client}}</td>
+              <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_complet}}</td>
               <td class="editable" data-field="arrives"></td>
               <td class="editable" data-field="departs"></td>
-              <td class="editable" data-field="total">{{ $table->prix }}</td>
+              <td class="editable" data-field="total">{{ $table->prix}}</td>
               
            
           </tr>
@@ -178,19 +167,15 @@ button.hidden {
                     <div style="clear: both;"></div>
     </div> </div>
     <div align="right" class="mt-3">
-    @if($exist==false) 
-      <button type="submit" id="button1" class="btn btn-primary mt-3"  onclick="toggleButtons()">Enregister </button>
-      @endif  
-    </form>
     
-    @if($exist==false)   
-    <a id='print' class="btn btn-primary hidden" >Print</a>
+      <button type="submit" id="button1" class="btn btn-primary mt-3"  onclick="toggleButtons()">Modifier </button>
+    
+   
+    
+    
+    <a id='print_facture' class="btn btn-primary hidden" >Print</a>
       
-      @endif  
-      @if($exist==true)  
-      
-      <a id='print'  class="btn btn-primary"  >Print</a>
-      @endif 
+   
       </form>
      
     </div>
@@ -215,7 +200,7 @@ button.hidden {
 
     function toggleButtons() {
   var button1 = document.getElementById("button1");
-  var button2 = document.getElementById("print");
+  var button2 = document.getElementById("print_facture");
   console
   button1.classList.add("hidden");
   button2.classList.remove("hidden");
@@ -225,28 +210,5 @@ button.hidden {
 @endsection
 @section('jqscripts')
 <script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>
-<!-- <script>
-     const cells = document.querySelectorAll('td');
-    cells.forEach(cell => {
-        cell.addEventListener('click', () => {
-            const currentValue = cell.innerText;
-            cell.innerHTML = `<input type="text" value="${currentValue}">`;
-            const input = cell.querySelector('input');
-            input.focus();
-            input.addEventListener('blur', () => {
-                const newValue = input.value;
-                cell.innerText = newValue;
-               
-            });
-        });
-    });
 
-    function toggleButtons() {
-  var button1 = document.getElementById("button1");
-  var button2 = document.getElementById("print");
-  console
-  button1.classList.add("hidden");
-  button2.classList.remove("hidden");
-}
-</script> -->
 @endsection
