@@ -276,6 +276,22 @@ function table_Facture() {
 
                
             });
+            $('#search-btn').on('click', function() {
+                var codeValue = $('#code').val();
+                var dateValue = $('#date').val();
+              
+                var filters = [];
+              
+                if (codeValue) {
+                  filters.push({field: "Code_client", type: "like", value: codeValue});
+                }
+              
+                if (dateValue) {
+                  filters.push({field: "date", type: "=", value: dateValue});
+                }
+              
+                table.setFilter(filters);
+              });
         }
     });
 }

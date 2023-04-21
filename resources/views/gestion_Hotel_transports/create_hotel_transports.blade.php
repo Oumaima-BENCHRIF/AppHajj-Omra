@@ -215,6 +215,19 @@ use Illuminate\Support\Facades\Session;
                             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
                             </form>
+                            <div class="input-form w-1/2 sm:w-auto mr-2 px-1 ">
+                           
+
+                           <input type="text" id="code_Ghotel"  name="code_Ghotel" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le Code">
+             
+                     </div>
+                   <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                       <span class="w-5 h-5 flex items-center justify-center">
+                           <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                           </div>
+                       </span>
+                   </button>
                             <div class="flex mt-2 sm:mt-0">
                             @if (Auth::user()->permissions->contains('name','Print_Hotel_Transport'))
                                 <button id="tabulator-print-hotel-forni" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
@@ -594,111 +607,6 @@ use Illuminate\Support\Facades\Session;
 </div>
 <!-- END: Model Ajouter Hotel Transports -->
 
-<!-- BEGIN: Modal Recherche Hotel Transports -->
-<div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">Rechercher Hotel / fournisseur</h2>
-
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                    <div class="dropdown-menu w-40">
-                        <ul class="dropdown-content">
-                            <li>
-                                <a href="javascript:;" class="dropdown-item">
-                                    <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-            <!-- BEGIN: Modal Body -->
-            <?php $url_update = route('hotel_transports.edit'); ?>
-            <form action="{{  route('liste_hotel_transports.index')  }}" method="get">
-
-                {{ csrf_field() }}
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="code_1" class="form-label">Code</label>
-                        <input id="code_1" name="code_1" type="text" class="form-control" placeholder="Code">
-                    </div>
-
-                    <!-- <input type="hidden" id="id_" name="id_"> -->
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="nom_1" class="form-label">Nom</label>
-                        <input id="nom_1" name="nom_1" type="text" class="form-control" placeholder="Nom">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="ville_1" class="form-label">Ville</label>
-                        <input id="ville_1" name="ville_1" type="text" class="form-control" placeholder="Ville">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="emplacement_1" class="form-label">Emplacement</label>
-                        <input id="emplacement_1" name="emplacement_1" type="text" class="form-control" placeholder="Emplacement">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="telephone_1" class="form-label">Telephone</label>
-                        <input id="telephone_1" name="telephone_1" type="text" class="form-control" placeholder="Telephone">
-                    </div>
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="fax_1" class="form-label">Fax</label>
-                        <input id="fax_1" name="fax_1" type="text" class="form-control" placeholder="Fax">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="site_1" class="form-label">Site</label>
-                        <input id="site_1" name="site_1" type="text" class="form-control" placeholder="Site">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compte_comptable_ramadan_1" class="form-label">Compte comptable ramadan</label>
-                        <input id="compte_comptable_ramadan_1" name="compte_comptable_ramadan_1" type="text" class="form-control" placeholder="compte_comptable_ramadan">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compte_comptable_mouloud_1" class="form-label">Compte comptable mouloud</label>
-                        <input id="compte_comptable_mouloud_1" name="compte_comptable_mouloud_1" type="text" class="form-control" placeholder="Compte comptable mouloud">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="contact_1" class="form-label">Contact</label>
-                        <input id="contact_1" name="contact_1" type="text" class="form-control" placeholder="Contact">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input id="email__" name="email__" type="text" class="form-control" placeholder="Email">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="categorie_1" class="form-label">Categorie</label>
-                        <input id="categorie_1" name="categorie_1" type="text" class="form-control" placeholder="Categorie">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="nom_en_arabe_1" class="form-label">Nom en arabe</label>
-                        <input id="nom_en_arabe_1" name="nom_en_arabe_1" type="text" class="form-control" placeholder="Nom en arabe">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="type_1" class="form-label">Type</label>
-                        <input id="type_1" name="type_1" type="text" class="form-control" placeholder="Type">
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                    <button type="submit" class="btn btn-primary w-20">Send</button>
-                </div>
-            </form>
-
-
-
-        </div>
-    </div>
-</div>
-<!-- END: recherche Modal Hotel Transports -->
 
 </div>
 <!-- END: gestion Hotel Transports-->

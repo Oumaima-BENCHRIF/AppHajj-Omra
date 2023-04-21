@@ -366,6 +366,15 @@ function liste_fiche_client() {
                     // window.location.replace("/liste_prog/" + row.getData().id);
                 },
             });
+            $('#search-btn').on('click', function() {
+               
+                var Value = $('#compt').val();      
+                var filters = [];
+                if (Value ) {
+                  filters.push({field: "compte", type: "like", value: Value});
+                }
+                table.setFilter(filters);
+              });
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();

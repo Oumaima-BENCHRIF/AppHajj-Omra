@@ -179,6 +179,16 @@ use Illuminate\Support\Facades\Session;
 
                             </form>
                             <div class="flex mt-2 sm:mt-0">
+                            <div class="input-form w-1/2 sm:w-auto  px-1 ">
+                            <input type="text" id="code_com" name="code_com" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
+                       </div>   
+                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                        </span>
+                    </button>
                             @if (Auth::user()->permissions->contains('name','Print_Compagnies'))
                                 <button id="tabulator-print-hotel-forni" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                     <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
@@ -688,97 +698,6 @@ use Illuminate\Support\Facades\Session;
 
 <!-- END: Model Ajouter fiche client -->
 
-<!-- BEGIN: Modal Recherche fiche client -->
-<div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">Rechercher Compagnies</h2>
-
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                    <div class="dropdown-menu w-40">
-                        <ul class="dropdown-content">
-                            <li>
-                                <a href="javascript:;" class="dropdown-item">
-                                    <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-            <!-- BEGIN: Modal Body -->
-            <?php $url_update = route('Compagnies.edit'); ?>
-            <form action="{{  route('Compagnies.index')  }}" method="get">
-
-                {{ csrf_field() }}
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="code_cie__" class="form-label">Code cie</label>
-                        <input id="code_cie__" name="code_cie__" type="text" class="form-control" placeholder="Code Cie">
-                    </div>
-
-                    <input type="hidden" id="id_" name="id_">
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compagnie__" class="form-label">Compagnie</label>
-                        <input id="compagnie__" name="compagnie__" type="text" class="form-control" placeholder="Compagnie">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="telephone__" class="form-label">Telephone</label>
-                        <input id="telephone__" name="telephone__" type="text" class="form-control" placeholder="Telephone">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="fax__" class="form-label">Fax</label>
-                        <input id="fax__" name="fax__" type="text" class="form-control" placeholder="Fax">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="adresse__" class="form-label">Adresse</label>
-                        <input id="adresse__" name="adresse__" type="text" class="form-control" placeholder="Adresse">
-                    </div>
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="directeur__" class="form-label">Directeur</label>
-                        <input id="directeur__" name="directeur__" type="text" class="form-control" placeholder="Directeur">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="tel_directeur__" class="form-label">Tel directeur</label>
-                        <input id="tel_directeur__" name="tel_directeur__" type="text" class="form-control" placeholder="Tel directeur">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="nom_en_arabe__" class="form-label">Nom en arabe</label>
-                        <input id="nom_en_arabe__" name="nom_en_arabe__" type="text" class="form-control" placeholder="Nom en arabe">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compte_comptable_BSP__" class="form-label">Compte comptable BSP</label>
-                        <input id="compte_comptable_BSP__" name="compte_comptable_BSP__" type="text" class="form-control" placeholder="Compte comptable BSP">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compte_comptable_normal__" class="form-label">Compte comptable normal</label>
-                        <input id="compte_comptable_normal__" name="compte_comptable_normal__" type="text" class="form-control" placeholder="Compte comptable normal">
-                    </div>
-
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                    <button type="submit" class="btn btn-primary w-20">Send</button>
-                </div>
-            </form>
-
-
-
-        </div>
-    </div>
-</div>
-<!-- END: search Modal Content -->
 
 </div>
 <!-- END: gestion fiche client -->

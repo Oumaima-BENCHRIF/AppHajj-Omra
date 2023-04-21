@@ -230,6 +230,16 @@ use Illuminate\Support\Facades\Session;
 
                             </form>
                             <div class="flex mt-2 sm:mt-0">
+                            <div class="input-form w-1/2 sm:w-auto  px-1 ">
+                            <input type="text" id="compt" value="" name="compt" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le compte">
+                       </div>   
+                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                        </span>
+                    </button>
                             @if (Auth::user()->permissions->contains('name','Print_Compagnies'))
                                 <button id="tabulator-print-hotel-forni" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                     <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
@@ -777,112 +787,6 @@ use Illuminate\Support\Facades\Session;
 </div>
 
 <!-- END: Model Ajouter fiche client -->
-
-<!-- BEGIN: Modal Recherche fiche client -->
-<div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">Rechercher fiche client</h2>
-
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                    <div class="dropdown-menu w-40">
-                        <ul class="dropdown-content">
-                            <li>
-                                <a href="javascript:;" class="dropdown-item">
-                                    <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-            <!-- BEGIN: Modal Body -->
-            <?php $url_update = route('fiche_client.edit'); ?>
-            <form id="rech_fiche_client" name="rech_fiche_client" action="{{  route('fiche_client.rech')  }}" method="get">
-
-                {{ csrf_field() }}
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="compte__" class="form-label">Compte</label>
-                        <input id="compte__" name="compte__" type="text" class="form-control" placeholder="Compte">
-                    </div>
-
-                    <input type="hidden" id="id_" name="id_">
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="nom__" class="form-label">Nom</label>
-                        <input id="nom__" name="nom__" type="text" class="form-control" placeholder="Nom">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="adresse__" class="form-label">Adresse</label>
-                        <input id="adresse__" name="adresse__" type="text" class="form-control" placeholder="Adresse">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="C_postal__" class="form-label">C postal</label>
-                        <input id="C_postal__" name="C_postal__" type="text" class="form-control" placeholder="C postal">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="contact_commercial__" class="form-label">Contact commercial</label>
-                        <input id="contact_commercial__" name="contact_commercial__" type="text" class="form-control" placeholder="contact_commercial">
-                    </div>
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="telephone_commercial__" class="form-label">Telephone commercial</label>
-                        <input id="telephone_commercial__" name="telephone_commercial__" type="text" class="form-control" placeholder="Telephone commercial">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="mobile_commercial__" class="form-label">Mobile commercial</label>
-                        <input id="mobile_commercial__" name="mobile_commercial__" type="text" class="form-control" placeholder="Mobile commercial">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="ville_client__" class="form-label">Ville client</label>
-                        <input id="ville_client__" name="ville_client__" type="text" class="form-control" placeholder="Ville client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="tele_client__" class="form-label">Tele client</label>
-                        <input id="tele_client__" name="tele_client__" type="text" class="form-control" placeholder="Tele client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="email_client__" class="form-label">Email client</label>
-                        <input id="email_client__" name="email_client__" type="text" class="form-control" placeholder="Email client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="email_client__" class="form-label">Email client</label>
-                        <input id="email_client__" name="email_client__" type="text" class="form-control" placeholder="Email client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="pays_client" class="form-label">Pays client</label>
-                        <input id="pays_client__" name="pays_client__" type="text" class="form-control" placeholder="Pays client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="marge_client__" class="form-label">Marge client</label>
-                        <input id="marge_client__" name="marge_client__" type="text" class="form-control" placeholder="Marge client">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="Remarques" class="form-label">Remarques</label>
-                        <input id="Remarques" name="Remarques" type="text" class="form-control" placeholder="Remarques">
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                    <button type="submit" class="btn btn-primary w-20">Send</button>
-                </div>
-            </form>
-
-
-
-        </div>
-    </div>
-</div>
-<!-- END: search Modal Content -->
 
 </div>
 <!-- END: gestion fiche client -->

@@ -277,7 +277,16 @@ function table_Agents() {
 
                 rowDblClick: function (e, row) {},
             });
-
+            $('#search-btn').on('click', function() {
+               
+                var Value = $('#code_Agen').val();    
+             
+                var filters = [];
+                if (Value ) {
+                  filters.push({field: "code_agents", type: "like", value: Value});
+                }
+                table.setFilter(filters);
+              });
             // print
             // Filter function
             function filterHTMLForm() {

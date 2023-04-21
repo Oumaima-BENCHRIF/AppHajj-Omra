@@ -449,6 +449,15 @@ function showVoledepartspecifique(value) {
                     // window.location.replace("/liste_prog/" + row.getData().id);
                 },
             });
+            $('#search-btn').on('click', function() {
+               
+                var Value = $('#num_v').val();      
+                var filters = [];
+                if (Value ) {
+                  filters.push({field: "num_vol",type: "like", value: Value});
+                }
+                table.setFilter(filters);
+              });
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();
@@ -764,6 +773,16 @@ function showVoleRetourspecifique(value) {
                     // window.location.replace("/liste_prog/" + row.getData().id);
                 },
             });
+            $('#search-btn').on('click', function() {
+                
+                var Value = $('#num_vo').val();   
+            
+                var filters = [];
+                if (Value ) {
+                  filters.push({field: "num_vol",type: "like", value: Value});
+                }
+                table.setFilter(filters);
+              });
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 //redraw();
@@ -1106,6 +1125,20 @@ function show_allotement(value) {
                     );
                 },
             });
+            $('#search-btn').on('click', function() {
+               
+                var nameValue = $('#num').val();
+             
+                var filters = [];
+              
+                if (nameValue ) {
+                  filters.push({field: "num_allotement", type: "like", value: nameValue});
+                }
+              
+              
+              
+                table.setFilter(filters);
+              });
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();

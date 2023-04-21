@@ -272,7 +272,15 @@ function table_Tos() {
 
                 rowDblClick: function (e, row) {},
             });
-
+            $('#search-btn').on('click', function() {
+               
+                var Value = $('#code_To').val();      
+                var filters = [];
+                if (Value ) {
+                  filters.push({field: "code", type: "like", value: Value});
+                }
+                table.setFilter(filters);
+              });
             // print
             // Filter function
             function filterHTMLForm() {

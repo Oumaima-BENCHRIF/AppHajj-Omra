@@ -103,9 +103,9 @@ button.hidden {
  <div class="w50 intro-y info ml-2 text-center" style="margin-bottom: auto; margin-top: 4.5%;">
     <div class="py-2">
     @foreach($societe as $info)
-     <p  class="center mb-1">{{$info->nom}}</p><input type="hidden" id="nom" name="nom" value="{{$info->nom}}"> 
-       <p  class="center mb-1">{{$info->adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$info->adresse}}"> 
-       <p  class="center">{{$info->ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$info->ville_client}}"> 
+     <p  id='nom_c' class="center mb-1">{{$info->nom}}</p><input type="hidden" id="nom" name="nom" value="{{$info->nom}}"> 
+       <p id='adresse_s'  class="center mb-1">{{$info->adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$info->adresse}}"> 
+       <p  id="ville_c" class="center">{{$info->ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$info->ville_client}}"> 
        @endforeach
     </div>
   
@@ -186,7 +186,7 @@ button.hidden {
     cells.forEach(cell => {
         cell.addEventListener('click', () => {
             const currentValue = cell.innerText;
-            cell.innerHTML = `<input type="text" value="${currentValue}">`;
+            cell.innerHTML = `<input type="text" class="form-control py-1 " value="${currentValue}">`;
             const input = cell.querySelector('input');
             input.focus();
             input.addEventListener('blur', () => {
@@ -196,6 +196,56 @@ button.hidden {
             });
         });
     });
+
+    const adresse = document.getElementById('adresse_s');
+const adresse2 = document.getElementById('adresse');
+adresse.addEventListener('click', () => {
+  const currentValue = adresse.innerText.trim();
+  adresse.innerHTML = `<input type="text" class="form-control py-1 " value="${currentValue}">`;
+  const input = adresse.querySelector('input');
+ 
+      input.focus();
+      input.addEventListener('blur', () => {
+        const newValue = input.value;
+      
+        adresse.innerText = newValue;
+        adresse2.value = newValue;
+      });
+});
+
+
+const ville_c = document.getElementById('ville_c');
+const ville = document.getElementById('ville');
+ville_c.addEventListener('click', () => {
+  const currentValue = ville_c.innerText.trim();
+  ville_c.innerHTML = `<input type="text" class="form-control py-1 " value="${currentValue}">`;
+  const input = ville_c.querySelector('input');
+ 
+      input.focus();
+      input.addEventListener('blur', () => {
+        const newValue = input.value;
+      
+        ville_c.innerText = newValue;
+        ville.value = newValue;
+      });
+});
+
+
+const nom_c = document.getElementById('nom_c');
+const Nom_client = document.getElementById('Nom_client');
+nom_c.addEventListener('click', () => {
+  const currentValue = nom_c.innerText.trim();
+  nom_c.innerHTML = `<input type="text" class="form-control py-1 " value="${currentValue}">`;
+  const input = nom_c.querySelector('input');
+ 
+      input.focus();
+      input.addEventListener('blur', () => {
+        const newValue = input.value;
+      
+        nom_c.innerText = newValue;
+        Nom_client.value = newValue;
+      });
+});
 
     function toggleButtons() {
   var button1 = document.getElementById("button1");
@@ -209,28 +259,5 @@ button.hidden {
 @endsection
 @section('jqscripts')
 <script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>
-<!-- <script>
-     const cells = document.querySelectorAll('td');
-    cells.forEach(cell => {
-        cell.addEventListener('click', () => {
-            const currentValue = cell.innerText;
-            cell.innerHTML = `<input type="text" value="${currentValue}">`;
-            const input = cell.querySelector('input');
-            input.focus();
-            input.addEventListener('blur', () => {
-                const newValue = input.value;
-                cell.innerText = newValue;
-               
-            });
-        });
-    });
 
-    function toggleButtons() {
-  var button1 = document.getElementById("button1");
-  var button2 = document.getElementById("print");
-  console
-  button1.classList.add("hidden");
-  button2.classList.remove("hidden");
-}
-</script> -->
 @endsection

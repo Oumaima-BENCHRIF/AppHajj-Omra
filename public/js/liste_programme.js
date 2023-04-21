@@ -419,6 +419,8 @@ function list_programme(t) {
                     window.location.replace("/programmes_dossier/" + t);
                 },
             });
+           
+        
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();
@@ -822,6 +824,20 @@ function test_list_programme(t) {
                     );
                 },
             });
+            $('#search-btn').on('click', function() {
+                var nameValue = $('#name').val();
+
+              
+                var filters = [];
+              
+                if (nameValue) {
+                  filters.push({field: "nom_programme", type: "like", value: nameValue});
+                }
+              
+              
+              
+                table.setFilter(filters);
+              });
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();

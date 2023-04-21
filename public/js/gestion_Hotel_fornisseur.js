@@ -381,7 +381,18 @@ function table_Hotel_fourni() {
 
                 rowDblClick: function (e, row) {},
             });
-
+            $('#search-btn').on('click', function() {
+                var codeValue = $('#code_Ghotel').val();
+                 console.log(codeValue); 
+                var filters = [];
+                if (codeValue) {
+                  filters.push({field: "code", type: "like", value: codeValue});
+                }
+              
+              
+              
+                table.setFilter(filters);
+              });
             // print
             // Filter function
             function filterHTMLForm() {

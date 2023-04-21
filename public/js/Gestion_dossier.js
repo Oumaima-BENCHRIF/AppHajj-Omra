@@ -319,6 +319,23 @@ function list_gestion() {
                     // });
                 },
             });
+            $('#search-btn').on('click', function() {
+                var codeValue = $('#name').val();
+                var dateValue = $('#date').val();
+              
+                var filters = [];
+              
+                if (codeValue) {
+                  filters.push({field: "nom_dossier", type: "like", value: codeValue});
+                }
+              
+                if (dateValue) {
+                  filters.push({field: "Date_debut", type: "=", value: dateValue});
+                }
+              
+                table.setFilter(filters);
+              });
+        
             // Redraw table onresize
             window.addEventListener("resize", () => {
                 // table.redraw();

@@ -184,13 +184,17 @@ use Illuminate\Support\Facades\Session;
 
                                     </form>
                                     <div class="flex mt-2 sm:mt-0">
-                                        <button href="javascript:;" data-tw-toggle="modal" data-tw-target="#vole-dep-rech" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
-                                            <span class="w-5 h-5 flex items-center justify-center">
-                                                <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
-                                                    <i data-lucide="search" class="block mx-auto"></i>
-                                                </div>
-                                            </span>
-                                        </button>
+
+                                                   <div class="input-form w-1/2 sm:w-auto  px-1 ">
+                            <input type="text" id="num_v" value="" name="num_v" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
+                       </div>   
+                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                        </span>
+                    </button>
                                         <button id="tabulator-print-Vole-Depart" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                             <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                         </button>
@@ -317,13 +321,16 @@ use Illuminate\Support\Facades\Session;
 
                                 </form>
                                 <div class="flex mt-1 sm:mt-0">
-                                    <button href="javascript:;" data-tw-toggle="modal" data-tw-target="#vole-retour-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
-                                        <span class="w-5 h-5 flex items-center justify-center">
-                                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
-                                                <i data-lucide="search" class="block mx-auto"></i>
-                                            </div>
-                                        </span>
-                                    </button>
+                                <div class="input-form w-1/2 sm:w-auto  px-1 ">
+                            <input type="text" id="num_vo" value="" name="num_vo" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
+                       </div>   
+                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                        <span class="w-5 h-5 flex items-center justify-center">
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                        </span>
+                    </button>
                                     <button id="tabulator-print-vole-retour" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                         <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                     </button>
@@ -898,82 +905,6 @@ use Illuminate\Support\Facades\Session;
 </div>
 <!-- END: search Modal itineraire -->
 
-<!-- BEGIN:search vole dep -->
-<div id="vole-dep-rech" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">Rechercher Vole départ</h2>
-
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                    <div class="dropdown-menu w-40">
-                        <ul class="dropdown-content">
-                            <li>
-                                <a href="javascript:;" class="dropdown-item">
-                                    <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-            <!-- BEGIN: Modal Body -->
-            <?php $url_update = route('fiche_client.edit'); ?>
-            <form action="{{  route('fiche_client.index')  }}" method="get">
-
-                {{ csrf_field() }}
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="num_vol_depart_allotemet_up" class="form-label  mbt-2 text-size">N° Vol</label>
-                        <input id="num_vol_depart_allotemet_up" name="num_vol_depart_allotemet_up" type="text" class="form-control py-1 @if($errors->get('num_vol_depart_allotemet_up')) is-invalid @endif" placeholder="Entrer Num vol de départ" required>
-                    </div>
-
-                    <input type="hidden" id="id_" name="id_">
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="parcours_vol_depart_allotement_up" class="form-label  mbt-2 text-size">Parcours</label>
-                        <select id="parcours_vol_depart_allotement_up" name="parcours_vol_depart_allotement_up" class="form-control py-1">
-                            <option value="parcours_vol_depart_allotement_up" disabled selected hidden>parcours</option>
-                            @foreach($Gestion_parcours as $Gestion_parcour)
-                            <option value="{{$Gestion_parcour->id}}">{{$Gestion_parcour->nom_parcours}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="total_accorde_vol_depart_allot_up" class="form-label  mbt-2 text-size">Total accorde</label>
-                        <input required id="total_accorde_vol_depart_allot_up" name="total_accorde_vol_depart_allot_up" type="number"  min="0" class="form-control py-1" placeholder="Entrer Total accorde">
-
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="heure_depart_vol_retour_allot_up" class="form-label  mbt-2 text-size">Heure Départ</label>
-                        <input required type="time" id="heure_depart_vol_depart_allot_up" name="heure_depart_vol_retour_allot_up" class="form-control py-1">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="heure_arrivee_vole_depart_allot_up" class="form-label  mbt-2 text-size">Heure Arrivée</label>
-                        <input required type="time" id="heure_arrivee_vole_depart_allot_up" name="heure_arrivee_vole_depart_allot_up" class="form-control py-1">
-                    </div>
-
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Annuler</button>
-                    <button type="submit" class="btn w-20" style="background-color: #00838f;color: #ffffff;">Envoyer</button>
-                </div>
-            </form>
-
-
-
-        </div>
-    </div>
-</div>
-<!-- END: search vole dep -->
 
 <!-- BEGIN:search vole dep -->
 <div id="autre-service-rech-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -1047,89 +978,7 @@ use Illuminate\Support\Facades\Session;
 </div>
 <!-- END: search vole dep -->
 
-<!-- BEGIN:search vole retour -->
-<div id="vole-retour-rech-preview" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">Rechercher Vole retour</h2>
 
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                    <div class="dropdown-menu w-40">
-                        <ul class="dropdown-content">
-                            <li>
-                                <a href="javascript:;" class="dropdown-item">
-                                    <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-            <!-- BEGIN: Modal Body -->
-            <form action="{{  route('fiche_client.index')  }}" method="get">
-
-                {{ csrf_field() }}
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="date_vole_retour_allotemet_up" class="form-label  mbt-2 text-size">Date retour</label>
-                        <div class="relative  mx-auto">
-                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
-                                <i data-lucide="calendar" class="w-4 h-4"></i>
-                            </div>
-                            <input type="text" id="date_vole_retour_allotemet_up" name="date_vole_retour_allotemet_up" class="datepicker form-control py-1 pl-12" data-single-mode="true">
-                        </div>
-                    </div>
-
-                    <input type="hidden" id="id_" name="id_">
-
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="num_vol_retour_allotemet_up" class="form-label  mbt-2 text-size">N° Vol</label>
-                        <input id="num_vol_retour_allotemet_up" name="num_vol_retour_allotemet_up" type="text" class="form-control py-1" placeholder="Entrer Num vol de retour">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="parcours_retour_allotement_up" class="form-label  mbt-2 text-size">Parcours</label>
-                        <select id="parcours_retour_allotement_up" name="parcours_retour_allotement_up" class="form-control py-1">
-                            <option value="parcours_retour_allotement_up" disabled selected hidden>parcours</option>
-                            @foreach($Gestion_parcours as $Gestion_parcour)
-                            <option value="{{$Gestion_parcour->id}}">{{$Gestion_parcour->nom_parcours}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="total_accorde_retour_allotement_up" class="form-label  mbt-2 text-size">Total accorde</label>
-                        <input id="total_accorde_retour_allotement_up" name="total_accorde_retour_allotement_up" type="number"   min="0" class="form-control py-1" placeholder="Entrer Total accorde">
-
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="heure_depart_vol_retour_allot_up" class="form-label  mbt-2 text-size">Heure Départ</label>
-                        <input type="time" id="heure_depart_vol_retour_allot_up" name="heure_depart_vol_retour_allot_up" class="form-control py-1">
-                    </div>
-                    <div class="col-span-12 sm:col-span-6">
-                        <label for="heure_arrivee_vole_retour_allot_up" class="form-label  mbt-2 text-size">Heure Arrivée</label>
-                        <input type="time" id="heure_arrivee_vole_retour_allot_up" name="heure_arrivee_vole_retour_allot_up" class="form-control py-1">
-                    </div>
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Annuler</button>
-                    <button type="submit" class="btn w-20" style="background-color: #00838f;color: #ffffff;">Envoyer</button>
-                </div>
-            </form>
-
-
-
-        </div>
-    </div>
-</div>
-<!-- END: search vole retour -->
 
 <!-- BEGIN:search vole dep -->
 <div id="hotel-prog-rech-preview" class="modal" tabindex="-1" aria-hidden="true">
