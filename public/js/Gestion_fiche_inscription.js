@@ -409,6 +409,11 @@ $(document).ready(function () {
         let id = $("#id_fiche").val();
 
         jQuery.ajax({
+            // url: "/facturation/" + id,
+            // type: "GET",
+            // data: id,
+            // success: function (response) {
+            //     window.location.href = "/facturation/" + id;
             url: "/create_facture/"+id,
             type: "GET",
             data: id,
