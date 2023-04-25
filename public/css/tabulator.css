@@ -1,0 +1,287 @@
+.sm\:px-20 {
+    padding-left: 1rem;
+    padding-right: 2rem;
+    padding-top: 29px;
+    padding-bottom: 23px;
+}
+
+.borde-allot {
+    border-top: 1px solid #ccb2d1 !important;
+}
+
+.borde-prg {
+    border-top: 1px solid #a5d6a7 !important;
+}
+.nav.nav-boxed-tabs .nav-item .nav-link {
+    box-shadow: 9px -10px 16px 2px rgba(0, 0, 0, 0.21);
+    background-color: #1e40af2e;
+}
+
+/* tabulator JS  */
+.tabulator-print-header h1 {
+    font-size: 20px;
+
+    font-weight: bold;
+    text-align: center;
+    justify-content: center !important;
+    padding: 8px;
+    border-radius: 10px !important;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #ffe4c4;
+}
+
+.tabulator-print-header div {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+.tabulator-print-footer {
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #ffe4c4;
+}
+
+.tabulator-print-table {
+    margin-top: 20px;
+    width: 100%;
+    bottom: 0;
+    /* border-collapse: collapse; */
+    margin-bottom: 20px;
+}
+
+.tabulator-print-table th {
+    border-radius: 3px !important;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd !important;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabulator-print-table tr {
+    /* border: 1px solid #ddd; */
+    padding: 800px;
+    vertical-align: top;
+    border: 1px solid #ddd !important;
+}
+.tabulator-print-table td {
+    border: 1px solid #ddd !important;
+}
+/* Style the even rows */
+/* .tabulator-print-table tr:nth-child(even) { */
+/* border: 1px solid #ddd; */
+/* }  */
+/* Style the hovered rows */
+.tabulator-print-table tr:hover {
+    background-color: #ddd;
+}
+/* Style the page number */
+.tabulator-print-page-number {
+    font-weight: bold;
+}
+
+/* Style the total pages */
+.tabulator-print-total-pages {
+    font-weight: bold;
+}
+
+/* END tabulator JS  */
+.tabulator-arrow {
+    display: none !important;
+}
+
+.top-bar {
+    border-bottom: none;
+}
+.nav-link {
+    border-top-left-radius: 48px !important;
+    border-top-right-radius: 48px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+.tabulator-footer-contents {
+    border-top: 1px solid #e7e7e7 !important;
+}
+
+#example {
+    border-radius: 10px;
+}
+.tabulator {
+    border: 1px solid #e7e7e7 !important;
+    background-color: #fff !important;
+    border-radius: 6px !important;
+}
+.taille {
+    width: 150px !important;
+}
+.tabulator-col-sorter {
+    display: none !important;
+}
+
+.tabulator-arrow {
+    display: none !important;
+}
+
+.tabulator-header {
+    background-color: #1e40af !important;
+    border: none;
+    border-bottom: 1px solid #e7e7e7 !important;
+    color: #fff !important;
+}
+.tabulator-col-content:hover {
+    background-color: #1e40af !important;
+    border: none;
+    border-bottom: 1px solid #e7e7e7 !important;
+    color: #fff !important;
+}
+
+.tabulator-footer {
+    background-color: #fff !important;
+    border-top: 1px solid #e7e7e7 !important;
+}
+.tabulator-paginator {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+.tabulator-responsive-collapse:hover {
+    background-color: #fff;
+}
+/* .tabulator-selectable:hover {
+    background-color: #fff !important;
+} */
+
+.tabulator-col[aria-sort="none"] .tabulator-col-sorter i {
+    color: #999;
+}
+.tabulator .tabulator-selectable {
+    border-bottom-width: 0px !important;
+}
+
+/* Define the style when the column is sorted in ascending order */
+.tabulator-col[aria-sort="asc"] .tabulator-col-sorter i {
+    color: #f00;
+}
+
+/* Define the style when the column is sorted in descending order */
+.tabulator-col[aria-sort="desc"] .tabulator-col-sorter i {
+    color: #f00;
+    transform: scaleY(
+        -1
+    ); /* flip the icon vertically so the arrow points down */
+}
+.pading {
+    align-items: flex-start !important;
+    padding-top: 6px !important;
+}
+.style {
+    font-size: 20px;
+    text-align: center;
+    margin: 41px;
+}
+.left {
+    padding-left: 26.5rem;
+}
+.style_pading {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.bettwin {
+    padding-top: 4px;
+    padding-bottom: 0px;
+}
+/* style Tos */
+
+.container {
+    max-width: 1140px;
+    border: 2px solid #e7e7e7 !important;
+    border-radius: 9px;
+    background-color: #e7e7e782;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.justify-content-end {
+    justify-content: end;
+}
+.style_dossier{
+    text-align: center;
+    font-size: 1.300rem;
+}
+.w5 {
+    width: 20%;
+}
+.text-size
+{
+font-size: 12px;
+}
+.mbt-2 {
+    margin-bottom: 0.7em !important;
+}
+
+.justify-content-center
+{
+    justify-content: center;
+}
+.w3{
+    width: 33.33%;
+}
+.w4{
+    width: 25%;
+}
+.ml-35{
+    margin-left: 35%;
+}
+.w22{
+    width: 22%;
+}
+.w78{
+    width: 78%;
+}
+.h9
+{
+    height: 9rem;
+}
+.w50{
+    width: 50%;
+}
+.w8{
+    width: 12.5%;
+}
+.btn-G
+{
+    margin-left: 25%;
+     background-color:#015C92;
+     color:#fff; 
+     border-radius: 30PX;
+}
+.justify-end
+{
+    justify-content: end;
+}
+.text-center
+{
+    text-align: center;
+}
+.table-header
+{
+    color: #fff;
+    background-color: #1e40af;
+
+}
+.w10
+{
+    width: 200px !important;
+}
+.info{
+    border: 1px solid #d2d2d2;
+}
