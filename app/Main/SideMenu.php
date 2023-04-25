@@ -127,9 +127,10 @@ class SideMenu
                             'layout' => 'side-menu'
                         ],
                         'title' => 'G.TO'
-                    ], 'facturation' => [
+                    ], 
+                    'facturation' => [
                         'icon' => '',
-                        'route_name' => 'facturation.list',
+                        'route_name' => 'facturation.index',
                         'params' => [
                             'layout' => 'side-menu'
                         ],

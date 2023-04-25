@@ -17,6 +17,8 @@ use App\Models\gestion_programmes;
 use Cmixin\Numero\Locale as Numero;
 use Cmixin\Numero\Locale;
 use Symfony\Component\Console\Input\Input;
+use App\Models\Agents;
+use Attribute;
 
 class FactureController extends Controller
 {
@@ -91,12 +93,12 @@ class FactureController extends Controller
        ->get();
      
        $Detail_Fiche_Insc = Gestion_detail_fiches_inscriptions::select('gestion_detail_fiches_inscriptions.*')
-       ->join('gestion_fiches_inscriptions','gestion_detail_fiches_inscriptions.Fk_fiche_inscription','gestion_detail_fiches_inscriptions.id')
+       ->join('gestion_fiches_inscriptions','gestion_detail_fiches_inscriptions.Fk_fiche_inscription','gestion_fiches_inscriptions.id')
        ->where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.id', $fiche)
        ->get();
-       
+    
     $programe = gestion_programmes::select('gestion__programmes.nom_programme','gestion__programmes.type_programme','gestion_vole__deeparts.date_depart','gestion_vole__reetours.date_retour')
     ->join('gestion_detail_fiches_inscriptions','gestion__programmes.id','gestion_detail_fiches_inscriptions.FK_programme')
     ->join('gestion_vole__deeparts','gestion__programmes.FK_Num_vole_depart','gestion_vole__deeparts.id')
@@ -127,19 +129,18 @@ class FactureController extends Controller
         //
     }
    
+   
     public function print($id){
        
        $value=$id;
      
       $info_facture=Factures::where('factures.deleted_at', '=', NULL)
-    ->where('factures.fk_fiche',$value)
+    ->where('factures.fk_fiche',$value)->first();
+    
+    $id_fac=$info_facture->id;
+    
+    $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$id_fac)
     ->get();
-    $detail_facture=Detail_factures::where('detail_factures.deleted_at', '=', NULL)
-    ->where('detail_factures.FK_Facture',$value);
-  
-   
-
-
         $pdf = PDF::loadView('myPDF',[
           'info_facture'=>$info_facture ,
           'detail_facture'=>$detail_facture
@@ -174,26 +175,27 @@ class FactureController extends Controller
         $Factures->designation=$request->input('designation');
         $Factures->date_Arrives=$request->input('date_retour');
         $Factures->date_departs=$request->input('date_depart');
-      
+    
          $Factures->save();
         
         $detail=new Detail_factures();
-       
-        $count = count($myList['data']);
-        $mylis =$myList['data'];
-
-        for ($i = 0; $i < $count; $i++) {
+        
+         $count = count($myList['data']);
+          $mylis =$myList['data'];
+         
+        for ($i = 1; $i <$count; $i++) {
+          
             $detail=new Detail_factures();
             $detail->nom_complet =$mylis[$i]['col0'];
-          
-            $detail->prix = $mylis[$i]['col3'];
-            $detail->FK_Facture= $request->input('numfichier');
+            
+            $detail->FK_Facture= $Factures->id;
+            $detail->prix = $mylis[$i]['col3'];;
             
             $detail->save();
-        }
           
-        
-        
+           
+           
+        }
         return response()->json([
             'status' => 200,
             'message' => 'Votre demande a été bien envoyée.',
@@ -217,14 +219,7 @@ class FactureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function Liste_facture()
-    {
-        $Liste_Facture = Factures::get(); 
-        return view('gestion_Facturation/List_facture', [
-            'Facture' => $Liste_Facture
-        ]);
-       
-    }
+ 
 
     /**
      * Show the form for editing the specified resource.

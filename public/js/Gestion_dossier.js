@@ -52,7 +52,7 @@ $(document).ready(function () {
             },
         });
     });
-    // ******Delete Hotels******
+    // ******Delete delet_Dossier******
     $("#delet_gestion_dossier").on("submit", function (e) {
         e.preventDefault();
         var $this = jQuery(this);

@@ -91,7 +91,7 @@ class AccompagnateursController extends Controller
             $Accompagnateurs->fax=$request->input('fax');
             $Accompagnateurs->adresse=$request->input('adresse');
             $Accompagnateurs->prix=$request->input('prix');
-            dd($Accompagnateurs);
+       
             $Accompagnateurs->save();
     
           

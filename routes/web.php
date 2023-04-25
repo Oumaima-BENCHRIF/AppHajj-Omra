@@ -90,12 +90,18 @@ Route::middleware('auth')->group(function () {
 
 
    // gestion_facturation
-   Route::GET('/facturation/{id}', 'App\Http\Controllers\FactureController@index')->name('facturation.index');
+
+   Route::GET('/create_facture/{id}', 'App\Http\Controllers\FactureController@index')->name('facturation.create');
+   Route::GET('/update_facture/{id}', 'App\Http\Controllers\update_facturesController@index')->name('facturation.update');
+   Route::GET('/get_facture/{id}', 'App\Http\Controllers\update_facturesController@get_facture')->name('facturation.get');
    Route::GET('/generate/{id}','App\Http\Controllers\FactureController@print')->name('generate.print');
-   Route::get('/facturation_List', 'App\Http\Controllers\FactureController@Liste_facture')->name('facturation.list');
- 
+   Route::GET('/generate_facture/{id}','App\Http\Controllers\update_facturesController@print')->name('facture.print');
+   Route::get('/facturation', 'App\Http\Controllers\Liste_facturesController@index')->name('facturation.index');
+   Route::get('/facturation_List', 'App\Http\Controllers\Liste_facturesController@Liste_factures')->name('facturation.liste');
    Route::post('facturation_store', 'App\Http\Controllers\FactureController@store')->name('facturation.store');
-    //gestion gestion_fiche_client
+   Route::post('gestion_facture_Delete', 'App\Http\Controllers\update_facturesController@destroy')->name('gestion_facture.delete');
+   Route::post('edit_facture', 'App\Http\Controllers\update_facturesController@update')->name('gestion_facture.edite');
+   //gestion gestion_fiche_client
 
     Route::get('/fiche_client', 'App\Http\Controllers\Fiche_clientsController@index')->name('fiche_client.index')->middleware('checkPermission:G.ClientAgente');
     Route::get('/fiche_clients_list', 'App\Http\Controllers\Fiche_clientsController@liste_Fiche_client')->name('fiche_client.liste');

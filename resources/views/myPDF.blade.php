@@ -129,6 +129,9 @@
 {
     height: 100%;
 }
+.mt20{
+    margin-top: 18px;
+}
 .tbl{
         border: 1px solid #d2d2d2;
       
@@ -143,25 +146,25 @@
 <img src="https://www.nicesnippets.com/image/imgpsh_fullsize.png"> 
     </div>  
 <div class="w-50 float-left  mt-10">
-@foreach($info_facture as $info)
+
          
         <table class=" w-85 mt-10">
         <tr>
-          <td class="tbl">Code Client</td> <td  class="tbl" id="numfichier"> {{ $info->Code_client }}</td>
+          <td class="tbl">Code Client</td> <td  class="tbl" id="numfichier"> {{$info_facture->Code_client}}</td>
        </tr>
       
 
        <tr>
-        <td class="tbl" > Facture N°</td> <td class="tbl" id='numfacture'>{{ $info->numero_facture }} </td>
+        <td class="tbl" > Facture N°</td> <td class="tbl" id='numfacture'>{{ $info_facture->numero_facture }} </td>
         </tr>
        <tr> 
-           <td class="tbl" >Dossier N°</td> <td id='numdossier' class="tbl"> {{ $info->Numero_dossier }}</td>
+           <td class="tbl" >Dossier N°</td> <td id='numdossier' class="tbl"> {{ $info_facture->Numero_dossier }}</td>
            </tr>
        <tr>
-           <td class="tbl" >Bon de Commande</td> <td id='bncommande' class="tbl"> {{ $info->bon_commande }}</td>
+           <td class="tbl" >Bon de Commande</td> <td id='bncommande' class="tbl"> {{ $info_facture->bon_commande }}</td>
            </tr>
        <tr>
-          <td class="tbl" >Date</td> <td id="date_inscri" class="tbl"> {{ $info->date }}</td>
+          <td class="tbl" >Date</td> <td id="date_inscri" class="tbl"> {{ $info_facture->date }}</td>
           </tr>
        <tr>
           <td class="tbl" >Vos Réf</td> <td  class="tbl" id="ref"> </td> 
@@ -169,12 +172,11 @@
     
   </table> 
     </div>
-<div class="add-detail mt-10">
- 
-    <div class="w-50 float-left mt-10 info">
-    <p id="nom" class="center">{{ $info->Nom_client }}</p>
-       <p id="adresse" class="center">{{ $info->adresse }}</p>
-       <p id="ville" class="center">{{ $info->ville}}</p>
+<div class="add-detail mt20">
+  <div class="w-50 float-left mt-10 info">
+    <p id="nom" class="center">{{ $info_facture->Nom_client }}</p>
+       <p id="adresse" class="center">{{ $info_facture->adresse }}</p>
+       <p id="ville" class="center">{{ $info_facture->ville}}</p>
     </div>
   
     <div style="clear: both;"></div>
@@ -190,12 +192,12 @@
             <th class="">TOTAL</th>
         </tr>
         <tr>
-            <td class="pl5">{{ $info->designation }}</td>
-            <td >{{ $info->date_Arrives }}</td>
-            <td >{{ $info->date_departs }}</td>
+            <td class="pl5">{{ $info_facture->designation }}</td>
+            <td >{{ $info_facture->date_Arrives }}</td>
+            <td >{{ $info_facture->date_departs }}</td>
             <td ></td>
         </tr>
-        @endforeach
+    
         @foreach($detail_facture as $info_detail)    
         <tr>
             <td >{{ $info_detail->nom_complet }}</td>
