@@ -242,6 +242,19 @@ font-size: 12px;
 .w4{
     width: 25%;
 }
+.bx-show
+{
+    box-shadow: none !important;
+  
+}
+.border-b {
+    border-bottom-width: 2px;
+    border-color: #97cadb;
+}
+.w49
+{
+    width: 49%;
+}
 .mr29
 {
     margin-right: 29%;

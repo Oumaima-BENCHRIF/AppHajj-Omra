@@ -295,9 +295,16 @@ Route::middleware('auth')->group(function () {
 
     Route::post('update_type_chambre/{id}', 'App\Http\Controllers\Gestion_ProgrammeController@update_type_chambre');
     // *****************************************
-    // Gestion état par Hôtel
-    Route::get('gestion_Etat/', 'App\Http\Controllers\Gestion_reservation@index')->name('Etat_hotel.index');
+    // Gestion état par VOL
+    Route::get('gestion_EtatVol', 'App\Http\Controllers\G_EtatVoleController@index')->name('Etat_Vol.index');
+    Route::get('Etal_vol', 'App\Http\Controllers\G_EtatVoleController@list_Allotement')->name('Etat_Vol.list_Allotement');
+    Route::get('List_compagnie', 'App\Http\Controllers\G_EtatVoleController@liste_compagnies')->name('liste_compagnies.allotement');
 
+     // Gestion état par Hotel
+     Route::get('gestion_EtatHotel', 'App\Http\Controllers\G_EtalhotelController@index')->name('Etat_hotel.index');
+     Route::get('Etal_hotel', 'App\Http\Controllers\G_EtalhotelController@list_Allotement')->name('Etat_Hotel.list_Allotement');
+    Route::get('liste_hotel', 'App\Http\Controllers\G_EtalhotelController@liste_hotel')->name('liste_hetel.allotement');
+ 
     Route::get('dashboard-overview-2-page', 'dashboardOverview2')->name('dashboard-overview-2');
     Route::get('dashboard-overview-3-page', 'dashboardOverview3')->name('dashboard-overview-3');
     Route::get('dashboard-overview-4-page', 'dashboardOverview4')->name('dashboard-overview-4');

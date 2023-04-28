@@ -263,7 +263,7 @@ class SideMenu
                 'sub_menu' => [
                     'Etat_Hotel' => [
                         'icon' => '',
-                        'route_name' => 'categories',
+                        'route_name' => 'Etat_hotel.index',
                         'params' => [
                             'layout' => 'side-menu'
                         ],
@@ -271,7 +271,7 @@ class SideMenu
                     ],
                     'Etat_periode' => [
                         'icon' => '',
-                        'route_name' => 'add-product',
+                        'route_name' => 'Etat_Vol.index',
                         'params' => [
                             'layout' => 'side-menu'
                         ],

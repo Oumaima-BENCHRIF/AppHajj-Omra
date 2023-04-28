@@ -73,11 +73,11 @@ use Illuminate\Support\Facades\Session;
     <h2 class="intro-y text-lg font-medium mr-auto"> </h2>
 </div>
 <!-- BEGIN: Gestion Programme -->
-<div id="example-tab-3" class="tab-pane leading-relaxed active border border-primary border-t border-slate-200/60 dark:border-darkmode-400" role="tabpanel" aria-labelledby="example-3-tab">
-    <div style="background-color: #e0f2f1;" class="tab-content intro-y box py-1 sm:py-2  " id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
+<div id="example-tab-3" class="tab-pane leading-relaxed active " role="tabpanel" aria-labelledby="example-3-tab">
+    <div style="background-color: #D6E8EE;" class="tab-content intro-y box py-1 sm:py-2  " id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
 
         <div class="px-2 style_pading">
-            <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+            <!-- <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 <a href="{{ route('Liste_prg.liste') }}/{{ session('projet_id______') }}" class="mr-5 tooltip btn btn-primary w-1/2 sm:w-auto mr-10" title="Retour a la page précédent!">
                     <span class="w-5 h-5 flex items-center justify-center">
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
@@ -95,87 +95,116 @@ use Illuminate\Support\Facades\Session;
                         </button>
                     </div>
                 </div>
+            </div> -->
+            <div class="w-full items-center pr-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-900">
+        <div class="flex">
+
+        <a href="{{ route('Liste_prg.liste') }}/{{ session('projet_id______') }}" class="mr-5 tooltip btn btn-primary w-1/2 sm:w-auto mr-10" style="border-radius:20px; background-color:#015C92;" title="Retour a la page précédent!">
+                    <span class="w-5 h-5 flex items-center justify-center">
+                        <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="arrow-left" data-lucide="arrow-left" class="lucide lucide-arrow-left block mx-auto">
+                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                <polyline points="12 19 5 12 12 5"></polyline>
+                            </svg>
+                        </div>
+                    </span>
+                </a>
+
+            <div class="font-medium py-2 px-5  btn-G text-center text-lg ">
+                <div class="mt-2 xl:mt-0">
+
+                    <h3 class="intro-y text-lg font-medium mr-auto">Gestion Programmes</h3>
+
+                </div>
             </div>
+        </div>
+    </div>
         </div>
         <!-- -->
         <form id="form_gestion_prog" name="form_gestion_prog" action="{{ url('Programme_Store') }}" method="post">
             {{ csrf_field() }}
-            <div class="px-5 sm:px-20   pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-prg">
-                <div class="grid grid-cols-12 gap-4 gap-y-5  ">
+            <div class="intro-y">
+                <div class="form-inline">
 
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="ref_programme" class="form-label">Ref ligne</label>
+                    <div class="intro-y w4 px-1">
+                        <label for="ref_programme" class="form-label  mbt-2 text-size">Ref ligne</label>
                         <div class="relative  mx-auto">
-                            <select id="ref_programme" name="ref_programme" data-search="true" class="form-control w-full" required>
+                            <select id="ref_programme" name="ref_programme" data-search="true" class="form-control py-1" required>
                                 <option>réf</option>
                             </select>
                         </div>
                     </div>
-                    <input type="text" id="id_prg" name="id_prg">
+                    <!-- <input type="text" id="id_prg" name="id_prg"> -->
                     <!-- <input type="text" id="FK_dossier" name="FK_dossier"> -->
                     <input type="hidden" name="FKdossier" id="FKdossier" value="{{ session('projet_id______') }}">
 
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nom_programme" class="form-label">Nom programme</label>
-                        <input id="nom_programme" name="nom_programme" type="text" class="form-control" placeholder="Entrer nom programme" required>
+                    <div class="intro-y w4 px-1">
+                        <label for="nom_programme" class="form-label  mbt-2 text-size">Nom programme</label>
+                        <input id="nom_programme" name="nom_programme" type="text" class="form-control py-1" placeholder="Entrer nom programme" required>
                     </div>
 
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="type_programme" class="form-label">Type programme</label>
-                        <select id="type_programme" name="type_programme" data-search="true" class="form-control w-full" required>
+                    <div class="intro-y w4 px-1">
+                        <label for="type_programme" class="form-label  mbt-2 text-size">Type programme</label>
+                        <select id="type_programme" name="type_programme" data-search="true" class="form-control py-1" required>
 
                         </select>
                     </div>
 
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_nuitee_prog_mdina" class="form-label">Nbr nuitées Médine</label>
-                        <input id="nbr_nuitee_prog_mdina" name="nbr_nuitee_prog_mdina" class="form-control" type="number" min="0" placeholder="Entrer Nbr nuitées programme Médine" required>
+                    <div class="intro-y w4 px-1">
+                        <label for="nbr_nuitee_prog_mdina" class="form-label  mbt-2 text-size">Nbr nuitées Médine</label>
+                        <input id="nbr_nuitee_prog_mdina" name="nbr_nuitee_prog_mdina" class="form-control py-1" type="number" min="0" placeholder="Entrer Nbr nuitées programme Médine" required>
                     </div>
 
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_nuitee_prog_maka" class="form-label">Nbr nuitées Makka</label>
-                        <input id="nbr_nuitee_prog_maka" name="nbr_nuitee_prog_maka" class="form-control" type="number" min="0" placeholder="Entrer Nbr nuitées programme Makka" required>
+                    
+                </div>
+                <div class="form-inline mt-2">
+                <div class="intro-y w4 px-1">
+                        <label for="nbr_nuitee_prog_maka" class="form-label  mbt-2 text-size">Nbr nuitées Makka</label>
+                        <input id="nbr_nuitee_prog_maka" name="nbr_nuitee_prog_maka" class="form-control py-1" type="number" min="0" placeholder="Entrer Nbr nuitées programme Makka" required>
+                 </div>
+                    <div class="intro-y w4 px-1">
+                        <label for="num_vole_dep" class="form-label  mbt-2 text-size">Num vole départ</label>
+                        <select id="num_vole_dep" name="num_vole_dep"  data-search="true" class="form-control py-1 w-full" required>
+
+                        </select>
+                    </div>
+
+                    <div class="intro-y w4 px-1">
+                        <label for="nbr_place_aller" class="form-label  mbt-2 text-size">Nbr place départ</label>
+                        <input id="nbr_place_aller" name="nbr_place_aller"  class="form-control py-1" type="number" min="0" placeholder="Entrer Nbr place départ" required>
+                    </div>
+                    <div class="intro-y w4 px-1">
+                        <label for="nbr_reserver_dep" class="form-label  mbt-2 text-size">Nbr réserver départ</label>
+                        <input id="nbr_reserver_dep" name="nbr_reserver_dep" class="form-control py-1" type="number" min="0" placeholder="Entrer nbr réserver départ" required>
+                    </div>
+
+                  
+
+                </div>
+                <div class="form-inline mt-2 mb-5">
+                <div class="intro-y w4 px-1">
+                        <label for="num_vole_retour" class="form-label  mbt-2 text-size">Num vole retour</label>
+                        <select id="num_vole_retour" name="num_vole_retour"  data-search="true" class="form-control py-1 w-full" required>
+
+                        </select>
+                    </div>
+
+                    <div class="intro-y w4 px-1">
+                        <label for="nbr_place_retour" class="form-label  mbt-2 text-size">Nbr place retour</label>
+                        <input id="nbr_place_retour" name="nbr_place_retour" class="form-control py-1"  type="number" min="0" placeholder="Entrer Nbr place retour" required>
+                    </div>
+
+                    <div class="intro-y w4 px-1">
+                        <label for="nbr_reserver_retour" class="form-label  mbt-2 text-size">Nbr reserver retour</label>
+                        <input id="nbr_reserver_retour" name="nbr_reserver_retour" class="form-control py-1"  type="number" min="0" placeholder="Entrer Nbr reserver retour" required>
+                    </div>
+
+                    <div class="intro-y w4 px-1 " style="padding-top: 2rem;">
+                        <button type="Submit" class="btn w49 p-1" style="background-color: #00897b  ; color: #ffffff; ">Ajouter</button>
+                        <button type="Submit" id="NV_prg" name="NV_prg" onclick="Nouveau_prg()" class="btn w49 p-1 text-light" style="background-color: #004d40; color: #ffffff;">Nouveau</button>
                     </div>
                 </div>
-                <div class="grid grid-cols-12 gap-2 gap-y-3">
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="num_vole_dep" class="form-label">Num vole départ</label>
-                        <select id="num_vole_dep" name="num_vole_dep" style="color: white;background-color: #a5d6a7;" data-search="true" class="form-control w-full" required>
-
-                        </select>
-                    </div>
-
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_place_aller" class="form-label">Nbr place départ</label>
-                        <input id="nbr_place_aller" name="nbr_place_aller" style="color: white;background-color: #a5d6a7;" class="form-control" type="number" min="0" placeholder="Entrer Nbr place départ" required>
-                    </div>
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_reserver_dep" class="form-label">Nbr réserver départ</label>
-                        <input id="nbr_reserver_dep" name="nbr_reserver_dep" style="color: white;background-color: #a5d6a7;" class="form-control" type="number" min="0" placeholder="Entrer nbr réserver départ" required>
-                    </div>
-
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="num_vole_retour" class="form-label">Num vole retour</label>
-                        <select id="num_vole_retour" name="num_vole_retour" style="color: white;background-color: #c5e1a5 ;" data-search="true" class="form-control w-full" required>
-
-                        </select>
-                    </div>
-
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_place_retour" class="form-label">Nbr place retour</label>
-                        <input id="nbr_place_retour" name="nbr_place_retour" class="form-control" style="color: white;background-color: #c5e1a5 ;" type="number" min="0" placeholder="Entrer Nbr place retour" required>
-                    </div>
-
-                    <div class="intro-y col-span-2 sm:col-span-2">
-                        <label for="nbr_reserver_retour" class="form-label">Nbr reserver retour</label>
-                        <input id="nbr_reserver_retour" name="nbr_reserver_retour" class="form-control" style="color: white;background-color: #c5e1a5 ;" type="number" min="0" placeholder="Entrer Nbr reserver retour" required>
-                    </div>
-
-                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end">
-                        <button type="Submit" class="btn w-24 ml-2" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
-                        <button type="Submit" id="NV_prg" name="NV_prg" onclick="Nouveau_prg()" class="btn w-24 ml-2 text-light" style="background-color: #004d40; color: #ffffff;">Nouveau</button>
-                    </div>
-
+                <div class="form-inline">
                 </div>
             </div>
         </form>
@@ -183,19 +212,19 @@ use Illuminate\Support\Facades\Session;
     </div>
 
     <!-- debut de choix entre ( Hotels du programme\Itinéraire & informations supplémentaires\Autres service) -->
-    <ul class="nav nav-boxed-tabs" role="tablist">
-        <li id="hotel_programme" class="nav-item flex-1" role="presentation">
-            <button class="nav-link w-full py-2 active" data-tw-toggle="pill" data-tw-target="#hotel_programme" type="button" role="tab" aria-controls="hotel_programme" aria-selected="true">
+    <ul class="nav nav-boxed-tabs" role="tablist" style="  background-color: #e0f2f1;">
+        <li id="hotel_programme2" class="nav-item flex-1" role="presentation">
+            <button class="nav-link w-full py-2 active bx-show" data-tw-toggle="pill" data-tw-target="#hotel_programme" type="button" role="tab" aria-controls="hotel_programme" aria-selected="true">
                 Hotels du programme
             </button>
         </li>
-        <li id="Itineraire_informations_supp" class="nav-item flex-1" role="presentation">
-            <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#Itineraire_informations_supp" type="button" role="tab" aria-controls="Itineraire_informations_supp" aria-selected="false">
+        <li id="Itineraire_informations_supp2" class="nav-item flex-1" role="presentation">
+            <button class="nav-link w-full py-2 bx-show" data-tw-toggle="pill" data-tw-target="#Itineraire_informations_supp" type="button" role="tab" aria-controls="Itineraire_informations_supp" aria-selected="false">
                 Itinéraire & informations supplémentaires
             </button>
         </li>
-        <li id="Autre_service" class="nav-item flex-1" role="presentation">
-            <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#Autre_service" type="button" role="tab" aria-controls="Autre_service" aria-selected="false">
+        <li id="Autre_service2" class="nav-item flex-1" role="presentation">
+            <button class="nav-link w-full py-2 bx-show" data-tw-toggle="pill" data-tw-target="#Autre_service" type="button" role="tab" aria-controls="Autre_service" aria-selected="false">
                 Autres service
             </button>
         </li>
@@ -205,27 +234,28 @@ use Illuminate\Support\Facades\Session;
     <div class="tab-content" style="background-color:#e0f2f1   ;">
 
         <!-- début de traitement de Hotels du programme -->
-        <div id="hotel_programme" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="hotel_programme">
+        <div id="hotel_programme" class="tab-pane leading-relaxed active " role="tabpanel" aria-labelledby="hotel_programme">
 
-            <div class="px-2  ">
-                <div class="font-medium text-center text-lg">Hotels du programme</div>
+            <div class="px-2 py-3 ">
+                <div class="font-medium pb-3 text-center text-lg border-b border-slate-200/60 dark:border-darkmode-900 ">Hotels du programme</div>
             </div>
-            <div class="px-5 sm:px-20   pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-prg">
-                <form id="detail_hotel_prg" name="detail_hotel_prg" method="POST" action="{{  url('hotel_Stores')  }}">
+            <div class="px-5 sm:px-20   pt-10 ">
+            <form id="detail_hotel_prg" class="mb-5" name="detail_hotel_prg" method="POST" action="{{  url('hotel_Stores')  }}">
                     {{ csrf_field() }}
+                    <div class="intro-y">
+                <div class="form-inline">
+                   
 
-                    <div class="grid grid-cols-12 gap-4 gap-y-5  ">
-
-                        <div class="intro-y col-span-2 sm:col-span-1">
-                            <label for="ref_Hotels_prog" class="form-label">Ref ligne</label>
+                        <div class="intro-y w4 px-1">
+                            <label for="ref_Hotels_prog" class="form-label  mbt-2 text-size">Ref ligne</label>
                             <div class="relative  mx-auto">
-                                <input id="ref_Hotels_prog" name="ref_Hotels_prog" type="text" class="form-control" placeholder="Entrer Ref Hotel" required>
+                                <input id="ref_Hotels_prog" name="ref_Hotels_prog" type="text" class="form-control py-1" placeholder="Entrer Ref Hotel" required>
                             </div>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="ville_Hotel_prg" class="form-label">Ville</label>
-                            <select id="ville_Hotel_prg" name="ville_Hotel_prg" data-search="true" class="w-full">
+                        <div class="intro-y w4 px-1">
+                            <label for="ville_Hotel_prg" class="form-label  mbt-2 text-size">Ville</label>
+                            <select id="ville_Hotel_prg" name="ville_Hotel_prg" data-search="true" class="form-control py-1 w-full">
                                 <option value="ville_Hotel_prg" disabled selected hidden>Sélectionner ville</option>
                                 @foreach($villes as $ville)
                                 <option value="{{$ville->nom}}">{{$ville->nom}}</option>
@@ -233,29 +263,29 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="date_depar_hotel" class="form-label">Date départ</label>
+                        <div class="intro-y w4 px-1">
+                            <label for="date_depar_hotel" class="form-label  mbt-2 text-size">Date départ</label>
                             <div class="relative  mx-auto">
                                 <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
                                     <i data-lucide="calendar" class="w-4 h-4"></i>
                                 </div>
-                                <input id="date_depar_hotel" name="date_depar_hotel" type="date" class="form-control block mx-auto pl-12" required>
+                                <input id="date_depar_hotel" name="date_depar_hotel" type="date" class="form-control py-1" required>
                             </div>
                         </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="date_retour_hotel" class="form-label">Date retour</label>
+                        <div class="intro-y w4 px-1">
+                            <label for="date_retour_hotel" class="form-label  mbt-2 text-size">Date retour</label>
                             <div class="relative  mx-auto">
                                 <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
                                     <i data-lucide="calendar" class="w-4 h-4"></i>
                                 </div>
-                                <input id="date_retour_hotel" name="date_retour_hotel" type="date" class="form-control block mx-auto pl-12" required>
+                                <input id="date_retour_hotel" name="date_retour_hotel" type="date" class="form-control py-1" required>
                             </div>
                         </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="hotel_prg" class="form-label">Hôtel</label>
-                            <select id="hotel_prg" name="hotel_prg" data-search="true" class="w-full">
+                    </div>
+                    <div class="form-inline mt-2">
+                        <div class="intro-y w4 px-1">
+                            <label for="hotel_prg" class="form-label  mbt-2 text-size">Hôtel</label>
+                            <select id="hotel_prg" name="hotel_prg" data-search="true" class="form-control py-1">
                                 <option value="hotel_prg" disabled selected hidden>Sélectionner Hôtel</option>
                                 @foreach($Hotel_transports as $Hotel_transports)
                                 <option value="{{$Hotel_transports->nom}}">{{$Hotel_transports->nom}}</option>
@@ -263,24 +293,26 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-1">
-                            <label for="bnr_nuits_prg" class="form-label">Nbr nuits</label>
-                            <input type="number" min="0" id="bnr_nuits_prg" name="bnr_nuits_prg" class="form-control" required>
+                        <div class="intro-y w4 px-1">
+                            <label for="bnr_nuits_prg" class="form-label  mbt-2 text-size">Nbr nuits</label>
+                            <input type="number" min="0" id="bnr_nuits_prg" name="bnr_nuits_prg" class="form-control py-1" required>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-1">
-                            <label for="bnr_chambre" class="form-label">Nbr chambre</label>
-                            <input type="number" min="0" id="bnr_chambre" name="bnr_chambre" class="form-control" required>
+                        <div class="intro-y w4 px-1">
+                            <label for="bnr_chambre" class="form-label  mbt-2 text-size">Nbr chambre</label>
+                            <input type="number" min="0" id="bnr_chambre" name="bnr_chambre" class="form-control py-1" required>
+                        </div>
+                        <div class="intro-y w4 px-1">
+                            <label for="Totale_place" class="form-label  mbt-2 text-size">Total place</label>
+                            <input type="number" min="0" id="Totale_place" name="Totale_place" class="form-control py-1" disabled>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-1">
-                            <label for="Totale_place" class="form-label">Total place</label>
-                            <input type="number" min="0" id="Totale_place" name="Totale_place" class="form-control" disabled>
-                        </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="regime_prg" class="form-label">Régime</label>
-                            <select id="regime_prg" name="regime_prg" data-search="true" class="form-control">
+                    </div>
+                    <div class="form-inline mt-2">
+                       
+                        <div class="intro-y w4 px-1">
+                            <label for="regime_prg" class="form-label  mbt-2 text-size">Régime</label>
+                            <select id="regime_prg" name="regime_prg" data-search="true" class="form-control py-1">
                                 <option value="regime_prg" disabled selected hidden>Sélectionner</option>
                                 @foreach($Gestion_regimes as $Gestion_regimes)
                                 <option value="{{$Gestion_regimes->nom_regime}}">{{$Gestion_regimes->nom_regime}}</option>
@@ -288,9 +320,9 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="type_chambre_prg" class="form-label">Type chambre</label>
-                            <select id="type_chambre_prg" name="type_chambre_prg" data-search="true" class="form-control">
+                        <div class="intro-y w4 px-1">
+                            <label for="type_chambre_prg" class="form-label  mbt-2 text-size">Type chambre</label>
+                            <select id="type_chambre_prg" name="type_chambre_prg" data-search="true" class="form-control py-1">
                                 <option value="type_chambre_prg" disabled selected hidden>chambre</option>
                                 @foreach($Gestion_chambres as $Gestion_chambres)
                                 <option value="{{$Gestion_chambres->id}}">{{$Gestion_chambres->nom_chambre}}</option>
@@ -298,60 +330,59 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="chambre_prg" class="form-label">Chambre</label>
-                            <select id="chambre_prg" name="chambre_prg" data-search="true" class="form-control">
+                        <div class="intro-y w4 px-1">
+                            <label for="chambre_prg" class="form-label  mbt-2 text-size">Chambre</label>
+                            <select id="chambre_prg" name="chambre_prg" data-search="true" class="form-control py-1">
                                 <option value="chambre_prg" disabled selected hidden>chambre</option>
                                 @foreach($Gestion_type_chambres as $Gestion_type_chambres)
                                 <option value="{{$Gestion_type_chambres->type_chambre}}">{{$Gestion_type_chambres->type_chambre}}</option>
                                 @endforeach
                             </select>
                         </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="prix_achat_prg" class="form-label">Prix achat</label>
-                            <input type="number" min="0" id="prix_achat_prg" name="prix_achat_prg" class="form-control" required>
-                        </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="prix_vente_prg" class="form-label">Prix vente</label>
-                            <input type="number" min="0" id="prix_vente_prg" name="prix_vente_prg" class="form-control" required>
-                        </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="prix_prg" class="form-label">Prix prg</label>
-                            <input type="number" min="0" id="prix_prg" name="prix_prg" class="form-control" required>
-                        </div>
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <button type="Submit" class="btn w-24 ml-2" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        <div class="intro-y w4 px-1">
+                            <label for="prix_achat_prg" class="form-label  mbt-2 text-size">Prix achat</label>
+                            <input type="number" min="0" id="prix_achat_prg" name="prix_achat_prg" class="form-control py-1" required>
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="form-inline">
+                       
 
-            <!-- debut de liste date depart -->
-            <div class="grid  grid-cols-12 ">
-                <!-- BEGIN: Data List -->
-                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" style="overflow-x:auto;">
-                    <div class="intro-y box p-2">
-                        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start pading">
+                        <div class="intro-y w4 px-1">
+                            <label for="prix_vente_prg" class="form-label  mbt-2 text-size">Prix vente</label>
+                            <input type="number" min="0" id="prix_vente_prg" name="prix_vente_prg" class="form-control py-1" required>
+                        </div>
+
+                        <div class="intro-y w4 px-1">
+                            <label for="prix_prg" class="form-label  mbt-2 text-size">Prix prg</label>
+                            <input type="number" min="0" id="prix_prg" name="prix_prg" class="form-control py-1" required>
+                        </div>
+                        <div class="intro-y w4 px-1">
+                        </div>
+                        <div class="intro-y w4 px-1" style="padding-top: 2rem;">
+                            <button type="Submit" class="btn  w-full  p-1" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+                    
+                </form>
+                     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start pading mb-5">
                             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
                             </form>
                             <div class="flex mt-2 sm:mt-0">
 
-                                <button href="javascript:;" data-tw-toggle="modal" data-tw-target="#hotel-prog-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                                <button href="javascript:;" data-tw-toggle="modal" style="background-color: #fff;" data-tw-target="#hotel-prog-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
                                     <span class="w-5 h-5 flex items-center justify-center">
-                                        <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                                        <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1" >
                                             <i data-lucide="search" class="block mx-auto"></i>
                                         </div>
                                     </span>
                                 </button>
-                                <button id="tabulator-print-Hotels-programme" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
+                                <button id="tabulator-print-Hotels-programme" style="background-color: #fff;" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                     <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                 </button>
                                 <div class="dropdown w-1/2 sm:w-auto">
-                                    <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
+                                    <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" style="background-color: #fff;" aria-expanded="false" data-tw-toggle="dropdown">
                                         <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
                                     </button>
                                     <div class="dropdown-menu w-40">
@@ -384,39 +415,38 @@ use Illuminate\Support\Facades\Session;
                         <div class="overflow-x-auto scrollbar-hidden">
                             <div id="liste_hotel_prg" class="  table-report--tabulator"></div>
                         </div>
-                    </div>
-                </div>
-                <!-- END: Data List -->
-
-                <!-- END: Data List -->
+                    
+            <!-- debut de liste date depart -->
             </div>
-            <!-- Fin de liste date depart -->
         </div>
+          
+       
         <!-- fin de traitement de Hotels du programme -->
         <!-- ---------------------------------------------- -->
         <!-- début de traitement Itinéraire & informations supplémentaires -->
         <div style="background-color:  rgb(219 234 254);" id="Itineraire_informations_supp" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="Itineraire_informations_supp">
-            <div class="px-2  ">
-                <div class="font-medium text-center text-lg">Itinéraire & informations supplémentaires</div>
+            <div class="px-2 py-3 ">
+                <div class="font-medium text-center text-lg pb-3 border-b border-slate-200/60 dark:border-darkmode-900 ">Itinéraire & informations supplémentaires</div>
             </div>
-            <div class="px-5 sm:px-20   pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-prg">
-                <form id="detail_Itineraire_prg" name="detail_Itineraire_prg" method="POST" action="{{  url('Itineraire_Stores')  }}">
+            <div class="px-5 sm:px-20   pt-10 "">
+                <form id="detail_Itineraire_prg" class="mb-5" name="detail_Itineraire_prg" method="POST" action="{{  url('Itineraire_Stores')  }}">
                     {{ csrf_field() }}
-                    <div class="grid grid-cols-12 gap-4 gap-y-5  ">
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="date_retour_Itineraire" class="form-label">Date retour</label>
+                    <div class="intro-y ">
+                        <div class="form-inline">
+                        <div class="intro-y w3 px-1">
+                            <label for="date_retour_Itineraire" class="form-label  mbt-2 text-size">Date retour</label>
                             <div class="relative  mx-auto">
                                 <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
                                     <i data-lucide="calendar" class="w-4 h-4"></i>
                                 </div>
-                                <input type="date" id="date_retour_Itineraire" name="date_retour_Itineraire" class="form-control pl-12" required>
+                                <input type="date" id="date_retour_Itineraire" name="date_retour_Itineraire" class="form-control py-1" required>
                             </div>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="ville_Itineraire" class="form-label">Ville</label>
+                        <div class="intro-y w3 px-1">
+                            <label for="ville_Itineraire" class="form-label  mbt-2 text-size">Ville</label>
                             <!-- country -->
-                            <select id="ville_Itineraire" name="ville_Itineraire" data-search="true" class=" form-control" required>
+                            <select id="ville_Itineraire" name="ville_Itineraire" data-search="true" class="form-control py-1" required>
                                 <option value="ville_Itineraire" disabled selected hidden>Sélectionner ville</option>
                                 @foreach($villes as $ville)
                                 <option value="{{$ville->nom}}">{{$ville->nom}}</option>
@@ -424,21 +454,23 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="Transport_Itineraire" class="form-label">Transport</label>
-                            <select id="Transport_Itineraire" name="Transport_Itineraire" data-search="true" class="form-control" style="width: 150px;" required>
+                        <div class="intro-y w3 px-1">
+                            <label for="Transport_Itineraire" class="form-label  mbt-2 text-sizel">Transport</label>
+                            <select id="Transport_Itineraire" name="Transport_Itineraire" data-search="true" class="form-control py-1" required>
                                 <option value="Transport_Itineraire" disabled selected hidden>Sélectionner Transport</option>
 
                             </select>
                         </div>
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="type_Transport" class="form-label">Type transport</label>
-                            <input type="text" id="type_Transport" name="type_Transport" class="form-control" placeholder="Type transport" disabled>
+                        </div>
+                        <div class="form-inline mt-2">
+                        <div class="intro-y w3 px-1">
+                            <label for="type_Transport" class="form-label  mbt-2 text-size">Type transport</label>
+                            <input type="text" id="type_Transport" name="type_Transport" class="form-control py-1" placeholder="Type transport" disabled>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="itineraire_programme" class="form-label">Itinéraire</label>
-                            <select id="itineraire_programme" name="itineraire_programme" class="form-control">
+                        <div class="intro-y w3 px-1">
+                            <label for="itineraire_programme" class="form-label  mbt-2 text-size">Itinéraire</label>
+                            <select id="itineraire_programme" name="itineraire_programme" class="form-control py-1">
                                 <option value="itineraire_programme" disabled selected hidden>Sélectionner Itinéraire</option>
                                 @foreach($Gestion_itineraires as $Gestion_itineraires)
                                 <option value="{{$Gestion_itineraires->nom_itineraire}}">{{$Gestion_itineraires->nom_itineraire}}</option>
@@ -446,37 +478,30 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end  ">
-                            <button type="Submit" class="btn w-24 ml-2" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        <div class="intro-y w3 px-1" style="padding-top: 2rem;">
+                            <button type="Submit" class="btn  w-full  p-1" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        </div>
                         </div>
                     </div>
                 </form>
-            </div>
-
-            <!-- debut de liste date depart -->
-            <div class="grid grid-cols-12 ">
-                <!-- BEGIN: Data List -->
-                <!-- END: Data List -->
-                <!-- BEGIN: Data List -->
-                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" style="overflow-x:auto;">
-                    <div class="intro-y box p-2">
+                
                         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
                             </form>
                             <div class="flex   sm:mt-0">
 
-                                <button href="javascript:;" data-tw-toggle="modal" data-tw-target="#itineraire-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                                <button style="background-color: #fff;" href="javascript:;" data-tw-toggle="modal" data-tw-target="#itineraire-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
                                     <span class="w-5 h-5 flex items-center justify-center">
                                         <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
                                             <i data-lucide="search" class="block mx-auto"></i>
                                         </div>
                                     </span>
                                 </button>
-                                <button id="tabulator-print-Itineraire" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
+                                <button style="background-color: #fff;"  id="tabulator-print-Itineraire" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                     <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                 </button>
-                                <div class="dropdown w-1/2 sm:w-auto">
+                                <div style="background-color: #fff;" class="dropdown w-1/2 sm:w-auto">
                                     <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
                                         <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
                                     </button>
@@ -511,9 +536,10 @@ use Illuminate\Support\Facades\Session;
                             <div id="liste_itieraire" class="mt-5 table-report--tabulator"></div>
                         </div>
                     </div>
-                </div>
-                <!-- END: Data List -->
-            </div>
+            
+
+                  
+               
             <!-- Fin de liste date depart -->
 
         </div>
@@ -522,17 +548,18 @@ use Illuminate\Support\Facades\Session;
         <!-- ---------------------------------------------- -->
         <!-- début de traitement  Autres service -->
         <div style="background-color: rgb(238 242 255);" id="Autre_service" class="tab-pane leading-relaxed" role="tabpanel" aria-labelledby="Autre_service">
-            <div class="px-2  ">
-                <div class="font-medium text-center text-lg">Autres service</div>
+            <div class="px-2 py-3 ">
+                <div class="font-medium text-center text-lg pb-3 border-b border-slate-200/60 dark:border-darkmode-900 ">Autres service</div>
             </div>
-            <div class="px-5 sm:px-20    pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
-                <form id="detail_service_prg" name="detail_service_prg" method="POST" action="{{  url('Service_Stores')  }}">
+            <div class="px-5 sm:px-20 pt-10 " style="padding-right: 1rem;">
+            <form id="detail_service_prg" class="mb-5" name="detail_service_prg" method="POST" action="{{  url('Service_Stores')  }}">
                     {{ csrf_field() }}
-                    <div class="grid grid-cols-12 gap-4 gap-y-5  ">
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="ville_service" class="form-label">Ville </label>
-                            <select id="ville_service" name="ville_service" data-search="true" class="form-control" required>
+                    <div class="intro-y ">
+                        <div class="form-inline">
+                       
+                        <div class="intro-y w5 px-1">
+                            <label for="ville_service" class="form-label  mbt-2 text-size">Ville </label>
+                            <select id="ville_service" name="ville_service" data-search="true" class="form-control py-1 w-full" required>
                                 <option value="ville_service" disabled selected hidden>Sélectionner ville</option>
                                 @foreach($villes as $ville)
                                 <option value="{{$ville->nom}}">{{$ville->nom}}</option>
@@ -540,51 +567,48 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="Transport_Itineraire" class="form-label">Fournisseur</label>
-                            <select id="Transport_Itineraire" name="Transport_Itineraire" data-search="true" class="form-control etoile" style="width: 150px;" required>
+                        <div class="intro-y w5 px-1" >
+                            <label for="Transport_Itineraire" class="form-label  mbt-2 text-size">Fournisseur</label>
+                            <select id="Transport_Itineraire" name="Transport_Itineraire" data-search="true" class="form-control py-1 w-full etoile"  required>
                                 <option value="Transport_Itineraire" disabled selected hidden>Sélectionner Transport</option>
                             </select>
                         </div>
-
-                        <div class="intro-y col-span-2 sm:col-span-2">
-                            <label for="nbr_etoile" class="form-label">Nombre étoilé</label>
-                            <input type="text" name="nbr_etoile" id="nbr_etoile" class="form-control">
+                    
+                        <div class="intro-y w5 px-1">
+                            <label for="nbr_etoile" class="form-label  mbt-2 text-size">Nombre étoilé</label>
+                            <input type="text" name="nbr_etoile" id="nbr_etoile" class="form-control py-1 w-full">
                         </div>
 
-                        <div class="intro-y col-span-3 sm:col-span-2">
-                            <label for="service_prog" class="form-label">Service</label>
-                            <input type="text" name="service_prog" id="service_prog" class="form-control">
+                        <div class="intro-y w5 px-1">
+                            <label for="service_prog" class="form-label  mbt-2 text-size">Service</label>
+                            <input type="text" name="service_prog" id="service_prog" class="form-control py-1 w-full">
                         </div>
 
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end  ">
-                            <button type="Submit" class="btn w-24 ml-2" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        <div class="intro-y w5 px-1" style="padding-top: 2rem;">
+                            <button type="Submit" class="btn  w-full  p-1" style="background-color: #00897b  ; color: #ffffff;">Ajouter</button>
+                        </div>
+                    
                         </div>
                     </div>
                 </form>
-            </div>
-            <!-- debut de liste date depart -->
-            <div class="grid grid-cols-12">
-                <!-- BEGIN: Data List -->
-                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" style="overflow-x:auto;">
-                    <div class="intro-y box p-2">
+               
                         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
                             </form>
-                            <div class="flex   sm:mt-0">
-                                <button href="javascript:;" data-tw-toggle="modal" data-tw-target="#autre-service-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                            <div class="flex  mb-5  sm:mt-0">
+                                <button href="javascript:;"style="background-color: #fff;" data-tw-toggle="modal" data-tw-target="#autre-service-rech-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
                                     <span class="w-5 h-5 flex items-center justify-center">
                                         <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
                                             <i data-lucide="search" class="block mx-auto"></i>
                                         </div>
                                     </span>
                                 </button>
-                                <button id="tabulator-print-service" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
+                                <button id="tabulator-print-service" style="background-color: #fff;" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                     <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                 </button>
                                 <div class="dropdown w-1/2 sm:w-auto">
-                                    <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
+                                    <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto"style="background-color: #fff;"aria-expanded="false" data-tw-toggle="dropdown">
                                         <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
                                     </button>
                                     <div class="dropdown-menu w-40">
@@ -617,14 +641,15 @@ use Illuminate\Support\Facades\Session;
                         <div class="overflow-x-auto scrollbar-hidden">
                             <div id="listes_service" class="  table-report--tabulator"></div>
                         </div>
-                    </div>
-                </div>
-                <!-- END: Data List -->
+             
+           
             </div>
-            <!-- Fin de liste date depart -->
+            <!-- Fin de liste date depart  -->
         </div>
+
+        
         <!-- fin de traitement  Autres service -->
-    </div>
+    
 </div>
 <!-- END ALLOTTEMENT -->
 <!-- </div> -->
