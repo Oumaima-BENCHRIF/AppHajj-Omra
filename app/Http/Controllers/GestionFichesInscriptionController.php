@@ -31,7 +31,7 @@ class GestionFichesInscriptionController extends Controller
             'Detail_Fiche_Insc' => $Detail_Fiche_Insc
         ]);
     }
-    
+
     public function store(Request $request)
     {
         try {
@@ -52,21 +52,21 @@ class GestionFichesInscriptionController extends Controller
                 $gestion_dossiers = new gestion_fiches_inscription();
                 $gestion_dossiers->num_fichier = $request->input('num_fichier');
                 $gestion_dossiers->date_fiche_inscription = $request->input('date_fiche_inscription');
-                $gestion_dossiers->FK_programme  = $request->input('num_prg_inscription');
-                $gestion_dossiers->FK_societe  = $request->input('code_societe');
-                $gestion_dossiers->nom_societe  = $request->input('nom_societe');
-                $gestion_dossiers->bon_commande  = $request->input('bon_commande');
+                $gestion_dossiers->FK_programme = $request->input('num_prg_inscription');
+                $gestion_dossiers->FK_societe = $request->input('code_societe');
+                $gestion_dossiers->nom_societe = $request->input('nom_societe');
+                $gestion_dossiers->bon_commande = $request->input('bon_commande');
                 $gestion_dossiers->save();
-              
+
                 $update_fiche_insc = gestion_fiches_inscription::where('num_fichier', $request->input('num_fichier'))
-                ->where('id', $gestion_dossiers->id)
-                ->where('FK_programme', $request->input('num_prg_inscription'))
-                ->get();
+                    ->where('id', $gestion_dossiers->id)
+                    ->where('FK_programme', $request->input('num_prg_inscription'))
+                    ->get();
 
 
                 return response()->json([
                     'status' => 200,
-                    'update_fiche_insc' => $update_fiche_insc ,
+                    'update_fiche_insc' => $update_fiche_insc,
                     'message' => 'Votre demande a été bien envoyée.',
                 ]);
             }
@@ -118,8 +118,8 @@ class GestionFichesInscriptionController extends Controller
             ]);
         }
     }
-    
-   
+
+
     // info fiche inscription
     public function info_fiche_insc(Request $request, $id_prg, $id_detail_hotel)
     {
@@ -176,7 +176,7 @@ class GestionFichesInscriptionController extends Controller
             ->where('gestion_detail_fiches_inscriptions.FK_programme', $id_prg)
             ->where('gestion_detail_fiches_inscriptions.FK_detail_hotel_prg', $id_hotel)
             ->get();
-           
+
         if ($Detail_Fiche_Insc != null) {
             return response()->json([
                 'Detail_Fiche_Insc' => $Detail_Fiche_Insc,
@@ -192,8 +192,9 @@ class GestionFichesInscriptionController extends Controller
     }
     public function information_client(Request $request)
     {
-        $info_client = Gestion_detail_fiches_inscriptions::where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
-            ->join('gestion_inclus','gestion_detail_fiches_inscriptions.FK_inclus','gestion_inclus.id')
+        $info_client = Gestion_detail_fiches_inscriptions::select('gestion_inclus.id as id_inclus', 'gestion_inclus.*', 'gestion_detail_fiches_inscriptions.*')
+            ->where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
+            ->join('gestion_inclus', 'gestion_detail_fiches_inscriptions.FK_inclus', 'gestion_inclus.id')
             ->where('gestion_detail_fiches_inscriptions.id', $request->Fk_fiche)
             ->get();
         if ($info_client != null) {
@@ -211,7 +212,7 @@ class GestionFichesInscriptionController extends Controller
     }
     public function info_GFiche_Insc($id)
     {
-      
+
         $info_GFiche_Insc = Gestion_detail_fiches_inscriptions::where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
             ->where('gestion_detail_fiches_inscriptions.id', $id)->get();
 
@@ -287,12 +288,12 @@ class GestionFichesInscriptionController extends Controller
             }
 
             $up_fiche_insc->FK_programme = $request->up_Fk_prg;
-            $up_fiche_insc->FK_type_chambre  = $request->up_type_chambre_medina;
-            $up_fiche_insc->Fk_chambre_medina  = $request->up_chambre_medina;
+            $up_fiche_insc->FK_type_chambre = $request->up_type_chambre_medina;
+            $up_fiche_insc->Fk_chambre_medina = $request->up_chambre_medina;
             $up_fiche_insc->FK_accompagnateurs = $request->up_num_Accompagnateur;
-            $up_fiche_insc->FK_detail_hotel_prg  = $request->up_Fk_hotel;
-            $up_fiche_insc->FK_type_chambre_makka  = $request->up_type_chambre_makka;
-            $up_fiche_insc->FK_chambre_makka  = $request->up_chambre_makka;
+            $up_fiche_insc->FK_detail_hotel_prg = $request->up_Fk_hotel;
+            $up_fiche_insc->FK_type_chambre_makka = $request->up_type_chambre_makka;
+            $up_fiche_insc->FK_chambre_makka = $request->up_chambre_makka;
             $up_fiche_insc->save();
 
             return response()->json([
@@ -308,7 +309,7 @@ class GestionFichesInscriptionController extends Controller
         }
     }
 
-    public function destroy(Request  $request)
+    public function destroy(Request $request)
     {
 
         try {
@@ -357,7 +358,7 @@ class GestionFichesInscriptionController extends Controller
                 $store_Categorie->Nbre_pax = $request->input('nbr_pax');
                 $store_Categorie->remis = $request->input('remis');
                 $store_Categorie->date = $request->input('date_categorie');
-                $store_Categorie->FK_type  = $request->input('type_prg');
+                $store_Categorie->FK_type = $request->input('type_prg');
                 $store_Categorie->save();
 
                 return response()->json([
@@ -564,13 +565,13 @@ class GestionFichesInscriptionController extends Controller
                     'errors' => $validator->messages(),
                 ]);
             } else {
-                $update_type_chambre =  datail_hotel_programmes::where('id', $request->detail_hotel_prg)->first();
+                $update_type_chambre = datail_hotel_programmes::where('id', $request->detail_hotel_prg)->first();
 
 
                 if ($update_type_chambre != null) {
                     $detail_hotel_prg = datail_hotel_programmes::find($request->detail_hotel_prg);
                     if ($detail_hotel_prg->Totale_place > 0) {
-                          /* subtraction  Totale chambre ----------------------------------------------- */
+                        /* subtraction  Totale chambre ----------------------------------------------- */
                         $detail_hotel_prg->Totale_place = $detail_hotel_prg->Totale_place - 1;
                         $detail_hotel_prg->Totale_place_reserver = $detail_hotel_prg->Totale_place_reserver + 1;
                         $detail_hotel_prg->save();
@@ -612,6 +613,9 @@ class GestionFichesInscriptionController extends Controller
                         $Gestion_detail_fiches_inscriptions->Lieu_delivrance = $request->input('Lieu_delivrance');
                         $Gestion_detail_fiches_inscriptions->num_agence = $request->input('num_agence');
 
+                        // calcule
+                        $Gestion_detail_fiches_inscriptions->remis_prg = $request->input('remis');
+                        $Gestion_detail_fiches_inscriptions->Totale_prg = $request->input('Totale_prg');
 
                         if ($request->hasFile('photo')) {
                             $file = $request->file('photo');
@@ -620,51 +624,50 @@ class GestionFichesInscriptionController extends Controller
                             $Gestion_detail_fiches_inscriptions->img_pass = $filename;
                         }
                         $Gestion_detail_fiches_inscriptions->FK_programme = $request->input('id_prg');
-                        $Gestion_detail_fiches_inscriptions->Fk_fiche_inscription  = $request->input('num_fichier');
-                        $Gestion_detail_fiches_inscriptions->FK_type_chambre  = $request->input('type_chambre_medina');
-                        $Gestion_detail_fiches_inscriptions->Fk_chambre_medina  = $request->input('chambre_medina');
+                        $Gestion_detail_fiches_inscriptions->Fk_fiche_inscription = $request->input('num_fichier');
+                        $Gestion_detail_fiches_inscriptions->FK_type_chambre = $request->input('type_chambre_medina');
+                        $Gestion_detail_fiches_inscriptions->Fk_chambre_medina = $request->input('chambre_medina');
                         $Gestion_detail_fiches_inscriptions->FK_accompagnateurs = $request->input('num_Accompagnateur');
-                        $Gestion_detail_fiches_inscriptions->FK_detail_hotel_prg  = $request->input('detail_hotel_prg');
+                        $Gestion_detail_fiches_inscriptions->FK_detail_hotel_prg = $request->input('detail_hotel_prg');
 
-                        $Gestion_detail_fiches_inscriptions->FK_type_chambre_makka  = $request->input('type_chambre_makka');
-                        $Gestion_detail_fiches_inscriptions->FK_chambre_makka  = $request->input('chambre_makka');
- 
+                        $Gestion_detail_fiches_inscriptions->FK_type_chambre_makka = $request->input('type_chambre_makka');
+                        $Gestion_detail_fiches_inscriptions->FK_chambre_makka = $request->input('chambre_makka');
+
                         $Gestion_inclus = new Gestion_inclus();
                         /* ************** checkPost Billet*/
                         $Gestion_inclus->exclu_Billet = $request->Billet;
                         $Gestion_inclus->Reduction_Billet = $request->Reduction_Billet;
                         $Gestion_inclus->Raison_Billet = $request->raison_billet;
-        
+
                         /* ************** checkPost Transport*/
                         $Gestion_inclus->exclu_Transport = $request->Transport;
                         $Gestion_inclus->Reduction_Transport = $request->Reduction_Transport;
                         $Gestion_inclus->Raison_Transport = $request->raison_Transport;
-        
+
                         /* ************** checkPost Hotel Meedina*/
                         $Gestion_inclus->exclu_Hotel_Meedina = $request->Hotel_Meedina;
                         $Gestion_inclus->Reduction_Hotel_Meedina = $request->Reduction_Hotel_Meedina;
                         $Gestion_inclus->Raison_Hotel_Meedina = $request->raison_hotel_medina;
-        
+
                         /* ************** checkPost Hotel Makka*/
                         $Gestion_inclus->exclu_Hotel_Makka = $request->Hotel_Makka;
                         $Gestion_inclus->Reduction_Hotel_Makka = $request->Reduction_Hotel_Makka;
                         $Gestion_inclus->Raison_Hotel_Makka = $request->raison_hotel_makka;
-        
+
                         /* ************** checkPost Hotel Makka*/
                         $Gestion_inclus->exclu_Visa = $request->Visa;
                         $Gestion_inclus->Reduction_Visa = $request->Reduction_Visa;
                         $Gestion_inclus->Raison_Visa = $request->raison_visa;
-        
+
                         // Ajouter inclus
                         $Gestion_inclus->save();
-                        
+
                         $Gestion_detail_fiches_inscriptions->FK_inclus = $Gestion_inclus->id;
                         $Gestion_detail_fiches_inscriptions->save();
                         return response()->json([
                             'status' => 200,
                             'messages' => 'Votre demande a été bien Enregistrer.',
                         ]);
-
                     } else {
                         return response()->json([
                             'status' => 400,
@@ -681,7 +684,7 @@ class GestionFichesInscriptionController extends Controller
 
 
 
-              
+
 
                 // Ajouter a fiche d'inscription
 
