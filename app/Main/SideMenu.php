@@ -136,6 +136,14 @@ class SideMenu
                         ],
                         'title' => 'G.Facturation'
                     ],
+                    'réglemnt' => [
+                        'icon' => '',
+                        'route_name' => 'reglement.index',
+                        'params' => [
+                            'layout' => 'side-menu'
+                        ],
+                        'title' => 'G.Réglement'
+                    ],
                     // 'G_Etat' => [
                     //     'icon' => '',
                     //     'title' => 'Gestion Etat',

@@ -51,17 +51,15 @@ class G_EtalhotelController extends Controller
     
         $hotel=$request->input('hotel');
     
-        $liste_detail_hotel = Gestion_detail_fiches_inscriptions::select('gestion_detail_fiches_inscriptions.*')
+        $liste_detail_hotel = Gestion_detail_fiches_inscriptions::select('gestion_datail_hotel_programmes.type_chambre_prg','gestion_detail_fiches_inscriptions.*')
         ->join('gestion__programmes', 'gestion_detail_fiches_inscriptions.FK_programme', '=', 'gestion__programmes.id')
         ->join('gestion_datail_hotel_programmes', 'gestion__programmes.id', '=', 'gestion_datail_hotel_programmes.FK_programme')
         ->join('gestion_vole__deeparts', 'gestion__programmes.FK_Num_vole_depart', '=', 'gestion_vole__deeparts.id')
          ->where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
          ->whereBetween('gestion_vole__deeparts.date_depart', [$start_date, $end_date])
-         ->where('gestion_datail_hotel_programmes.hotel_prg', $hotel)
+        //  ->where('gestion_datail_hotel_programmes.hotel_prg', $hotel)
+        //  ->distinct('gestion_detail_fiches_inscriptions.id')
         ->get();
-       
-     dd($liste_detail_hotel);
-        // $alotement=gestion_Allotement::get();
         return response()->json([
             'liste_detail_hotel'=>$liste_detail_hotel,
             'status' => 200,

@@ -11,8 +11,20 @@ use Illuminate\Support\Facades\Session;
 @section('subcontent')
 <!-- style css of tabilator -->
 <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
-<div class="flex flex-col sm:flex-row sm:items-end xl:items-start tab-content mt-3">
-    <a href="{{  route('Liste_prg.liste') }}/{{ session('projet_id______')}}" class="tooltip btn btn-primary w-1/2 sm:w-auto mr-10" title="Retour a la page précédent!" >
+
+ 
+<div class="tab-content mt-1">
+   
+    <!-- BEGIN: Gestion ALLOTTEMENT -->
+    <div id="example-tab-3" class="tab-pane leading-relaxed active" class="padd" role="tabpanel" aria-labelledby="example-3-tab">
+ 
+        <div style="background-color:#d6e8ee; border-radius: 5px;" class="tab-content intro-y  dark:bg-transparent py-1 sm:py-2 mt-1" id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
+
+       
+      <div class="w-full items-center px-2 py-5 sm:py-3  border-slate-200/60 dark:border-darkmode-900">
+        <div class="flex border-b pb-2">
+        <div class="flex w-full px-2 style_pading">
+                <a href="{{  route('Liste_prg.liste') }}/{{ session('projet_id______')}}" class="mr-5 tooltip btn btn-primary w-1/2 sm:w-auto mr-10" style="border-radius:20px; background-color:#015C92;" title="Retour a la page précédent!" >
         <span class="w-5 h-5 flex items-center justify-center">
             <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="arrow-left" data-lucide="arrow-left" class="lucide lucide-arrow-left block mx-auto">
@@ -23,51 +35,42 @@ use Illuminate\Support\Facades\Session;
         </span>
     </a>
 
-    <div class="mt-2 xl:mt-0">
-        <button id="tabulator-html-filter-reset" type="button" style="background-color: #6a1b9a  ; color: #ffffff;" class="btn btn-secondary ">
-            <h2 class="intro-y text-lg font-medium mr-auto" >Gestion Allotement</h2>
-        </button>
 
+            <div class="font-medium py-2 px-5  btn-G text-center text-lg ">
+                <div class="mt-2 xl:mt-0">
+
+                    <h3 class="intro-y text-lg font-medium mr-auto">Allottement des compagnies</h3>
+
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
-</div>
- 
-<div class="tab-content mt-1">
-   
-    <!-- BEGIN: Gestion ALLOTTEMENT -->
-    <div id="example-tab-3" class="tab-pane leading-relaxed active" class="padd" role="tabpanel" aria-labelledby="example-3-tab">
-
-        <div style="background-color:#f3e5f5;" class="tab-content intro-y  dark:bg-transparent py-1 sm:py-2 mt-1" id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
-
-            <div class="border border-primary">
-                <div class="pading font-medium text-center text-lg">Allottement des compagnies</div>
-
-                <div class="sm:px-1  pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-allot">
+            
+                <div class="sm:px-1 ">
 
                     <form id="form_allot" name="form_allot" action="{{ url('allotement_Store') }}" method="post">
                         {{ csrf_field() }}
+                        <div class="intro-y">
                         <div class="form-inline mt-2">
-                            
-                               
                                 <button onclick="Nouveau()"  type="text" id="Nouveau_allot" name="Nouveau_allot" value="Nouveau_allot" class="btn form-control py-1" style="display: none;">Nouveau</button>
-                            
-
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                   <label for="num_allot" class="form-label  mbt-2 text-size">input</label>
                                <input type="text" id="id_allotement" class="form-control py-1 py-1" name="id_allotement">
                             </div>
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="num_allot" class="form-label  mbt-2 text-size">N°Allottement</label>
                                 <select id="num_allot" name="num_allot" class="form-control py-1">
                                     <option value="">Sélectionnez</option>
                                 </select>
                             </div>
 
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="nom_allot" class="form-label  mbt-2 text-size">Nom</label>
                                 <input id="nom_allot" name="nom_allot" type="text" class="form-control py-1" placeholder="Entrer Nom allottement" required>
                             </div>
 
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="compagnie_allot" class="form-label  mbt-2 text-size">Compagnie</label>
                                 <select id="compagnie_allot" name="compagnie_allot" class="w-full form-control py-1">
                                     <option value="compagnie_allot" class="form-control py-1" disabled selected hidden>Compagnie</option>
@@ -76,41 +79,41 @@ use Illuminate\Support\Facades\Session;
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="intro-y w8 px-1">
+                            </div>
+                            <div class="form-inline mt-2">
+                            <div class="intro-y w4 px-1">
                                 <label for="total_accorde_allot" class="form-label  mbt-2 text-size">Total Accordé</label>
                                 <input id="total_accorde_allot" name="total_accorde_allot" type="number" min="0" class="form-control py-1" placeholder="Entrer Total Accordé" required>
                             </div>
 
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="total_occupe_allot" class="form-label  mbt-2 text-size">Total occupe</label>
                                 <input id="total_occupe_allot" name="total_occupe_allot" onblur="javascript:calcule1(document.getElementById('total_occupe_allot').value, document.getElementById('total_accorde_allot').value);" class="form-control py-1" type="number" class="form-control py-1" placeholder="Entrer Total occupe" required>
                             </div>
 
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="reliquat_allot" class="form-label  mbt-2 text-size">Reliquat</label>
                                 <input id="reliquat_allot" name="reliquat_allot" type="number"  min="0" class="form-control py-1" placeholder="Entrer reliquat" required>
                             </div>
 
-                            <div class="intro-y w8 px-1">
+                            <div class="intro-y w4 px-1">
                                 <label for="Nouveau_allot" class="form-label  mbt-2 text-size">Enregistrer</label>
-                                <button type="Submit" id="Nouveau_allot" name="Nouveau_allot" value="Nouveau_allot" class="btn form-control py-1" style="background-color: #6a1b9a  ;color: #ffffff;">Enregistrer</button>
+                                <button type="Submit" style="background-color: #00897b  ; color: #ffffff;" id="Nouveau_allot" name="Nouveau_allot" value="Nouveau_allot" class="btn form-control py-1" style="background-color: #6a1b9a  ;color: #ffffff;">Enregistrer</button>
                             </div>
                         </div>
-                        <div class="intro-y w8 px-1 ">
-                           
-
                         </div>
+                    
                     </form>
                 </div>
 
                 <!-- ----DEBUT VOLE DEPART---- -->
-                <div class="border-t border-slate-200/60 dark:border-darkmode-400">
-                    <div class=" mt-2 font-medium text-center text-lg">Voles Départ</div>
-                    <div class=" sm:px-1  pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-allot">
+                <div class="px-2 py-3 ">
+                    <div class=" mt-3 pb-4 font-medium border-b text-center text-lg">Voles Départ</div>
+                    <div class=" sm:px-1  pt-10 border-t border-slate-200/60 dark:border-darkmode-400 ">
                         <form id="form_allo1" name="form_allo1" method="POST" action="{{  url('vole_depart_Store')  }}">
                             {{ csrf_field() }}
                             <div class="form-inline mt-2">
-                                <div class="intro-y w8 px-1 @if ($errors->get('date_depart_allotement')) has-error @endif">
+                                <div class="intro-y w4 px-1 @if ($errors->get('date_depart_allotement')) has-error @endif">
                                     <label for="date_depart_allotement" class="form-label  mbt-2 text-size">Date départ</label>
                                     <div class="relative  mx-auto">
                                         <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
@@ -120,12 +123,12 @@ use Illuminate\Support\Facades\Session;
                                     </div>
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="num_vol_depart_allotement" class="form-label  mbt-2 text-size">N° Vol</label>
                                     <input required id="num_vol_depart_allotement" name="num_vol_depart_allotement" type="text" class="form-control py-1" placeholder="Entrer Num vol">
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="parcours_depart_allotement" class="form-label  mbt-2 text-size">Parcours</label>
                                     <select id="parcours_depart_allotement" name="parcours_depart_allotement" data-search="true" class="form-control py-1" required>
                                         <option value="parcours_depart_allotement" disabled selected hidden>Parcours</option>
@@ -135,41 +138,40 @@ use Illuminate\Support\Facades\Session;
                                     </select>
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="total_accorde_depart_allotement" class="form-label  mbt-2 text-size">Total accorde</label>
                                     <input id="total_accorde_depart_allotement" name="total_accorde_depart_allotement" type="number"   min="0" class="form-control py-1" placeholder="Entrer Total accorde" required>
 
                                 </div>
-
-                                <div class="intro-y w8 px-1">
+                                </div>
+                                <div class="form-inline mt-2">
+                                <div class="intro-y w4 px-1">
                                     <label for="heure_depart_allotement" class="form-label  mbt-2 text-size">Heure Départ</label>
                                     <input type="time" id="heure_depart_allotement" name="heure_depart_allotement" class="form-control py-1" required>
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="heure_arrivee_depart_allotement" class="form-label  mbt-2 text-size">Heure Arrivée</label>
                                     <input type="time" id="heure_arrivee_depart_allotement" name="heure_arrivee_depart_allotement" class="form-control py-1" required>
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="prix_Achat_dep" class="form-label  mbt-2 text-size">prix Achat</label>
                                     <input type="number" min="0" id="prix_Achat_dep" name="prix_Achat_dep" class="form-control py-1" required>
                                 </div>
 
-                                <div class="intro-y w8 px-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="prix_vente_dep" class="form-label  mbt-2 text-size">prix vente</label>
                                     <input type="number" min="0" id="prix_vente_dep" name="prix_vente_dep" class="form-control py-1" required>
                                 </div>
                                 </div>
                               
-                          <div class="form-inline mt-2">  
-                                <div class="intro-y w8 px-1">
-                                    <label for="Ajouter_depat_allotement" class="form-label  mbt-2 text-size"> Ajouter</label>
-                                    <button type="submit" id="btn-save" name="Ajouter_depat_allotement" class="btn w-24 ml-2 form-control py-1" style="background-color: #6a1b9a;color: #ffffff;">Ajouter</button>
+                          <div class="form-inline justify-content-end">  
+                                <div class="intro-y w4 mt-5">
+                                    
+                                    <button type="submit" id="btn-save" style="background-color: #00897b  ; color: #ffffff;" name="Ajouter_depat_allotement" class="btn  w-full  form-control py-1" style="background-color: #6a1b9a;color: #ffffff;">Ajouter</button>
                                 </div>
-</div>
-
-                           
+                       </div>        
                         </form>
                     </div>
                     <!-- debut de liste vole depart -->
@@ -178,7 +180,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                         <!-- BEGIN: Data List -->
                         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" style="overflow-x:auto;">
-                            <div class="intro-y box">
+                            <div class="intro-y box" style="background-color: #d6e8ee;">
                                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start pading">
                                     <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
@@ -188,18 +190,18 @@ use Illuminate\Support\Facades\Session;
                                                    <div class="input-form w-1/2 sm:w-auto  px-1 ">
                             <input type="text" id="num_v" value="" name="num_v" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
                        </div>   
-                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                       <button id="search-btn" style="background-color: #fff;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
                         <span class="w-5 h-5 flex items-center justify-center">
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                             </div>
                         </span>
                     </button>
-                                        <button id="tabulator-print-Vole-Depart" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
+                                        <button  style="background-color: #fff;" id="tabulator-print-Vole-Depart" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                             <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                         </button>
-                                        <div class="dropdown w-1/2 sm:w-auto">
-                                            <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
+                                        <div style="background-color: #fff;" class="dropdown w-1/2 sm:w-auto">
+                                            <button  class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
                                                 <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
                                             </button>
                                             <div class="dropdown-menu w-40">
@@ -229,7 +231,7 @@ use Illuminate\Support\Facades\Session;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="overflow-x-auto scrollbar-hidden">
+                                <div class="overflow-x-auto scrollbar-hidden mt-5">
                                     <div id="listeVoleDepart" class="mt-2 table-report--tabulator"></div>
                                 </div>
                             </div>
@@ -241,14 +243,14 @@ use Illuminate\Support\Facades\Session;
                 <!-- ----FIN VOLE DEPART---- -->
                 <!-- ---------------------------------------------------------- -->
                 <!-- ----debut Voles Retour---- -->
-                <div class="border-t border-slate-200/60 dark:border-darkmode-400">
-                    <div class="mt-3 font-medium text-center text-lg">Voles Retour</div>
-                    <div class="sm:px-20  pt-10 border-t border-slate-200/60 dark:border-darkmode-400 borde-allot">
+                <div class="px-2 py-3 ">
+                    <div class="mt-3 pb-4 font-medium border-b text-center text-lg">Voles Retour</div>
+                    <div class="pt-10">
                         <form id="form_allo_vole_retour" name="form_allo_vole_retour" method="POST" action="{{  url('vole_retour_Store')  }}">
                             {{ csrf_field() }}
-
-                            <div class="grid grid-cols-12 gap-2">
-                                <div class="form-control py-1 col-span-2">
+                            <div class="intro-y">
+                            <div class="form-inline mt-2">
+                                <div class="intro-y w4 px-1">
                                     <label for="date_vole_retour_allotemet" class="form-label  mbt-2 text-size">Date retour</label>
                                     <div class="relative  mx-auto">
                                         <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
@@ -257,8 +259,8 @@ use Illuminate\Support\Facades\Session;
                                         <input type="date" id="date_vole_retour_allotemet" name="date_vole_retour_allotemet" class="form-control py-1 pl-12" required>
                                     </div>
                                 </div>
-
-                                <div class="form-control py-1 col-span-1  @if ($errors->get('num_vol_retour_allotemet')) has-error @endif">
+                               
+                                <div class="intro-y w4 px-1  @if ($errors->get('num_vol_retour_allotemet')) has-error @endif">
                                     <label for="num_vol_retour_allotemet" class="form-label  mbt-2 text-size">N° Vol</label>
                                     <input id="num_vol_retour_allotemet" name="num_vol_retour_allotemet" type="text" class="form-control py-1 @if($errors->get('num_vol_retour_allotemet')) is-invalid @endif" placeholder="Entrer Num vol de retour" required>
                                     @if($errors->get('num_vol_retour_allotemet'))
@@ -268,9 +270,9 @@ use Illuminate\Support\Facades\Session;
                                     @endif
                                 </div>
 
-                                <div class="form-control py-1 col-span-2">
+                                <div class="intro-y w4 px-1">
                                     <label for="parcours_retour_allotement" class="form-label  mbt-2 text-size">Parcours</label>
-                                    <select id="parcours_retour_allotement" name="parcours_retour_allotement" data-search="true" class="tom-select w-full">
+                                    <select id="parcours_retour_allotement" name="parcours_retour_allotement" data-search="true" class="form-control py-1">
                                         <option value="parcours_retour_allotement" disabled selected hidden>parcours</option>
                                         @foreach($Gestion_parcours as $Gestion_parcour)
                                         <option value="{{$Gestion_parcour->id}}">{{$Gestion_parcour->nom_parcours}}</option>
@@ -278,34 +280,37 @@ use Illuminate\Support\Facades\Session;
                                     </select>
                                 </div>
 
-                                <div class="form-control py-1 col-span-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="total_accorde_retour_allotement" class="form-label  mbt-2 text-size">Total accorde</label>
                                     <input id="total_accorde_retour_allotement" name="total_accorde_retour_allotement" type="number" class="form-control py-1" placeholder="Entrer Total accorde" required>
                                 </div>
-
-                                <div class="form-control py-1 col-span-2">
+                                </div>
+                                <div class="form-inline mt-2">
+                                <div class="intro-y w4 px-1">
                                     <label for="heure_depart_vol_retour_allot" class="form-label  mbt-2 text-size">Heure Départ</label>
                                     <input type="time" id="heure_depart_vol_retour_allot" name="heure_depart_vol_retour_allot" class="form-control py-1" required>
                                 </div>
-
-                                <div class="form-control py-1 col-span-1">
+                            
+                                <div class="intro-y w4 px-1">
                                     <label for="heure_arrivee_vole_retour_allot" class="form-label  mbt-2 text-size">Heure Arrivée</label>
                                     <input type="time" id="heure_arrivee_vole_retour_allot" name="heure_arrivee_vole_retour_allot" class="form-control py-1" required>
                                 </div>
 
-                                <div class="form-control py-1 col-span-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="prix_Achat_retour" class="form-label  mbt-2 text-size">prix Achat</label>
                                     <input type="number" min="0" id="prix_Achat_retour" name="prix_Achat_retour" class="form-control py-1" required>
                                 </div>
 
-                                <div class="form-control py-1 col-span-1">
+                                <div class="intro-y w4 px-1">
                                     <label for="prix_vente_retour" class="form-label  mbt-2 text-size">prix vente</label>
                                     <input type="number"  min="0" id="prix_vente_retour" name="prix_vente_retour" class="form-control py-1" required>
+                                </div></div>
+    <div class="form-inline justify-content-end" >
+                                <div class="intro-y w4 px-1">
+                              
+                                    <button type="submit" id="ajouter_vol_retour_allot" style="background-color: #00897b  ; color: #ffffff;" name="ajouter_vol_retour_allot" value="ajouter_vol_retour_allot" class="btn w-full mt-5 form-control py-1" style="background-color: #6a1b9a ;color: #ffffff;">Ajouter</button>
                                 </div>
 
-                                <div class="form-control py-1 col-span-1">
-                                    <label for="ajouter_vol_retour_allot" class="form-label  mbt-2 text-size"> Ajouter</label>
-                                    <button type="submit" id="ajouter_vol_retour_allot" name="ajouter_vol_retour_allot" value="ajouter_vol_retour_allot" class="btn w-24 ml-2 form-control py-1" style="background-color: #6a1b9a ;color: #ffffff;">Ajouter</button>
                                 </div>
                             </div>
                         </form>
@@ -315,8 +320,8 @@ use Illuminate\Support\Facades\Session;
                    
                     <!-- BEGIN: Data List -->
                     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" style="overflow-x:auto;">
-                        <div class="intro-y box ">
-                            <div class="flex flex-col sm:flex-row sm:items-end xl:items-start pading">
+                        <div class="intro-y box " style="background-color: #d6e8ee;">
+                            <div class="flex flex-col sm:flex-row sm:items-end py-5 xl:items-start ">
                                 <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
 
                                 </form>
@@ -324,17 +329,17 @@ use Illuminate\Support\Facades\Session;
                                 <div class="input-form w-1/2 sm:w-auto  px-1 ">
                             <input type="text" id="num_vo" value="" name="num_vo" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
                        </div>   
-                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
+                       <button style="background-color: #fff;" id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
                         <span class="w-5 h-5 flex items-center justify-center">
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                             </div>
                         </span>
                     </button>
-                                    <button id="tabulator-print-vole-retour" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
+                                    <button style="background-color: #fff;" id="tabulator-print-vole-retour" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
                                         <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
                                     </button>
-                                    <div class="dropdown w-1/2 sm:w-auto">
+                                    <div style="background-color: #fff;" class="dropdown w-1/2 sm:w-auto">
                                         <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
                                             <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
                                         </button>

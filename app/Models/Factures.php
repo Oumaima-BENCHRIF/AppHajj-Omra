@@ -27,4 +27,9 @@ class Factures extends Model
     'fk_fiche'];
 
     protected $dates=['deleted_at'];
+    
+    public function reglement()
+    {
+        return $this->belongsToMany(Reglement::class);
+    }
 }

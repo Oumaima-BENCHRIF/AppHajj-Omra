@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('factures', function (Blueprint $table) {
-            $table->string('logo');
+        Schema::connection('mysql_portal')->create('gestion_Jornal', function (Blueprint $table) {
+            $table->id();
+            $table->string('designation');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('factures', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('gestion_Jornal');
     }
 };
