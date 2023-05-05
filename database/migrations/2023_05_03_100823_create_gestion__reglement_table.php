@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('libelle');
             $table->string('m_reglement');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -9,6 +9,7 @@ use App\Models\Factures;
 use App\Models\Reglement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class G_reglementController extends Controller
 {
@@ -17,9 +18,17 @@ class G_reglementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+ 
+    public function index()
+    {
+        $numreglement=$this->NumReglement();
+        return view('gestion_reglement/create_reglemet',[
+           'numreglement'=>$numreglement,
+        ]);
+    }
     private function NumReglement()
     {
-        $lastRecord = Reglement::latest('id')->withTrashed()->first();;
+        $lastRecord = Reglement::latest('id')->first();
        
         if($lastRecord!=null)
         {
@@ -34,28 +43,12 @@ class G_reglementController extends Controller
         }
         else
         {
-            return 'FT'.Carbon::now()->year.'0001';
+            return 'RL'.Carbon::now()->year.'0001';
         }
 
     }
-    public function index()
-    {
-        // $numreglement=$this->NumReglement();
-        // dd($numreglement);
-        return view('gestion_reglement/create_reglemet',[
-            // 'numreglement'=>$numreglement,
-        ]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     public function liste_jornal()
     {
@@ -114,57 +107,35 @@ class G_reglementController extends Controller
         ]);
     
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
-    {
-        //
+    {   $user = Auth::user(); 
+        $username = $user->name; 
+        $reglement = new Reglement();
+        $reglement->N_reglement = $request->input('N_reglement');
+        $reglement->date_r = $request->input('date_reglement');
+        $reglement->jornal = $request->input('jornal');  
+        $reglement->client = $request->input('client');
+        $reglement->n_piece = $request->input('n_piece');
+        $reglement->mode = $request->input('mode');
+        $reglement->sens = $request->input('sens');
+        $reglement->societe = $request->input('societé');
+        $reglement->montant = $request->input('Montant');
+        $reglement->libelle = $request->input('libelle');
+        $reglement->m_reglement = $request->input('M_reglement');
+        $reglement->utilisateur =  $username;
+        $reglement->save();
+        return response()->json([
+            'reglement'=>$reglement,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function Store_detailF(Request $request)
     {
-        //
+        $reglement = new Reglement();
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //

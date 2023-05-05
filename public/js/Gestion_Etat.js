@@ -15,7 +15,7 @@ $(document).ready(function () {
             // dataFilter: 'json', //forme data
             success: function (response) {
                 $tabledata=response.liste_allotemet;
-                console.log($tabledata);
+           
                 document.getElementById('table_data').style.display='block';
                 var table = new Tabulator("#liste_EtatVol", {
                     printAsHtml: true,
@@ -174,31 +174,7 @@ $(document).ready(function () {
    
 
 });
-function list_allotement() {
-    
-    jQuery.ajax({
-        url: "Etal_vol",
-        type: "GET", // Le nom du fichier indiqué dans le formulaire
-        dataType: "json",
-         // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-        // dataFilter: 'json', //forme data
-        success: function (responce) {
-            // Je récupère la réponse du fichier PHP
-            
-            
-            $tabledata = "";
-            jQuery.each(responce.liste_allotemet, function (key, item) {
-               
-                $tabledata = responce.liste_allotemet;
-                
-            });
 
-           
-         
-            // permission();
-        },
-    });
-}
 function liste_compagnie() {
     jQuery.ajax({
         url: "/List_compagnie",

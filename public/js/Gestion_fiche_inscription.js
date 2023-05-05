@@ -785,7 +785,7 @@ function afficherinfo() {
 }
 $("#num_fichier").change(function () {
     var value = $(this).val();
-    console.log(value);
+    
     jQuery.ajax({
         url: "/info_GFiche_Insc/" + value,
         type: "GET",

@@ -29,9 +29,9 @@ $(document).ready(function () {
         });
     });
     $("#print").on("click",function()
-    { console.log()
+    { 
         let id=$('#id_fiche').val();
-        console.log(id);
+     
         jQuery.ajax({
             url: "/generate/"+id,
             type: "GET",

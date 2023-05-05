@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Session;
 ?>
 @section('subhead')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Gestion Réglemet</title>
+<title>Gestion Réglement</title>
+<style>
+    #lettrage{
+        display:none;
+    }
+    </style>
 @endsection
 <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
 
@@ -52,13 +57,13 @@ use Illuminate\Support\Facades\Session;
                 <div class="font-medium text-center text-lg">gestion Réglement</div>
             </div> 
             @if (Auth::user()->permissions->contains('name','Ajouter_Accompagnateurs'))
-            <form id="Add_Reglement" action="{{ url('Reglement_Stores') }}" method="post" class="validate-form my-5">
+            <form id="Add_Reglement" action="{{ url('reglement_store') }}" method="post" class="validate-form my-5">
                 {{ csrf_field() }}
                 <div class="py-5 px-2  container">
                     <div class="form-inline">
                         <div class="intro-y w4 px-1 @if ($errors->get('N_reglement')) has-error @endif">
                             <label for="N_reglement" class="form-label mbt-2 text-size">N°reglement</label>
-                            <input type="text" id="N_reglement" name="N_reglement" class="form-control py-1 @if ($errors->get('N_reglement')) is-invalid @endif" >
+                            <input type="text" id="N_reglement" name="N_reglement" value="{{$numreglement}}" class="form-control py-1 @if ($errors->get('N_reglement')) is-invalid @endif" >
                             @if ($errors->get('N_reglement'))
                             @foreach ($errors->get('N_reglement') as $message)
                             <li class="text-danger">{{ $message }}</li>
@@ -102,9 +107,9 @@ use Illuminate\Support\Facades\Session;
                   </div>
                  <div class="form-inline mt-2">
 
-                 <div class="intro-y w4 px-1  @if ($errors->get('user')) has-error @endif">
+                    <div class="intro-y w4 px-1  @if ($errors->get('user')) has-error @endif">
                             <label for="user" class="form-label mbt-2 text-size">Utilisateur</label>
-                            <input  name="user" id="user" type="text"  class="form-control py-1" disabled>
+                            <input  name="user" id="user" type="text"  value="{{Auth::user()->name}}" class="form-control py-1" >
                             
                             @if($errors->get('user'))
                             @foreach($errors->get('user') as $message)
@@ -126,7 +131,7 @@ use Illuminate\Support\Facades\Session;
                             @endforeach
                             @endif
                         </div>
-
+                 
                         <div class="intro-y w4 px-1  @if ($errors->get('n_piece')) has-error @endif">
                             <label for="n_piece" class="form-label mbt-2 text-size">N°Piéce </label>
                             <input id="n_piece" name="n_piece" type="text" class="form-control py-1 @if($errors->get('n_piece')) is-invalid @endif" placeholder="Entrer numero de piéce">
@@ -151,9 +156,6 @@ use Illuminate\Support\Facades\Session;
                        
                   </div>
                   <div class="form-inline mt-2">
-                       
-                    
-
                        <div class="intro-y w4 px-1  @if ($errors->get('libelle')) has-error @endif">
                            <label for="libelle" class="form-label mbt-2 text-size">Libelle</label>
                            <input id="libelle" name="libelle" type="text" class="form-control py-1 @if($errors->get('libelle')) is-invalid @endif" >
@@ -196,96 +198,45 @@ use Illuminate\Support\Facades\Session;
                            @endif
                        </div>
                  </div>
-                 <div class="form-inline mt-2    ">  
-                 <div class="intro-y w4 px-1  @if ($errors->get('factures')) has-error @endif">
-                            <label for="factures" class="form-label mbt-2 text-size">Factures</label>
-                            <select name="factures" id="factures" class="form-control py-1 ">
-                              
-                            </select>
-                            @if($errors->get('factures'))
-                            @foreach($errors->get('factures') as $message)
-                            <li class="text-danger">{{$message}}</li>
-                            @endforeach
-                            @endif
-                        </div>
+                 <div class="form-inline mt-2  justify-content-end  ">  
                         <div class="intro-y w4 mt-5 px-1">
-                                <button type="Submit" class="btn btn-primary p-1">Go</button>
-                                </div> 
-                       
-                        <div class="intro-y w4 mt-5 px-1 ">
-                               
+                             <button type="Submit" id="ajouter" class="btn btn-primary  w-full  p-1">Ajouter</button>
+                         </div> 
                        </div>
-                        <div class="intro-y w4 mt-5 px-1">
-                                <button type="Submit" class="btn btn-primary  w-full  p-1">Ajouter</button>
-                                </div> 
-                       </div>
-                       </div>
+                       <div class="overflow-x-auto scrollbar-hidden">
+                                    <div id="line_Reglement" class="mt-5 table-report--tabulator"></div>
+                                </div>
              </div>
             </form>
             @endif
-        
-        <div class="grid grid-cols-12 gap-6">
-                        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center ">
+        <div class="py-5 px-2 container" id="lettrage">
+        <div class="px-5 mt-2 mb-2">
+                <div class="font-medium text-center">line de lettrage</div>
+            </div>
+            <div  class="form-inline">
+                <form  id="add_factures" action="{{ url('detail_store') }}" method="post" style="display: contents" >
+          <div class="intro-y w4 px-1  @if ($errors->get('factures')) has-error @endif">
+          <input type="hidden" id="N_reglement2" name="N_reglement2" value="{{$numreglement}}" >
+                      <label for="factures" class="form-label mbt-2 text-size">Factures</label>
+                          <select name="factures" id="factures" class="form-control py-1 ">
+                            </select>
+                               @if($errors->get('factures'))
+                               @foreach($errors->get('factures') as $message)
+                                <li class="text-danger">{{$message}}</li>
+                                @endforeach
+                                @endif
                         </div>
-                        <!-- BEGIN: Data List -->
-                        <div class="intro-y col-span-12 " >
-                            <div class="intro-y box">
-                                <div class="flex flex-col sm:flex-row sm:items-end xl:items-start pading">
-                                    <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
+                        <div class="intro-y w4 mt-5 px-1">
+                                <button type="Submit"class="btn btn-primary p-1">Go</button>
+                        </div> 
+ </form>
 
-                                    </form>
-                                    <div class="flex mt-2 sm:mt-0">
-                     <div class="input-form w-1/2 sm:w-auto  px-1 ">
-                            <input type="text" id="code_Acco" value="" name="code_Acco" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0 mr-2" required="" placeholder="Entrer le code">
-                       </div>   
-                       <button id="search-btn" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-outline-danger w-1/2 sm:w-auto mr-2">
-                        <span class="w-5 h-5 flex items-center justify-center">
-                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" data-lucide="search" class="lucide lucide-search block mx-auto"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                            </div>
-                        </span>
-                    </button>
-                                    @if (Auth::user()->permissions->contains('name','Print_table_Accompagnateur'))
-                                        <button id="tabulator-print-To" class="btn btn-outline-primary  w-1/2 sm:w-auto mr-2">
-                                            <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print
-                                        </button>
-                                        @endif
-                                        @if (Auth::user()->permissions->contains('name','Export_Table_Accompagnateur'))
-                                        <div class="dropdown w-1/2 sm:w-auto">    
-                                            <button class="dropdown-toggle btn btn-outline-dark w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown">
-                                                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i>
-                                            </button>
-                                            <div class="dropdown-menu w-40">
-                                                <ul class="dropdown-content">
-                                                   
-                                                    <li>
-                                                        <a id="tabulator-export-json" href="javascript:;" class="dropdown-item">
-                                                            <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export JSON
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="tabulator-export-xlsx" href="javascript:;" class="dropdown-item">
-                                                            <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export XLSX
-                                                        </a>
-                                                    </li>
-                                                   
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <input id="permiUpdate" type="hidden" value={{Auth::user()->permissions->contains('name','Update_Accompagnateur')}}>
-                               <input id="permiDelete" type="hidden" value={{Auth::user()->permissions->contains('name','Delete_Accompagnateur')}}>
-                                <div class="overflow-x-auto scrollbar-hidden">
-                                    <div id="liste_Reglement" class="mt-5 table-report--tabulator"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Data List -->
-                    </div>
-                    <!-- Fin de liste date depart -->
-    </div>
+        </div>
+        <div class="overflow-x-auto scrollbar-hidden">
+                    <div id="liste_Reglement" class="mt-5 table-report--tabulator"></div>
+          </div>
+      </div>
+     
     </div></div>
 </div>
 

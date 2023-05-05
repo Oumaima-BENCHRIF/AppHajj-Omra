@@ -101,13 +101,16 @@ Route::middleware('auth')->group(function () {
    Route::post('facturation_store', 'App\Http\Controllers\FactureController@store')->name('facturation.store');
    Route::post('gestion_facture_Delete', 'App\Http\Controllers\update_facturesController@destroy')->name('gestion_facture.delete');
    Route::post('edit_facture', 'App\Http\Controllers\update_facturesController@update')->name('gestion_facture.edite');
+  
    //gestion_reglement
    Route::get('/reglement', 'App\Http\Controllers\G_reglementController@index')->name('reglement.index');
    Route::get('List_jornal', 'App\Http\Controllers\G_reglementController@liste_jornal')->name('liste_jornal');
    Route::get('liste_ModeP', 'App\Http\Controllers\G_reglementController@liste_ModeP')->name('liste_ModeP');
    Route::get('liste_Sens', 'App\Http\Controllers\G_reglementController@liste_Sens')->name('liste_Sens');
    Route::get('liste_client', 'App\Http\Controllers\G_reglementController@liste_client')->name('liste_client');
-    // Gestion état par VOL
+   Route::post('reglement_store', 'App\Http\Controllers\G_reglementController@store')->name('reglement.store');
+   Route::post('detail_store', 'App\Http\Controllers\G_reglementController@Store_detailF')->name('detail.store');
+   // Gestion état par VOL
     Route::get('gestion_EtatVol', 'App\Http\Controllers\G_EtatVoleController@index')->name('Etat_Vol.index');
     Route::get('Etal_vol', 'App\Http\Controllers\G_EtatVoleController@list_Allotement')->name('Etat_Vol.list_Allotement');
     Route::get('List_compagnie', 'App\Http\Controllers\G_EtatVoleController@liste_compagnies')->name('liste_compagnies.allotement');
