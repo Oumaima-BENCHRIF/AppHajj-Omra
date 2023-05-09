@@ -110,6 +110,12 @@ Route::middleware('auth')->group(function () {
    Route::get('liste_client', 'App\Http\Controllers\G_reglementController@liste_client')->name('liste_client');
    Route::post('reglement_store', 'App\Http\Controllers\G_reglementController@store')->name('reglement.store');
    Route::post('detail_store', 'App\Http\Controllers\G_reglementController@Store_detailF')->name('detail.store');
+   Route::get('detail_regle/{num}', 'App\Http\Controllers\G_reglementController@detail_regle')->name('detail.get');
+   Route::get('line_regle/{num}', 'App\Http\Controllers\G_reglementController@line_regle')->name('line.get');
+   Route::GET('/generate_reglement/{num}','App\Http\Controllers\G_reglementController@print')->name('reglement.print');
+   Route::GET('/generate_re','App\Http\Controllers\G_reglementController@regle')->name('reglement');
+ 
+ 
    // Gestion état par VOL
     Route::get('gestion_EtatVol', 'App\Http\Controllers\G_EtatVoleController@index')->name('Etat_Vol.index');
     Route::get('Etal_vol', 'App\Http\Controllers\G_EtatVoleController@list_Allotement')->name('Etat_Vol.list_Allotement');

@@ -6,10 +6,13 @@ use App\Models\Gestion_ModeP;
 use App\Models\Gestion_Sens;
 use App\Models\Fiche_client;
 use App\Models\Factures;
+use App\Models\detail_reglement;
 use App\Models\Reglement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class G_reglementController extends Controller
 {
@@ -119,25 +122,85 @@ class G_reglementController extends Controller
         $reglement->n_piece = $request->input('n_piece');
         $reglement->mode = $request->input('mode');
         $reglement->sens = $request->input('sens');
-        $reglement->societe = $request->input('societé');
+        $reglement->societe = $request->input('Succursales');
         $reglement->montant = $request->input('Montant');
         $reglement->libelle = $request->input('libelle');
         $reglement->m_reglement = $request->input('M_reglement');
         $reglement->utilisateur =  $username;
+      
         $reglement->save();
         return response()->json([
-            'reglement'=>$reglement,
+            'reglement'=>$reglement->N_reglement,
             'status' => 200,
             'message' => 'Votre demande a été bien envoyée.',
         ]);
     }
     public function Store_detailF(Request $request)
     {
-        $reglement = new Reglement();
+        $detail_regle = new detail_reglement();
+        $detail_regle->num_reglement =$request->input('N_reglement2');
+        $detail_regle->num_factures  =$request->input('factures');
+       $detail_regle->save();
+       $facture= Factures::select('factures.*')
+       ->where('factures.id', '=', $request->input('factures'))
+       ->first();
+       if ( $facture !== null) {
+        $total = floatval($facture->Total);
+    } 
+       $line_regle = Reglement::where('N_reglement',  $request->input('N_reglement2'))->first();
+if ($line_regle !== null) {
+    $montant = floatval($line_regle->montant);
+} 
+    $line_regle->montant=$montant-$total;
+       $line_regle->save();
+        return response()->json([
+            'reglement'=> $detail_regle->num_reglement,
+            'line_regle'=> $line_regle,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
     }
-   
-    public function destroy($id)
+    public function detail_regle($num_regle)
     {
-        //
+        $liste_regle = detail_reglement::select('factures.*')
+        ->join('factures', 'detail_reglement.num_factures', '=', 'factures.id')
+        ->where('detail_reglement.num_reglement', '=', $num_regle)
+        ->where('detail_reglement.deleted_at', '=', NULL)
+        ->get();
+        return response()->json([
+            'liste_regle'=> $liste_regle,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
+    }
+    public function line_regle($num_regle)
+    {
+         $line_regle = Reglement::where('gestion_reglement.N_reglement', '=', $num_regle)
+        ->where('gestion_reglement.deleted_at', '=', NULL)
+        ->get();
+        return response()->json([
+            'line_regle'=> $line_regle,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
+    }
+    public function print($num){
+       
+     
+      
+    $regleement=Reglement::where('gestion_reglement.N_reglement', '=', $num);
+          $pdf = PDF::loadView('reglement',[
+            'regleement'=>$regleement ,
+           
+  
+          ]);
+  
+          return $pdf->download('facture.pdf');
+      
+      }
+   
+    public function regle()
+    {
+        return view('reglement');
     }
 }

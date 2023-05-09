@@ -521,7 +521,11 @@ if ($id_dossier && $id_prg) {
    
    
 </div>
-<button id="facture"class="btn btn-primary"  >facturation</button>
+<div class="mt-5 form-inline justify-content-end">
+<button id="facture"class="btn btn-primary mr-5"  >facturation</button>
+<button id="reglement"class="btn btn-primary"  >reglement</button>
+</div>
+
 <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

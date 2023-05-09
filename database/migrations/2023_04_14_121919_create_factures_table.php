@@ -28,6 +28,8 @@ return new class extends Migration
             $table->longText('designation')->nullable();
             $table->longText('date_departs')->nullable();
             $table->longText('date_Arrives')->nullable();
+            $table->unsignedBigInteger('fk_fiche');
+            $table->foreign('fk_fiche')->references('id')->on('gestion_fiches_inscriptions');
             $table->timestamps();
             $table->softDeletes();
         });

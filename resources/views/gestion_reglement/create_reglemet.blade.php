@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Session;
     #lettrage{
         display:none;
     }
+ 
     </style>
+   
 @endsection
 <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
 
@@ -92,14 +94,14 @@ use Illuminate\Support\Facades\Session;
                             @endforeach
                             @endif
                         </div>
-                        <div class="intro-y w4 px-1  @if ($errors->get('societé')) has-error @endif">
-                            <label for="societé" class="form-label mbt-2 text-size">societé</label>
+                        <div class="intro-y w4 px-1  @if ($errors->get('Succursales')) has-error @endif">
+                            <label for="Succursales" class="form-label mbt-2 text-size">Succursales</label>
                            
-                            <select name="societé" id="societé" class="form-control py-1 ">
+                            <select name="Succursales" id="Succursales" class="form-control py-1 ">
                                 <option value="1">Sélectioner</option>
                             </select>
-                            @if($errors->get('societé'))
-                            @foreach($errors->get('societé') as $message)
+                            @if($errors->get('Succursales'))
+                            @foreach($errors->get('Succursales') as $message)
                             <li class="text-danger">{{$message}}</li>
                             @endforeach
                             @endif
@@ -109,7 +111,7 @@ use Illuminate\Support\Facades\Session;
 
                     <div class="intro-y w4 px-1  @if ($errors->get('user')) has-error @endif">
                             <label for="user" class="form-label mbt-2 text-size">Utilisateur</label>
-                            <input  name="user" id="user" type="text"  value="{{Auth::user()->name}}" class="form-control py-1" >
+                            <input  name="user" id="user" type="text" disabled value="{{Auth::user()->name}}" class="form-control py-1" >
                             
                             @if($errors->get('user'))
                             @foreach($errors->get('user') as $message)
@@ -145,10 +147,10 @@ use Illuminate\Support\Facades\Session;
                         <div class="intro-y w4 px-1  @if ($errors->get('sens')) has-error @endif">
                             <label for="sens" class="form-label mbt-2 text-size">Sens</label>
                            
-                            <select name="sens" id="sens" class="form-control py-1 ">
+                            <select name="sens" id="sens" class="form-control py-1">
                             </select>
-                            @if($errors->get('user'))
-                            @foreach($errors->get('user') as $message)
+                            @if($errors->get('Sens'))
+                            @foreach($errors->get('Sens') as $message)
                             <li class="text-danger">{{$message}}</li>
                             @endforeach
                             @endif
@@ -201,6 +203,7 @@ use Illuminate\Support\Facades\Session;
                  <div class="form-inline mt-2  justify-content-end  ">  
                         <div class="intro-y w4 mt-5 px-1">
                              <button type="Submit" id="ajouter" class="btn btn-primary  w-full  p-1">Ajouter</button>
+                             <button type="button" id="reglement" class="btn btn-primary  w-full  p-1">imprimer</button>
                          </div> 
                        </div>
                        <div class="overflow-x-auto scrollbar-hidden">
@@ -211,10 +214,11 @@ use Illuminate\Support\Facades\Session;
             @endif
         <div class="py-5 px-2 container" id="lettrage">
         <div class="px-5 mt-2 mb-2">
-                <div class="font-medium text-center">line de lettrage</div>
+                <div class="font-medium text-center">ligne de lettrage</div>
             </div>
             <div  class="form-inline">
                 <form  id="add_factures" action="{{ url('detail_store') }}" method="post" style="display: contents" >
+                {{ csrf_field() }}
           <div class="intro-y w4 px-1  @if ($errors->get('factures')) has-error @endif">
           <input type="hidden" id="N_reglement2" name="N_reglement2" value="{{$numreglement}}" >
                       <label for="factures" class="form-label mbt-2 text-size">Factures</label>
