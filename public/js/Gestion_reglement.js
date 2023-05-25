@@ -1,15 +1,25 @@
 $(window).on("load", function () {});
+var tableline;
+var rowselect;
 $(document).ready(function () {
-
+    
     liste_Jornal();
     liste_Sens();
     Liste_ModeP();
     liste_client();
     liste_factures();
+    liste_Reglement();
     $("#Add_Reglement").on("submit", function (e) {
+        let  Num=$('#N_reglement').val();
         e.preventDefault();
         var $this = jQuery(this);
         var formData = jQuery($this).serializeArray();
+        
+        formData.push({
+            name: "num_regl",
+            value: Num,
+        });
+        
         jQuery.ajax({
             url: $this.attr("action"),
             type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
@@ -18,11 +28,9 @@ $(document).ready(function () {
             success: function (response) {
                 // Je récupère la réponse du fichier PHP
                 toastr.success(response.message);
-                $('#ajouter').css('display', 'none'); 
                 $('#lettrage').css('display', 'block'); 
-               console.log(response.reglement);
-                line_reglement(response.reglement);
-               
+                $('#reglement').css('display', 'block');   
+                line_reglement(response.reglement); 
             },
             error: function (response) {
                //toastr.error("Vérifier votre données");
@@ -31,52 +39,153 @@ $(document).ready(function () {
         });
     });
     $("#add_factures").on("submit", function (e) {
+     
+        var rowCount = tableline.getDataCount();
+        let Acompte=$('#Acompte').val();
+        let rest= document.getElementById('R_total').value;
         e.preventDefault();
         var $this = jQuery(this);
         var formData = jQuery($this).serializeArray();
+        if(rowCount>1)
+        {
+        var selectedRows = tableline.getSelectedRows();
+        if (selectedRows.length > 0) {
+            rowselect = selectedRows[0].getData();
+            rest_regle= rowselect.rest_reglement;
+       console.log(rowselect);
+       console.log("row select");
+     
+        formData.push({
+            name: "id",
+           value: rowselect.id,
+        })
+        formData.push({
+            name: "num",
+           value: rowselect.N_reglement,
+        })
+        
+        if(parseFloat(Acompte)>parseFloat(rest_regle))
+            {
+             alert('Acompte est supérieur à le reste sur reglement');
+             console.log('supérieur');
+            }else
+            {
+           if(parseFloat(Acompte)>parseFloat(rest))
+             {
+              alert('Acompte est supérieur à le reste sur facture');
+             }else {
+             if(parseFloat(Acompte)<=parseFloat(rest) && parseFloat(Acompte)<=parseFloat(rest_regle) )
+             {
+           
         jQuery.ajax({
             url: $this.attr("action"),
             type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
             data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
             // dataFilter: 'json', //forme data
             success: function (response) {
-                detail_reglement(response.reglement);
-               
+               detail_reglement(response.reglement); 
+            
                 line_reglement(response.reglement);
-                         },       
-            error: function (response) {
+             },       
+             error: function (response) {
                //toastr.error("Vérifier votre données");
                  toastr.error(response.error);
             },
         });
-    });
-    $("#print_reglement").on("click",function()
-    { 
-        let numero_facture=$('#N_reglement').val();
+    }}}
   
+    }
+} else{
+       
+        var rowData = tableline.getData(); 
+        console.log(rowData);
+        console.log("row data");
+        rest_regle= rowData[0].rest_reglement;
+        formData.push({
+            name: "id",
+           value: rowData[0].id,
+        })
+        formData.push({
+            name: "num",
+           value: rowData[0].N_reglement,
+        })
+        if(parseFloat(Acompte)>parseFloat(rest_regle))
+        {
+         alert('Acompte est supérieur à le reste sur reglement');
+        }else
+        {
+       if(parseFloat(Acompte)>parseFloat(rest))
+         {
+          alert('Acompte est supérieur à le reste sur facture');
+         }else {
+         if(parseFloat(Acompte)<parseFloat(rest) && parseFloat(Acompte)<parseFloat(rest_regle) && rest!=0)
+         {
         jQuery.ajax({
-            url: "/generate_facture/"+num,
-            type: "GET",
-            data: num,
-            success: function(response){
-                window.location.href = "/generate_facture/"+id;
+            url: $this.attr("action"),
+            type: $this.attr("method"), // Le nom du fichier indiqué dans le formulaire
+            data: formData, // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+            // dataFilter: 'json', //forme data
+            success: function (response) {
+               detail_reglement(response.reglement); 
+                line_reglement(response.reglement);
+             },       
+             error: function (response) {
+               //toastr.error("Vérifier votre données");
+                 toastr.error(response.error);
             },
-            error: function(xhr, status, error){
-                // handle any errors that occur during the AJAX request
-                console.log("Error:", error);
-            }
-        });
-    })
+        });}}}
+    
+    }
+    });
     $("#reglement").on("click",function()
-    { 
-                window.location.href = "/generate_re";
+    {      
+        let N_reglement=$('#N_reglement').val();
+                window.location.href = "/generate_re/"+N_reglement;
           
         });
-   
+    $("#nouveaux").on("click",function()
+        {      
+            $('#N_reglement').css('display', 'block'); 
+            $('#num_reglement').css('display', 'none'); 
+            $('#lettrage').css('display', 'none'); 
+            $('#line_Reglement').css('display', 'none'); 
+    });
+   $('#factures').on('change', function() {
+            var selectedInvoiceNumber = $(this).val();
+            jQuery.ajax({
+                url: '/get_facture',
+                method: 'GET',
+                data: { invoice_number: selectedInvoiceNumber },
+                success: function(response) {
+                 let total=   document.getElementById('Totalf').value=response.facture[0].Total;
+                 let total_R= response.facture[0].Total_regler;
+                let rest = total-total_R;
+                document.getElementById('R_total').value=rest;
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+  $('#num_reglement').on('change', function() { 
+    
+            var selected = $(this).val();
+       
+                    $('#lettrage').css('display', 'block'); 
+                    $('#reglement').css('display', 'block'); 
+                     detail_reglement(selected); 
+                    
+                    line_reglement(selected);
+             
+        });
+
 
 });
+
+
 function line_reglement(value)
-{    jQuery.ajax({
+{   
+     jQuery.ajax({
     url: "/line_regle/" + value,
     type: "GET", // Le nom du fichier indiqué dans le formulaire
     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
@@ -87,9 +196,12 @@ function line_reglement(value)
     jQuery.each(responce.line_regle, function (key, item) {
         $tabledata = responce.line_regle;
     });
-    var table = new Tabulator("#line_Reglement", {
+   
+     tableline = new Tabulator("#line_Reglement", {
         printAsHtml: true,
         printStyled: true,
+        selectable:true,
+        selectableRangeMode:"click",
         // height: 220,
         data: $tabledata,
         layout: "fitColumns",
@@ -105,7 +217,19 @@ function line_reglement(value)
         tooltips: true,
         columns: [
             {
-                title: "N_reglement",
+                title: "Nligne",
+                minWidth: 80,
+                responsive: 0,
+                field: "Nligne",
+                sorter: "string",
+                vertAlign: "middle",
+                col: "red",
+                print: false,
+                download: false,
+         
+            },
+            {
+                title: "Numero reglement",
                 minWidth: 100,
                 responsive: 0,
                 field: "N_reglement",
@@ -117,7 +241,7 @@ function line_reglement(value)
          
             },
             {
-                title: "date_r",
+                title: "date reglement",
                 minWidth: 100,
                 field: "date_r",
                 hozAlign: "left",
@@ -140,97 +264,27 @@ function line_reglement(value)
                 minWidth: 100,
                 responsive: 0,
                 sorter: "number",
+                
+                print: false,
+                download: false,
+            },
+            {
+                title: "Rest sur Reglement",
+                field: "rest_reglement",
+                minWidth: 100,
+                responsive: 0,
+                sorter: "number",
                 cssClass:"montant",
                 print: false,
                 download: false,
             },
-            // {
-            //     title: "Action",
-            //     minWidth: 110,
-            //     field: "actions",
-            //     responsive: 0,
-            //     hozAlign: "center",
-            //     vertAlign: "middle",
-            //     print: false,
-            //     download: false,
-            //     formatter(cell, formatterParams) {
-            //         let a =
-            //             $(`<div class="flex lg:justify-center items-center">
-            //                 <button  class="edit text-primary flex items-center mr-3 tooltip"  title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#itinerair-footer-modal-preview">
-            //                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
-            //                 </button>
-            //                 <a class="delete flex items-center text-danger tooltip" title="Supprimer" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-itinerair-prg-modal">
-            //                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='trash-2' data-lucide='trash-2' class='lucide lucide-trash-2 w-4 h-4 mr-1'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>\n
-            //                 </a>
-            //             </div>`);
-            //         $(a)
-            //             .find(".edit")
-            //             .on("click", function () {
-            //                 jQuery.ajax({
-            //                     url:
-            //                         "/update_info_itineraire/" +
-            //                         cell.getData().id,
-            //                     type: "GET", // Le nom du fichier indiqué dans le formulaire
-            //                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-            //                     // dataFilter: 'json', //forme data
-            //                     success: function (responce) {
-            //                         // Je récupère la réponse du fichier PHP
-            //                         const nv =
-            //                             responce.infos_itineraire;
-            //                         document.getElementById(
-            //                             "up_id_Itineraire"
-            //                         ).value = nv.id;
-            //                         document.getElementById(
-            //                             "up_date_retour_Itineraire_"
-            //                         ).value = nv.date_retour_Itineraire;
-            //                         document.getElementById(
-            //                             "up_ville_Itineraire_"
-            //                         ).value = nv.ville_Itineraire;
-            //                         document.getElementById(
-            //                             "up_Transport_Itineraire_"
-            //                         ).value = nv.Transport_Itineraire;
-            //                         document.getElementById(
-            //                             "up_itineraire_programme_"
-            //                         ).value = nv.itineraire_programme;
-            //                     },
-            //                 });
-            //             });
-
-            //         $(a)
-            //             .find(".delete")
-            //             .on("click", function () {
-            //                 jQuery.ajax({
-            //                     url:
-            //                         "/update_info_itineraire/" +
-            //                         cell.getData().id,
-            //                     type: "GET", // Le nom du fichier indiqué dans le formulaire
-            //                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-            //                     // dataFilter: 'json', //forme data
-            //                     success: function (responce) {
-            //                         const nv =
-            //                             responce.infos_itineraire;
-            //                         document.getElementById(
-            //                             "id_delet_itineraire"
-            //                         ).value = nv.id;
-            //                     },
-            //                 });
-            //             });
-
-            //         $(a)
-            //             .find(".view")
-            //             .on("click", function () {
-            //                 window.location.replace(
-            //                     "/liste_prog/" + cell.getData().id
-            //                 );
-            //             });
-
-            //         return a[0];
-            //     },
-            // },
+            
           
         ],
        
     });
+
+
 },
 });
 }
@@ -316,12 +370,33 @@ function liste_client() {
                 $select_client =
                     $select_client +
                     '<option value="' +
-                    item.nom +
+                    item.compte +
                     '">' +
                     item.nom +
                     "</option>";
             });
             $("#client").html($select_client);
+        
+        },
+    });
+}
+function liste_Reglement() {
+    jQuery.ajax({
+        url: "/liste_Reglement",
+        type: "GET",
+        dataType: "json",
+        success: function (responce) {
+            $select_reglement = "";
+            jQuery.each(responce.Liste_regle, function (key, item) {
+                $select_reglement =
+                    $select_reglement +
+                    '<option value="' +
+                    item.N_reglement +
+                    '">' +
+                    item.N_reglement +
+                    "</option>";
+            });
+            $("#num_reglement").html($select_reglement);
         
         },
     });
@@ -339,7 +414,7 @@ function liste_factures() {
                 $select_factures =
                     $select_factures +
                     '<option value="' +
-                    item.id +
+                    item.numero_facture +
                     '">' +
                     item.numero_facture +
                     "</option>";
@@ -350,16 +425,19 @@ function liste_factures() {
     });
 }
 function detail_reglement(value) {
-    jQuery.ajax({
-        url: "/detail_regle/" + value,
-        type: "GET", // Le nom du fichier indiqué dans le formulaire
-        dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+        jQuery.ajax({
+          url: "/detail_regle/" + value,
+          type: "GET", // Le nom du fichier indiqué dans le formulaire
+          dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
         // dataFilter: 'json', //forme data
         success: function (responce) {
             // Je récupère la réponse du fichier PHP
             $tabledata = "";
             jQuery.each(responce.liste_regle, function (key, item) {
                 $tabledata = responce.liste_regle;
+                let acompte=document.getElementById('Acompte').value;
+                document.getElementById('R_total').value=document.getElementById('R_total').value- acompte;
+                console.log(responce);
             });
             var table = new Tabulator("#liste_Reglement", {
                 printAsHtml: true,
@@ -379,10 +457,30 @@ function detail_reglement(value) {
                 tooltips: true,
                 columns: [
                     {
-                        title: "Code_client",
+                        title: "Nligne",
+                        minWidth: 80,
+                        field: "Nligne",
+                        sorter: "string",
+                        hozAlign: "left",
+                        vertAlign: "middle",
+                        print: false,
+                        download: false,
+                    },
+                    {
+                        title: "numero facture",
+                        minWidth: 100,
+                        field: "num_factures",
+                        sorter: "string",
+                        hozAlign: "left",
+                        vertAlign: "middle",
+                        print: false,
+                        download: false,
+                    },
+                    {
+                        title: "Code client",
                         minWidth: 100,
                         responsive: 0,
-                        field: "Code_client",
+                        field: "Code_clt",
                         sorter: "string",
                         vertAlign: "middle",
                         col: "red",
@@ -391,10 +489,10 @@ function detail_reglement(value) {
                  
                     },
                     {
-                        title: "numero_facture",
+                        title: "nummero reglement",
                         minWidth: 100,
-                        field: "numero_facture",
-                        sorter: "number",
+                        field: "num_reglement",
+                        sorter: "string",
                         hozAlign: "left",
                         vertAlign: "middle",
                         print: false,
@@ -402,7 +500,7 @@ function detail_reglement(value) {
                     },
                     {
                         title: "date",
-                        field: "date",
+                        field: "Date_Let",
                         minWidth: 100,
                         sorter: "string",
                         vertAlign: "middle",
@@ -410,99 +508,15 @@ function detail_reglement(value) {
                         download: false,
                     },
                     {
-                        title: "Total",
-                        field: "Total",
+                        title: "Acompte",
+                        field: "Acompte",
                         minWidth: 100,
                         responsive: 0,
-                        sorter: "number",
+                        sorter: "string",
                         cssClass:"total",
                         print: false,
                         download: false,
                     },
-                    // {
-                    //     title: "Action",
-                    //     minWidth: 110,
-                    //     field: "actions",
-                    //     responsive: 0,
-                    //     hozAlign: "center",
-                    //     vertAlign: "middle",
-                    //     print: false,
-                    //     download: false,
-                    //     formatter(cell, formatterParams) {
-                    //         let a =
-                    //             $(`<div class="flex lg:justify-center items-center">
-                    //                 <button  class="edit text-primary flex items-center mr-3 tooltip"  title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#itinerair-footer-modal-preview">
-                    //                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
-                    //                 </button>
-                    //                 <a class="delete flex items-center text-danger tooltip" title="Supprimer" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-itinerair-prg-modal">
-                    //                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='trash-2' data-lucide='trash-2' class='lucide lucide-trash-2 w-4 h-4 mr-1'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>\n
-                    //                 </a>
-                    //             </div>`);
-                    //         $(a)
-                    //             .find(".edit")
-                    //             .on("click", function () {
-                    //                 jQuery.ajax({
-                    //                     url:
-                    //                         "/update_info_itineraire/" +
-                    //                         cell.getData().id,
-                    //                     type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    //                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    //                     // dataFilter: 'json', //forme data
-                    //                     success: function (responce) {
-                    //                         // Je récupère la réponse du fichier PHP
-                    //                         const nv =
-                    //                             responce.infos_itineraire;
-                    //                         document.getElementById(
-                    //                             "up_id_Itineraire"
-                    //                         ).value = nv.id;
-                    //                         document.getElementById(
-                    //                             "up_date_retour_Itineraire_"
-                    //                         ).value = nv.date_retour_Itineraire;
-                    //                         document.getElementById(
-                    //                             "up_ville_Itineraire_"
-                    //                         ).value = nv.ville_Itineraire;
-                    //                         document.getElementById(
-                    //                             "up_Transport_Itineraire_"
-                    //                         ).value = nv.Transport_Itineraire;
-                    //                         document.getElementById(
-                    //                             "up_itineraire_programme_"
-                    //                         ).value = nv.itineraire_programme;
-                    //                     },
-                    //                 });
-                    //             });
-
-                    //         $(a)
-                    //             .find(".delete")
-                    //             .on("click", function () {
-                    //                 jQuery.ajax({
-                    //                     url:
-                    //                         "/update_info_itineraire/" +
-                    //                         cell.getData().id,
-                    //                     type: "GET", // Le nom du fichier indiqué dans le formulaire
-                    //                     dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                    //                     // dataFilter: 'json', //forme data
-                    //                     success: function (responce) {
-                    //                         const nv =
-                    //                             responce.infos_itineraire;
-                    //                         document.getElementById(
-                    //                             "id_delet_itineraire"
-                    //                         ).value = nv.id;
-                    //                     },
-                    //                 });
-                    //             });
-
-                    //         $(a)
-                    //             .find(".view")
-                    //             .on("click", function () {
-                    //                 window.location.replace(
-                    //                     "/liste_prog/" + cell.getData().id
-                    //                 );
-                    //             });
-
-                    //         return a[0];
-                    //     },
-                    // },
-                  
                 ],
                
             });
@@ -522,53 +536,8 @@ function detail_reglement(value) {
                 let value = $("#tabulator-html-filter-value").val();
                 table.setFilter(field, type, value);
             }
-            // On submit filter form
-            // $("#tabulator-html-filter-form")[0].addEventListener(
-            //     "keypress",
-            //     function (event) {
-            //         let keycode = event.keyCode ? event.keyCode : event.which;
-            //         if (keycode == "13") {
-            //             event.preventDefault();
-            //             filterHTMLForm();
-            //         }
-            //     }
-            // );
-            // On click go button
-            $("#tabulator-html-filter-go").on("click", function (event) {
-                filterHTMLForm();
-            });
-
-            // On reset filter form
-            $("#tabulator-html-filter-reset").on("click", function (event) {
-                $("#tabulator-html-filter-field").val("name");
-                $("#tabulator-html-filter-type").val("like");
-                $("#tabulator-html-filter-value").val("");
-                filterHTMLForm();
-            });
-            // Export
-            $("#tabulator-export-csv").on("click", function (event) {
-                table.download("csv", "data.csv");
-            });
-            $("#tabulator-export-json").on("click", function (event) {
-                table.download("json", "data.json");
-            });
-
-            $("#tabulator-export-xlsx").on("click", function (event) {
-                window.XLSX = xlsx;
-                table.download("xlsx", "data.xlsx", {
-                    sheetName: "Products",
-                });
-            });
-
-            $("#tabulator-export-html").on("click", function (event) {
-                table.download("html", "data.html", {
-                    style: true,
-                });
-            });
-            // Print
-            $("#tabulator-print-Itineraire").on("click", function (event) {
-                table.print();
-            });
+            
         },
     });
+    
 }

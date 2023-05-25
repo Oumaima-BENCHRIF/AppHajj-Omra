@@ -352,6 +352,24 @@ if ($id_dossier && $id_prg) {
                         </div>
 
                     </div>
+                    <div class="form-inline mt-2">
+                  <div class="intro-y w4 px-1">
+                        <label for="prix" class="form-label mbt-2 text-size">Prix vente programme</label>
+                        <input id="prix" name="prix" type="number" min="0" placeholder="Entre Prix" class="form-control py-1" required>
+                    </div>
+                    <div class="intro-y w4  px-1">
+                        <label for="remis" class="form-label mbt-2 text-size">Remis</label>
+                        <input id="remis" name="remis" onblur="javascript:calculeRemis(document.getElementById('Totale_prg').value, document.getElementById('remis').value);" type="number" min="0" placeholder="Remis" class="form-control py-1" required>
+                    </div>
+                    <div class="intro-y w4 px-1">
+                        <label for="Totale_prg" class="form-label mbt-2 text-size">Totale</label>
+                        <input id="Totale_prg" name="Totale_prg" type="number" min="0" placeholder="Totale" class="form-control py-1" required>
+                    </div>
+                    <div class="intro-y w4 px-1">
+                        <label for="num_bill" class="form-label mbt-2 text-size">Numero billet </label>
+                        <input id="num_bill" name="num_bill" type="text" min="0" placeholder="numero billet" class="form-control py-1" required>
+                    </div>
+                </div>
                     <!-- **End:Informations client** -->
                 </div>
                 <div class="intro-y w22">
@@ -369,19 +387,9 @@ if ($id_dossier && $id_prg) {
                             </div>
                         </div>
                     </div>
-                    <div class="intro-y  px-1">
-                        <label for="prix" class="form-label mbt-2 text-size">Prix vente programme</label>
-                        <input id="prix" name="prix" type="number" min="0" placeholder="Entre Prix" class="form-control py-1" required>
-                    </div>
-                    <div class="intro-y  px-1">
-                        <label for="remis" class="form-label mbt-2 text-size">Remis</label>
-                        <input id="remis" name="remis" onblur="javascript:calculeRemis(document.getElementById('Totale_prg').value, document.getElementById('remis').value);" type="number" min="0" placeholder="Remis" class="form-control py-1" required>
-                    </div>
-                    <div class="intro-y  px-1">
-                        <label for="Totale_prg" class="form-label mbt-2 text-size">Totale</label>
-                        <input id="Totale_prg" name="Totale_prg" type="number" min="0" placeholder="Totale" class="form-control py-1" required>
-                    </div>
+                   
                 </div>
+               
             </div>
             <!-- Begin: Informations passeport -->
             <div class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">

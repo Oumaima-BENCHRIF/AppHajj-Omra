@@ -110,7 +110,7 @@ class FactureController extends Controller
     ->join('gestion_fiches_inscriptions','gestion_fiches_inscriptions.id','gestion_detail_fiches_inscriptions.Fk_fiche_inscription')
  ->where('gestion_fiches_inscriptions.id', $fiche)
  ->get();
-   
+  
         return view('gestion_Facturation/create_facture',[
             'id'=>$id,
             'data2'=>$gestion,
@@ -135,13 +135,10 @@ class FactureController extends Controller
     }
    
    
-    public function print($id){
-       
+    public function print($id){ 
        $value=$id;
-     
       $info_facture=Factures::where('factures.deleted_at', '=', NULL)
     ->where('factures.fk_fiche',$value)->first();
-    
     $id_fac=$info_facture->id;
     
     $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$id_fac)
@@ -149,11 +146,10 @@ class FactureController extends Controller
         $pdf = PDF::loadView('myPDF',[
           'info_facture'=>$info_facture ,
           'detail_facture'=>$detail_facture
-
         ]);
-
+      
         return $pdf->download('facture.pdf');
-    
+
     }
 
     /**
@@ -196,7 +192,7 @@ class FactureController extends Controller
             
             $detail->FK_Facture= $Factures->id;
             $detail->prix = $mylis[$i]['col3'];;
-            
+           
             $detail->save();
           
            

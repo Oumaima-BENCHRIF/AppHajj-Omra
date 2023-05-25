@@ -6,12 +6,13 @@ use App\Models\Gestion_ModeP;
 use App\Models\Gestion_Sens;
 use App\Models\Fiche_client;
 use App\Models\Factures;
-use App\Models\detail_reglement;
+use App\Models\lettrage_fact;
 use App\Models\Reglement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 
 
 class G_reglementController extends Controller
@@ -50,7 +51,21 @@ class G_reglementController extends Controller
         }
 
     }
-
+    public function facture_info(Request $request)
+    {
+        $invoiceNumber = $request->input('invoice_number');
+        
+        // Retrieve the total amount for the given invoice number from your database or any other data source
+        $facture = Factures::select('factures.*')
+        ->where('numero_facture', $invoiceNumber)
+        ->get();
+    
+        return response()->json([
+        'facture' => $facture,
+        'status' => 200,
+        'message' => 'Votre demande a été bien envoyée.',
+      ]);
+    }
     
 
     public function liste_jornal()
@@ -82,9 +97,21 @@ class G_reglementController extends Controller
         ]);
     
     }
+    public function liste_reglement()
+    {
+        $Liste_regle= Reglement::distinct()
+        ->where('gestion_reglement.deleted_at', '=', NULL)
+        ->get(['N_reglement']);
+        return response()->json([
+            'Liste_regle'=> $Liste_regle,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
+    
+    }
     public function liste_client()
     {
-        $Liste_client = Fiche_client::select('fiche_clients.nom')
+        $Liste_client = Fiche_client::select('fiche_clients.*')
       
         ->where('fiche_clients.deleted_at', '=', NULL)
         ->get(); 
@@ -112,10 +139,37 @@ class G_reglementController extends Controller
     }
    
     public function store(Request $request)
-    {   $user = Auth::user(); 
+    { 
+        $validator = Validator::make($request->all(), [
+            'date_reglement' => 'required',
+            'jornal' => 'required',
+            'client' => 'required',
+            'Montant' => 'required',
+            'mode' => 'required',
+            'sens' => 'required',
+            'libelle' => 'required',
+            'M_reglement' => 'required',
+            'Montant' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+          $user = Auth::user(); 
         $username = $user->name; 
+        $num_reglement=$request->input('num_regl');
+        $line_regle = Reglement::where('N_reglement',$num_reglement)->get();
+        $Nligne=1;
+      
+        if($line_regle->count()>0)
+        {
+            $Nligne=$line_regle->count()+1;
+            
+        }
         $reglement = new Reglement();
-        $reglement->N_reglement = $request->input('N_reglement');
+        $reglement->N_reglement = $num_reglement;
         $reglement->date_r = $request->input('date_reglement');
         $reglement->jornal = $request->input('jornal');  
         $reglement->client = $request->input('client');
@@ -126,8 +180,9 @@ class G_reglementController extends Controller
         $reglement->montant = $request->input('Montant');
         $reglement->libelle = $request->input('libelle');
         $reglement->m_reglement = $request->input('M_reglement');
+        $reglement->rest_reglement = $request->input('Montant');
         $reglement->utilisateur =  $username;
-      
+        $reglement->Nligne =  $Nligne;
         $reglement->save();
         return response()->json([
             'reglement'=>$reglement->N_reglement,
@@ -135,38 +190,53 @@ class G_reglementController extends Controller
             'message' => 'Votre demande a été bien envoyée.',
         ]);
     }
+    }
     public function Store_detailF(Request $request)
     {
-        $detail_regle = new detail_reglement();
-        $detail_regle->num_reglement =$request->input('N_reglement2');
+        $id= $request->input('id');
+        $num= $request->input('num');
+        $detail_regle = new lettrage_fact();
+        $line_regle = Reglement::where('id',$id)->first();
+        $detail_regle->num_reglement =$num;
+        $detail_regle->id_regle =$id;
+        $detail_regle->Nligne =$line_regle->Nligne;
         $detail_regle->num_factures  =$request->input('factures');
-       $detail_regle->save();
-       $facture= Factures::select('factures.*')
-       ->where('factures.id', '=', $request->input('factures'))
+        $detail_regle->Acompte  =$request->input('Acompte');
+        $detail_regle->	Code_clt  =$line_regle->client;
+        $detail_regle->Date_Let  =Carbon::now();
+        $detail_regle->save();
+        $facture= Factures::select('factures.*')
+       ->where('factures.numero_facture', '=', $request->input('factures'))
        ->first();
        if ( $facture !== null) {
-        $total = floatval($facture->Total);
-    } 
-       $line_regle = Reglement::where('N_reglement',  $request->input('N_reglement2'))->first();
-if ($line_regle !== null) {
-    $montant = floatval($line_regle->montant);
-} 
-    $line_regle->montant=$montant-$total;
+        $TotalR=floatval($facture->Total_regler);
+        $facture->Total_regler=$TotalR+floatval($request->input('Acompte'));
+        $facture->save();
+     } 
+      
+       $Acompte=$request->input('Acompte');
+      if ($line_regle !== null) {
+       $rest_reglement = floatval($line_regle->rest_reglement);
+      } 
+       $line_regle->rest_reglement=$rest_reglement-$Acompte;
        $line_regle->save();
+   
+      
         return response()->json([
             'reglement'=> $detail_regle->num_reglement,
             'line_regle'=> $line_regle,
+          
             'status' => 200,
             'message' => 'Votre demande a été bien envoyée.',
         ]);
     }
     public function detail_regle($num_regle)
     {
-        $liste_regle = detail_reglement::select('factures.*')
-        ->join('factures', 'detail_reglement.num_factures', '=', 'factures.id')
-        ->where('detail_reglement.num_reglement', '=', $num_regle)
-        ->where('detail_reglement.deleted_at', '=', NULL)
+        $liste_regle = lettrage_fact::select('lettrage_fact.*')
+        ->where('lettrage_fact.num_reglement', '=', $num_regle)
+        ->where('lettrage_fact.deleted_at', '=', NULL)
         ->get();
+       
         return response()->json([
             'liste_regle'=> $liste_regle,
             'status' => 200,
@@ -184,23 +254,51 @@ if ($line_regle !== null) {
             'message' => 'Votre demande a été bien envoyée.',
         ]);
     }
+    public function info_regle(Request $request)
+    {
+        $num_regle= $request->input('number');
+
+         $line_regle = Reglement::where('gestion_reglement.N_reglement', '=', $num_regle)
+        ->where('gestion_reglement.deleted_at', '=', NULL)
+        ->get();
+        
+        $ligne_detail=lettrage_fact::where('lettrage_fact.num_reglement', '=', $num_regle)
+        ->where('lettrage_fact.deleted_at', '=', NULL)
+        ->get();
+        
+        return response()->json([
+            'line_regle'=> $line_regle,
+            'ligne_detail'=>$ligne_detail,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
+    }
     public function print($num){
        
-     
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->format('Y-m-d');
       
-    $regleement=Reglement::where('gestion_reglement.N_reglement', '=', $num);
+        $info_Reglement=Reglement::where('gestion_reglement.deleted_at', '=', NULL)
+        ->where('gestion_reglement.N_reglement',$num)->get();
           $pdf = PDF::loadView('reglement',[
-            'regleement'=>$regleement ,
-           
+            'regleement'=>$info_Reglement ,
+            'date'=> $formattedDate,
+            'numero'=>$num
+          ]);  
   
-          ]);
-  
-          return $pdf->download('facture.pdf');
+          return $pdf->download('reglement.pdf');
       
       }
    
-    public function regle()
-    {
-        return view('reglement');
-    }
+    // public function regle($num)
+    // {
+    //     $info_Reglement=Reglement::where('gestion_reglement.deleted_at', '=', NULL)
+    //     ->where('gestion_reglement.N_reglement',$num)->first();
+      
+    //     $pdf = PDF::loadView('reglement'[
+    //         'reglement'=>$info_Reglement,
+    //     ]);
+    //     return $pdf->download('facture.pdf');
+        
+    // }
 }

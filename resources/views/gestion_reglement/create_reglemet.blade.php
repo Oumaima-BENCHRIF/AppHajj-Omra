@@ -1,4 +1,5 @@
-@extends('../layout/' . $layout)
+
+ @extends('../layout/' . $layout)
 <?php
 
 use Illuminate\Support\Facades\Session;
@@ -11,12 +12,28 @@ use Illuminate\Support\Facades\Session;
     #lettrage{
         display:none;
     }
- 
+    #reglement
+    {
+    display: none;
+    }
+    #N_reglement
+    {
+        display: none;
+    }
+   #nouveaux
+   {
+    background-color: green;
+    border-color: green;
+   }
     </style>
    
 @endsection
 <link rel="stylesheet" href="{{URL::asset('css/tabulator.css')}}">
 
+  
+
+
+</head>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 @section('subcontent')
@@ -62,10 +79,18 @@ use Illuminate\Support\Facades\Session;
             <form id="Add_Reglement" action="{{ url('reglement_store') }}" method="post" class="validate-form my-5">
                 {{ csrf_field() }}
                 <div class="py-5 px-2  container">
-                    <div class="form-inline">
+                <div class="form-inline justify-content-end">  
+                <div class="intro-y w4 mt-5 px-1">
+                             <button type="button" id="nouveaux" class="btn btn-primary  w-full  p-1">nouveau</button>
+                         </div> 
+                </div>
+                    <div class="form-inline mt-2">
                         <div class="intro-y w4 px-1 @if ($errors->get('N_reglement')) has-error @endif">
                             <label for="N_reglement" class="form-label mbt-2 text-size">N°reglement</label>
-                            <input type="text" id="N_reglement" name="N_reglement" value="{{$numreglement}}" class="form-control py-1 @if ($errors->get('N_reglement')) is-invalid @endif" >
+                            <input type="text" id="N_reglement" disabled name="N_reglement" value="{{$numreglement}}" class="form-control py-1 @if ($errors->get('N_reglement')) is-invalid @endif" >
+                            <select required name="num_reglement" id="num_reglement" class="form-control py-1 ">
+                            </select>
+
                             @if ($errors->get('N_reglement'))
                             @foreach ($errors->get('N_reglement') as $message)
                             <li class="text-danger">{{ $message }}</li>
@@ -75,7 +100,7 @@ use Illuminate\Support\Facades\Session;
 
                         <div class="intro-y w4 px-1 @if ($errors->get('date_reglement')) has-error @endif">
                             <label for="date_reglement" class="form-label mbt-2 text-size">date de Réglement</label>
-                            <input id="date_reglement" name="date_reglement" type="date" class="form-control py-1 @if($errors->get('date_reglement')) is-invalid @endif" >
+                            <input id="date_reglement" name="date_reglement" type="date"  class="form-control py-1 @if($errors->get('date_reglement')) is-invalid @endif" required>
                             @if($errors->get('date_reglement'))
                             @foreach($errors->get('date_reglement') as $message)
                             <li class="text-danger">{{$message}}</li>
@@ -85,7 +110,7 @@ use Illuminate\Support\Facades\Session;
 
                         <div class="intro-y w4 px-1  @if ($errors->get('jornal')) has-error @endif">
                             <label for="jornal" class="form-label mbt-2 text-size">jornal</label>
-                            <select name="jornal" id="jornal" class="form-control py-1 ">
+                            <select required name="jornal" id="jornal" class="form-control py-1 ">
                             </select>
                             
                             @if($errors->get('jornal'))
@@ -97,7 +122,7 @@ use Illuminate\Support\Facades\Session;
                         <div class="intro-y w4 px-1  @if ($errors->get('Succursales')) has-error @endif">
                             <label for="Succursales" class="form-label mbt-2 text-size">Succursales</label>
                            
-                            <select name="Succursales" id="Succursales" class="form-control py-1 ">
+                            <select required name="Succursales" id="Succursales" class="form-control py-1 ">
                                 <option value="1">Sélectioner</option>
                             </select>
                             @if($errors->get('Succursales'))
@@ -123,7 +148,7 @@ use Illuminate\Support\Facades\Session;
                         <div class="intro-y w4 px-1  @if ($errors->get('client')) has-error @endif">
                             <label for="client" class="form-label mbt-2 text-size">Client</label>
                            
-                            <select name="client" id="client" class="form-control py-1 ">
+                            <select required name="client" id="client" class="form-control py-1 ">
                                 <option value="1">Sélectioner un client</option>
                                
                             </select>
@@ -136,7 +161,7 @@ use Illuminate\Support\Facades\Session;
                  
                         <div class="intro-y w4 px-1  @if ($errors->get('n_piece')) has-error @endif">
                             <label for="n_piece" class="form-label mbt-2 text-size">N°Piéce </label>
-                            <input id="n_piece" name="n_piece" type="text" class="form-control py-1 @if($errors->get('n_piece')) is-invalid @endif" placeholder="Entrer numero de piéce">
+                            <input  id="n_piece" name="n_piece" type="text" class="form-control py-1 @if($errors->get('n_piece')) is-invalid @endif" placeholder="Entrer numero de piéce" required>
 
                             @if($errors->get('n_piece'))
                             @foreach($errors->get('n_piece') as $message)
@@ -147,7 +172,7 @@ use Illuminate\Support\Facades\Session;
                         <div class="intro-y w4 px-1  @if ($errors->get('sens')) has-error @endif">
                             <label for="sens" class="form-label mbt-2 text-size">Sens</label>
                            
-                            <select name="sens" id="sens" class="form-control py-1">
+                            <select required name="sens" id="sens" class="form-control py-1">
                             </select>
                             @if($errors->get('Sens'))
                             @foreach($errors->get('Sens') as $message)
@@ -160,7 +185,7 @@ use Illuminate\Support\Facades\Session;
                   <div class="form-inline mt-2">
                        <div class="intro-y w4 px-1  @if ($errors->get('libelle')) has-error @endif">
                            <label for="libelle" class="form-label mbt-2 text-size">Libelle</label>
-                           <input id="libelle" name="libelle" type="text" class="form-control py-1 @if($errors->get('libelle')) is-invalid @endif" >
+                           <input id="libelle" required name="libelle" type="text" class="form-control py-1 @if($errors->get('libelle')) is-invalid @endif" >
 
                            @if($errors->get('libelle'))
                            @foreach($errors->get('libelle') as $message)
@@ -171,7 +196,7 @@ use Illuminate\Support\Facades\Session;
 
                        <div class="intro-y w4 px-1  @if ($errors->get('mode')) has-error @endif">
                            <label for="mode" class="form-label mbt-2 text-size">Mode </label>
-                           <select name="mode" id="mode" class="form-control py-1 ">
+                           <select name="mode" required id="mode" class="form-control py-1 ">
                             </select>
                            @if($errors->get('mode'))
                            @foreach($errors->get('mode') as $message)
@@ -181,7 +206,7 @@ use Illuminate\Support\Facades\Session;
                        </div>
                        <div class="intro-y w4 px-1  @if ($errors->get('Montant')) has-error @endif">
                             <label for="Montant" class="form-label mbt-2 text-size">Montant</label>
-                            <input id="Montant" name="Montant" type="text" class="form-control py-1 @if($errors->get('Montant')) is-invalid @endif" >
+                            <input id="Montant"  name="Montant" type="number" required class="form-control py-1 @if($errors->get('Montant')) is-invalid @endif" >
 
                             @if($errors->get('Montant'))
                             @foreach($errors->get('Montant') as $message)
@@ -191,7 +216,7 @@ use Illuminate\Support\Facades\Session;
                         </div>
                        <div class="intro-y w4 px-1  @if ($errors->get('M_reglement')) has-error @endif">
                            <label for="M_reglement" class="form-label mbt-2 text-size">Marge Réglement</label>
-                           <input id="M_reglement" name="M_reglement" type="text" class="form-control py-1 @if($errors->get('M_reglement')) is-invalid @endif" >
+                           <input id="M_reglement"  name="M_reglement" type="text" required class="form-control py-1 @if($errors->get('M_reglement')) is-invalid @endif" >
 
                            @if($errors->get('M_reglement'))
                            @foreach($errors->get('M_reglement') as $message)
@@ -200,15 +225,19 @@ use Illuminate\Support\Facades\Session;
                            @endif
                        </div>
                  </div>
-                 <div class="form-inline mt-2  justify-content-end  ">  
-                        <div class="intro-y w4 mt-5 px-1">
-                             <button type="Submit" id="ajouter" class="btn btn-primary  w-full  p-1">Ajouter</button>
-                             <button type="button" id="reglement" class="btn btn-primary  w-full  p-1">imprimer</button>
-                         </div> 
-                       </div>
+                
                        <div class="overflow-x-auto scrollbar-hidden">
-                                    <div id="line_Reglement" class="mt-5 table-report--tabulator"></div>
+                                 <div id="line_Reglement" class="mt-5 table-report--tabulator"></div>
                                 </div>
+                                <div class="form-inline mt-2  justify-content-end  ">  
+                                <div class="intro-y w4 mt-5 px-1">
+                         <button type="button" id="reglement" class="btn btn-primary  w-full  p-1">imprimer</button>
+                         </div>
+                                <div class="intro-y w4 mt-5 px-1">
+                             <button type="Submit" id="ajouter" class="btn btn-primary  w-full  p-1">Ajouter</button>
+                         </div> 
+                              
+                     </div>
              </div>
             </form>
             @endif
@@ -219,10 +248,11 @@ use Illuminate\Support\Facades\Session;
             <div  class="form-inline">
                 <form  id="add_factures" action="{{ url('detail_store') }}" method="post" style="display: contents" >
                 {{ csrf_field() }}
-          <div class="intro-y w4 px-1  @if ($errors->get('factures')) has-error @endif">
-          <input type="hidden" id="N_reglement2" name="N_reglement2" value="{{$numreglement}}" >
+                <div class="intro-y w4 px-1  @if ($errors->get('factures')) has-error @endif">
+                <input type="hidden" id="N_reglement2" name="N_reglement2" value="{{$numreglement}}" >
+       
                       <label for="factures" class="form-label mbt-2 text-size">Factures</label>
-                          <select name="factures" id="factures" class="form-control py-1 ">
+                          <select name="factures" require id="factures" class="form-control py-1 ">
                             </select>
                                @if($errors->get('factures'))
                                @foreach($errors->get('factures') as $message)
@@ -230,8 +260,39 @@ use Illuminate\Support\Facades\Session;
                                 @endforeach
                                 @endif
                         </div>
+                      
+                       <div class="intro-y w4 px-1  @if ($errors->get('Totalf')) has-error @endif">
+                           <label for="Totalf" class="form-label mbt-2 text-size">Total facture</label>
+                           <input id="Totalf"  name="Totalf" type="text" disabled class="form-control py-1 @if($errors->get('Totalf')) is-invalid @endif" >
+
+                           @if($errors->get('Totalf'))
+                           @foreach($errors->get('Totalf') as $message)
+                           <li class="text-danger">{{$message}}</li>
+                           @endforeach
+                           @endif
+                       </div> <div class="intro-y w4 px-1  @if ($errors->get('Acompte')) has-error @endif">
+                           <label for="Acompte" class="form-label mbt-2 text-size">Acompte</label>
+                           <input id="Acompte" require name="Acompte" type="number" class="form-control py-1 @if($errors->get('Acompte')) is-invalid @endif" >
+
+                           @if($errors->get('M_regler'))
+                           @foreach($errors->get('M_regler') as $message)
+                           <li class="text-danger">{{$message}}</li>
+                           @endforeach
+                           @endif
+                       </div>
+                        <div class="intro-y w4 px-1  @if ($errors->get('R_total')) has-error @endif">
+                           <label for="R_total" class="form-label mbt-2 text-size">Rest facture</label>
+                           <input id="R_total" require name="R_total" type="text" disabled class="form-control py-1 @if($errors->get('R_total')) is-invalid @endif" >
+
+                           @if($errors->get('R_total'))
+                           @foreach($errors->get('R_total') as $message)
+                           <li class="text-danger">{{$message}}</li>
+                           @endforeach
+                           @endif
+                       </div>
+                      
                         <div class="intro-y w4 mt-5 px-1">
-                                <button type="Submit"class="btn btn-primary p-1">Go</button>
+                                <button type="Submit" id="ajou_litr" class="btn btn-primary p-1 w-full">Ajouter ligne littrage</button>
                         </div> 
  </form>
 
@@ -275,83 +336,6 @@ use Illuminate\Support\Facades\Session;
     </div>
 
 
-<!-- END: Delete  Confirmation Modal -->
-
-<!-- BEGIN: Modal update -->
-
-<!-- END: Modal update -->
-<!-- BEGIN: Modal update -->
-<div id="example-tab-2" class="tab-pane leading-relaxed p-5" role="tabpanel" aria-labelledby="example-2-tab">
-    <div id="header-footer-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <!-- BEGIN: Modal Header -->
-                <div class="modal-header">
-                    <h2 class="font-medium text-base mr-auto">Modifier Accompagnateurs</h2>
-
-                    <div class="dropdown sm:hidden">
-                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
-                            <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                        </a>
-                        <div class="dropdown-menu w-40">
-                            <ul class="dropdown-content">
-                                <li>
-                                    <a href="javascript:;" class="dropdown-item">
-                                        <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Modal Header -->
-                <!-- BEGIN: Modifier  Modal Body -->
-
-                
-                <form id="update_Acompagnateur" action="{{ route('Accompagnateurs.update') }}" method="post">
-
-                    {{ csrf_field() }}
-                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_code" class="form-label">Code</label>
-                            <input id="_code" name="_code" value="{{old('_code')}}" type="text" class="form-control" placeholder="Code">
-                        </div>
-
-                        <input type="hidden" id="id__" name="id__">
-
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_nom_prenom" class="form-label">Nom prenom</label>
-                            <input id="_nom_prenom" name="_nom_prenom" value="{{old('_nom_prenom')}}" type="text" class="form-control" placeholder="Nom prenom">
-                        </div>
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_adresse" class="form-label">Adresse</label>
-                            <input id="_adresse" name="_adresse" value="{{old('_adresse')}}" type="text" class="form-control" placeholder="Adresse">
-                        </div>
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_fax" class="form-label">Fax</label>
-                            <input id="_fax" name="_fax" value="{{old('_fax')}}" type="text" class="form-control" placeholder="Fax">
-                        </div>
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_telephone" class="form-label">Telephone</label>
-                            <input id="_telephone" name="_telephone" type="text" value="{{old('_telephone')}}" class="form-control" placeholder="Telephone">
-                        </div>
-
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="_prix" class="form-label">prix</label>
-                            <input id="_prix" name="_prix" type="text" value="{{old('_prix')}}" value="{{old('_prix')}}" class="form-control" placeholder="prix">
-                        </div>
-
-
-                    </div>
-
-                    <!-- END: Modal Body -->
-                    <!-- BEGIN: Modal Footer -->
-                    <div class="modal-footer">
-                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                        <button type="submit" class="btn btn-primary w-20">Send</button>
-                    </div>
-                </form>
-                <!-- END: Modal Footer -->
             </div>
         </div>
     </div>
@@ -375,5 +359,10 @@ use Illuminate\Support\Facades\Session;
 @section('jqscripts')
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <script type="text/javascript" src="{{URL::asset('js/Gestion_reglement.js')}}"></script>
+
+
+
+ <script>
  
+ </script>
 @endsection

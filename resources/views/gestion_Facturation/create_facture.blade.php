@@ -142,8 +142,8 @@ button.hidden {
               <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_client }} {{ $table->prenom_client}}</td>
               <td class="editable" data-field="arrives"></td>
               <td class="editable" data-field="departs"></td>
-              <td class="editable" data-field="total">{{ $table->Totale_prg}}</td>
-              
+              <td class="editable" data-field="total"> {{ $table->Totale_prg}}</td>
+            
            
           </tr>
       @endforeach
@@ -180,6 +180,7 @@ button.hidden {
     </div>
    </div>
 </div>
+@if($exist==false) 
 @if (Auth::user()->permissions->contains('name','Update_facture'))
 <script>
      const cells = document.querySelectorAll('td');
@@ -248,6 +249,7 @@ nom_c.addEventListener('click', () => {
 });
 
     function toggleButtons() {
+      alert('enregster');
   var button1 = document.getElementById("button1");
   var button2 = document.getElementById("print");
   console
@@ -256,6 +258,7 @@ nom_c.addEventListener('click', () => {
 }
 </script> 
 @endif
+@endif  
 @endsection
 @section('jqscripts')
 <script type="text/javascript" src="{{URL::asset('js/gestion_facturation.js')}}"></script>

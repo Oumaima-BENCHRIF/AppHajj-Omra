@@ -28,6 +28,9 @@
     .w-50{
         width:50%;   
     }
+    .w-30{
+        width:30%;   
+    }
     .w-85{
         width:85%;  
        
@@ -75,38 +78,21 @@
     }
     table tr td{
         font-size:13px;
-    
-       
     }
-   
     table{
-        margin-top: 20px !important;
-       
+        margin-top: 150px !important;
         border-collapse:collapse;
         border-bottom:1px solid #d2d2d2;
-       
-        
     }
     .box-text p{
         line-height:10px;
     }
-  
     .total-part{
         font-size:16px;
         line-height:12px;
     }
-    .total-right p{
-        padding-right:20px;
-    }
-    .display-f
-    {
-        display: inline;
-    }
 .info{
     border: 1px solid #d2d2d2;
-}
-.center{
-    text-align: center;
 }
 .footer
 {
@@ -118,7 +104,7 @@
 {
     font-size:10px;
 }
-.d-block
+.d-block    
 {
     display: block;
 }
@@ -135,81 +121,68 @@
       
         border-collapse:collapse;
     }
-
-
     .center{
        margin: auto;
        margin-top: 40px;
-       width: 30%;
+       width: 40%;
        border:1px solid #d2d2d2;
        padding: 15px;
        font-size: larger;
+       text-align: center;
     }
     .right{
         float: right;
         display:block ;
         padding: 5px;
         margin: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 10em;
     }
     .float-left{
         float:left;
         border:1px solid #d2d2d2;
         padding: 10px;
         margin-top: 5em;
+        margin-bottom:2em;
     }
-
+    .text-centre
+    {
+        text-align: center;
+    }
 </style>
 <body> 
-        <div class="center mt-10">
+<div class="center mt-10">
             Récépissé Réglement Client
         </div> 
-    <div class="right">Edité le : 08/05/2023</div>
+    <div class="right">Edité le : {{$date}}</div>
 
-
-    <div class=" float-left ">N°Recu: R202300525</div>
-    <table class="table w-100 mt-10 ">
+       
+    <div class=" float-left ">N°Recu:  {{$numero}}</div>
+    <table class="table w-100  ">
         <tr >
         <th class=" ">Date</th>
         <th class="">JRL</th>
-            <th class="w-50 ">Désignation</th>
-            <th class="">Arrivés</th>
-            <th class="">Départs</th>
+            <th class="w-30">Désignation</th>
+            <th class="">client</th>
+            <th class="">mode</th>
             <th class="">TOTAL</th>
         </tr>
+        @foreach($regleement as $info_regle) 
         <tr>
-            <td class="pl5"></td>
-            <td ></td>
-            <td ></td>
-            <td ></td>
+            <td class="pl5">{{$info_regle->date_r}}</td>
+            <td >{{$info_regle->jornal}}</td>
+            <td >{{$info_regle->libelle}}</td>
+            <td >{{$info_regle->client}}</td>
+            <td >{{$info_regle->mode}}</td>
+            <td >{{$info_regle->montant}}</td>
         </tr>
-    
-       
-        <tr>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    
+    @endforeach
     </table>
 
-<div class="table-section bill-tbl w-100 mt-10">
- 
-                    <div class="total-left w-85 " align="right">
-                        <p>Total  :</p>
-                      
-                    </div>
-                    <div class="total-right w-15 float-left text-bold" align="right">
-                      
-                        <p></p>
-                    </div>
-                    <div style="clear: both;"></div>
-    </div> 
-    <div  class="footer w-100">
-<div class="info center ">Fcturation selon le régime de la marge article 125 qualer du CGI</div>  
 
-<p class="center text ">Direction Generale:47bis,Bd.MyYoussef angle Bd.D4ANFA6caablanca-Tel:(212)2220 80 76/77Direction Generale:47bis, </br>      
+    <div  class="footer w-100">
+<div class="info text-centre ">Fcturation selon le régime de la marge article 125 qualer du CGI</div>  
+
+<p class="text text-centre">Direction Generale:47bis,Bd.MyYoussef angle Bd.D4ANFA6caablanca-Tel:(212)2220 80 76/77Direction Generale:47bis, </br>      
 Direction Generale:47bis,Bd.MyYoussef </p>   
     </div>
 </html>

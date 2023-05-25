@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use  Illuminate\Database\Eloquent\SoftDeletes; 
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class detail_reglement extends Model
+class lettrage_fact extends Model
 {
     use HasFactory;
+      
     use SoftDeletes;
     protected $connection = 'mysql_portal';
     protected $id = 'id';
-    protected $table = 'detail_reglement';
+    protected $table = 'lettrage_fact';
+    protected $dates=['deleted_at'];
 }

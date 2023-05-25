@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 @section('subcontent')
 <div class="flex items-center mt-8">
-    <h2 class="intro-y text-lg font-medium mr-auto">Gestion Client/Agence</h2>
+    <h2 class="intro-y text-lg font-medium mr-auto">Gestion Client</h2>
 </div>
  <div class="px-5 sm:px-20  "></div>
    <!-- <div class="grid grid-cols-6 gap-4">
@@ -53,7 +53,7 @@ use Illuminate\Support\Facades\Session;
         <div class="tab-content intro-y box py-5 px-5  mt-5" id="example-tab-3" class="tab-pane leading-relaxed active" role="tabpanel" aria-labelledby="example-3-tab">
 
             <div class="px-5 mt-10 mb-6">
-                <div class="font-medium text-center text-lg">Gestion Client/Agence</div>
+                <div class="font-medium text-center text-lg">Gestion Client</div>
             </div>
             @if (Auth::user()->permissions->contains('name','Ajouter_ClientAgence'))
             <form id="Ajouter_fiche_client" name="Ajouter_fiche_client" action="{{ url('fiche_clients_Store') }}" method="post">

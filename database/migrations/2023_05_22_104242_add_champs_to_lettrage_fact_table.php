@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_portal')->create('detail_reglement', function (Blueprint $table) {
-            $table->id();
-           
-            $table->string('num_reglement');
-           
-            $table->string('num_factures');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::connection('mysql_portal')->table('lettrage_fact', function (Blueprint $table) {
+            $table->string('Code_clt');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_reglement');
+        Schema::table('lettrage_fact', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -616,7 +616,7 @@ class GestionFichesInscriptionController extends Controller
                         // calcule
                         $Gestion_detail_fiches_inscriptions->remis_prg = $request->input('remis');
                         $Gestion_detail_fiches_inscriptions->Totale_prg = $request->input('Totale_prg');
-
+                        $Gestion_detail_fiches_inscriptions->NumBillet = $request->input('num_bill');
                         if ($request->hasFile('photo')) {
                             $file = $request->file('photo');
                             $filename = time() . '_' . $file->getClientOriginalName();
