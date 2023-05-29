@@ -27,10 +27,10 @@ class User extends Authenticatable
         'password',
         'gender',
         'ville',
-        'active',
-        'privilege',
+        // 'active',
+        // 'privilege',
         'adress',
-        'Nom_DB',
+        'baseName',
         'telephone',
         'deleted_at',
 

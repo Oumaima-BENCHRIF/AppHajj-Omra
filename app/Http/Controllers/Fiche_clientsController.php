@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Fiche_clientsPostRequest;
 use App\Models\Fiche_client;
 use App\Models\Villes;
+use App\Models\Factures;
+use App\Models\Reglement;
 use Illuminate\Support\Facades\Validator;
+use App\Models\lettrage_fact;
+use Carbon\Carbon;
 
 class Fiche_clientsController extends Controller
 {
@@ -14,6 +18,7 @@ class Fiche_clientsController extends Controller
     public function index(Request $request)
     {
         $villes = Villes::get();
+        $code_client=$this->Code_client();
         // ----------------------------------------index & search demande Methodes/Chefequipe-----------------------------------
         $Liste_Fiche_client = Fiche_client::where('fiche_clients.deleted_at', '=', NULL)
             ->orderBy("id", "desc");
@@ -23,7 +28,8 @@ class Fiche_clientsController extends Controller
             'pagination' => $pagination ?? 20,
             'countListeFiche_client' => $Liste_Fiche_client->count(),
             'listes_Fiche_client' => $Liste_Fiche_client->paginate($pagination ?? 20),
-            'villes' => $villes
+            'villes' => $villes,
+            'code_client'=>$code_client
         ])
             ->with($request->all());
     }
@@ -91,7 +97,6 @@ class Fiche_clientsController extends Controller
                     $query->where('fiche_clients.Remarques', 'LIKE', $Remarques . '%');
                 }
             });
-        dd($Liste_Fiche_client);
         if ($Liste_Fiche_client != null) {
             return response()->json([
                 'page' => $page,
@@ -125,6 +130,25 @@ class Fiche_clientsController extends Controller
             ]);
         }
     }
+    private function Code_client()
+    {
+        $lastRecord = Fiche_client::latest('id')->first();
+       
+        if($lastRecord!=null)
+        {
+        $num=$lastRecord->Code_client;
+        $conteur = intval(substr($num,4));
+        $conteur += 1;
+        $result = sprintf('%04d', $conteur);
+       $code= '3421'.$result;
+       return $code;
+        }
+        else
+        {
+            return '3421'.'0001';
+        }
+
+    }
     //Enregister Fiche_client
     public function store(Fiche_clientsPostRequest $request)
     {
@@ -151,9 +175,11 @@ class Fiche_clientsController extends Controller
                     'errors' => $validator->messages(),
                 ]);
             } else {
+                $code_client=$this->Code_client();
                 $Fiche_client = new Fiche_client();
                 $Fiche_client->compte = $request->input('compte');
                 $Fiche_client->nom = $request->input('nom');
+                $Fiche_client->Code_client = $code_client;
                 $Fiche_client->adresse = $request->input('adresse');
                 $Fiche_client->C_postal = $request->input('C_postal');
                 $Fiche_client->contact_commercial = $request->input('contact_commercial');
@@ -189,8 +215,20 @@ class Fiche_clientsController extends Controller
     }
 
     //permet de récupérer un Fiche_client
-    public function edit()
+    public function situation_client($id)
     {
+        $facture=Factures::where('factures.Code_client',$id)
+        ->where('factures.deleted_at', '=', NULL)
+        ->get();
+        $lettrage=lettrage_fact::where('lettrage_fact.deleted_at', '=', NULL)
+        ->where('lettrage_fact.num_factures',$facture->numero_facture)->get();
+
+        return response()->json([
+            'facture' => $facture,
+            'lettrage' => $lettrage,
+            'status' => 200,
+        ]);
+
     }
     // permet de modifier Fiche_client
     public function update(Request $request)

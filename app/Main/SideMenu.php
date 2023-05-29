@@ -13,18 +13,16 @@ class SideMenu
     public static function menu()
     {
         return [
-            'dashboard' => [
-                'icon' => 'home',
-                'title' => 'Dashboard',
-                'sub_menu' => [
-                    'dashboard-dashboard' => [
-                        'icon' => '',
+            'Dashboard' => [
+    
+                 
+                        'icon' => 'home',
                         'route_name' => 'Dashboard.index',
                         'params' => [
                             'layout' => 'side-menu',
                         ],
-                        'title' => 'dashboard'
-                    ],
+                        'title' => 'Dashboard'
+                    
                     // 'dashboard-facturation' => [
                     //     'icon' => '',
                     //     'route_name' => 'facturation.index',
@@ -65,7 +63,7 @@ class SideMenu
                     //     ],
                     //     'title' => 'Overview 4'
                     // ]
-                ]
+                
             ],
             'Gestion' => [
                 'icon' => 'box',
@@ -110,15 +108,7 @@ class SideMenu
                         'params' => [
                             'layout' => 'side-menu'
                         ],
-                        'title' => 'G.Client/Agence'
-                    ],
-                    'Fiche_inscription' => [
-                        'icon' => '',
-                        'route_name' => 'ficheInscip.index',
-                        'params' => [
-                            'layout' => 'side-menu'
-                        ],
-                        'title' => 'G.fiches inscription'
+                        'title' => 'G.Client'
                     ],
                     'TO' => [
                         'icon' => '',

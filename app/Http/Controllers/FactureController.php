@@ -12,6 +12,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use App\Models\Factures;
 use App\Models\Detail_factures;
+use App\Models\lettrage_fact;
+use App\Models\Reglement;
 use App\Models\Gestion_chambres;
 use App\Models\gestion_programmes;
 use Cmixin\Numero\Locale as Numero;
@@ -19,6 +21,7 @@ use Cmixin\Numero\Locale;
 use Symfony\Component\Console\Input\Input;
 use App\Models\Agents;
 use Attribute;
+use Illuminate\Support\Facades\DB;
 
 class FactureController extends Controller
 {
@@ -91,58 +94,118 @@ class FactureController extends Controller
        ->join('gestion_fiches_inscriptions', 'gestion_fiches_inscriptions.FK_societe', 'fiche_clients.id')
        ->where('gestion_fiches_inscriptions.id', $fiche)
        ->get();
-     
-       $Detail_Fiche_Insc = Gestion_detail_fiches_inscriptions::select('gestion_detail_fiches_inscriptions.*')
+       $Detail_Fiche_Insc =  DB::table('Gestion_detail_fiches_inscriptions')
+       ->selectRaw('CONCAT(	nom_client, " ", prenom_client) AS nom_complet,prix')
+       ->get();
+       $Detail_Fiche_Insc = Gestion_detail_fiches_inscriptions::select('gestion_detail_fiches_inscriptions.prix','gestion_detail_fiches_inscriptions.nom_client','gestion_detail_fiches_inscriptions.prenom_client')
        ->join('gestion_fiches_inscriptions','gestion_detail_fiches_inscriptions.Fk_fiche_inscription','gestion_fiches_inscriptions.id')
        ->where('gestion_detail_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.deleted_at', '=', NULL)
        ->where('gestion_fiches_inscriptions.id', $fiche)
        ->get();
        $Total=0;
-   foreach ($Detail_Fiche_Insc as $key ) {
-    $Total= $Total + $key->Totale_prg;
-   }
+       foreach ($Detail_Fiche_Insc as $key ) {
+        $Total= $Total + $key->Totale_prg;
+        }
    
-    $programe = gestion_programmes::select('gestion__programmes.nom_programme','gestion__programmes.type_programme','gestion_vole__deeparts.date_depart','gestion_vole__reetours.date_retour')
-    ->join('gestion_detail_fiches_inscriptions','gestion__programmes.id','gestion_detail_fiches_inscriptions.FK_programme')
-    ->join('gestion_vole__deeparts','gestion__programmes.FK_Num_vole_depart','gestion_vole__deeparts.id')
-    ->join('gestion_vole__reetours','gestion__programmes.FK_Num_vole_retour','gestion_vole__reetours.id')
-    ->join('gestion_fiches_inscriptions','gestion_fiches_inscriptions.id','gestion_detail_fiches_inscriptions.Fk_fiche_inscription')
- ->where('gestion_fiches_inscriptions.id', $fiche)
- ->get();
+      $programe = gestion_programmes::select('gestion__programmes.nom_programme','gestion__programmes.type_programme','gestion_vole__deeparts.date_depart','gestion_vole__reetours.date_retour')
+      ->join('gestion_detail_fiches_inscriptions','gestion__programmes.id','gestion_detail_fiches_inscriptions.FK_programme')
+      ->join('gestion_vole__deeparts','gestion__programmes.FK_Num_vole_depart','gestion_vole__deeparts.id')
+      ->join('gestion_vole__reetours','gestion__programmes.FK_Num_vole_retour','gestion_vole__reetours.id')
+      ->join('gestion_fiches_inscriptions','gestion_fiches_inscriptions.id','gestion_detail_fiches_inscriptions.Fk_fiche_inscription')
+      ->where('gestion_fiches_inscriptions.id', $fiche)
+      ->get();
   
         return view('gestion_Facturation/create_facture',[
             'id'=>$id,
-            'data2'=>$gestion,
+            'code_client'=>$gestion->Code_client,
+            'bon_commande'=>$gestion->bon_commande,
+            'date'=>Carbon::now()->format('d-m-y'),
+            'ville_client'=>$info_sociéte->	ville_client,
+            'adresse'=>$info_sociéte->adresse,
+            'nom'=>$info_sociéte->nom,
             'numdossier'=>$numdossier,
             'numfacture'=>$numfacture,
             'Detail_Fiche'=>$Detail_Fiche_Insc,
-            'societe'=>$info_sociéte,
-            'programme'=>$programe->first(),
+            'designation'=>$programe->nom_programme,
+             'date_depart'=>$programe->date_depart,
+             'date_retour'=>$programe->date_retour,
             'exist'=>$exist,
             'total'=>$Total
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function consult_facture($num)
     {
-        //
+       
+        $facture=Factures::where('factures.numero_facture',$num)->first();
+        $exist=false;
+     
+        if($facture->count()!=0)
+        {
+         $exist=true;
+        }
+        
+        $numdossier=$facture->Numero_dossier;
+        // $info_sociéte=Factures::select('factures.Nom_client','factures.adresse','factures.ville')
+        // ->where('factures.id', $num)
+        // ->get();
+     
+        $detail_factures = detail_factures::select('detail_factures.prix','detail_factures.nom_complet')
+        ->where('detail_factures.deleted_at', '=', NULL)
+        ->where('detail_factures.FK_Facture', $facture->id)
+        ->get();
+        $Total=0;
+        foreach ($detail_factures as $key ) {
+        $Total= $Total + $key->prix;
+       }
+  
+       $id=1;
+         return view('gestion_Facturation/create_facture',[
+             'id'=>$id,
+             'code_client'=>$facture->Code_client,
+             'bon_commande'=>$facture->bon_commande,
+             'date'=>$facture->date,
+             'ville_client'=>$facture->ville,
+             'adresse'=>$facture->adresse,
+             'nom'=>$facture->Nom_client,
+             'numdossier'=>$numdossier,
+             'numfacture'=>$num,
+             'Detail_Fiche'=>$detail_factures,
+           
+             'designation'=>$facture->designation,
+             'date_depart'=>$facture->date_departs,
+             'date_retour'=>$facture->date_Arrives,
+             'exist'=>$exist,
+             'total'=>$Total
+         ]);
+    }
+    public function sitation_fact($num)
+    {
+        $ligne_lettrage=lettrage_fact::where('lettrage_fact.num_factures', '=', $num)
+        ->where('lettrage_fact.deleted_at', '=', NULL)
+        ->get();
+        $facture = Factures::select('factures.*')
+        ->where('numero_facture', $num)
+        ->first();
+        return response()->json([
+            'ligne_lettrage'=> $ligne_lettrage,
+            'facture'=>$facture,
+            'status' => 200,
+            'message' => 'Votre demande a été bien envoyée.',
+        ]);
+        
     }
    
    
     public function print($id){ 
        $value=$id;
-      $info_facture=Factures::where('factures.deleted_at', '=', NULL)
-    ->where('factures.fk_fiche',$value)->first();
-    $id_fac=$info_facture->id;
+       $info_facture=Factures::where('factures.deleted_at', '=', NULL)
+       ->where('factures.fk_fiche',$value)->first();
+       $id_fac=$info_facture->id;
     
-    $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$id_fac)
-    ->get();
+       $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$id_fac)
+       ->get();
         $pdf = PDF::loadView('myPDF',[
           'info_facture'=>$info_facture ,
           'detail_facture'=>$detail_facture
@@ -151,13 +214,6 @@ class FactureController extends Controller
         return $pdf->download('facture.pdf');
 
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {

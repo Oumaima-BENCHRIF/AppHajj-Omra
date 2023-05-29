@@ -52,9 +52,6 @@ $(document).ready(function () {
         if (selectedRows.length > 0) {
             rowselect = selectedRows[0].getData();
             rest_regle= rowselect.rest_reglement;
-       console.log(rowselect);
-       console.log("row select");
-     
         formData.push({
             name: "id",
            value: rowselect.id,
@@ -98,8 +95,6 @@ $(document).ready(function () {
 } else{
        
         var rowData = tableline.getData(); 
-        console.log(rowData);
-        console.log("row data");
         rest_regle= rowData[0].rest_reglement;
         formData.push({
             name: "id",
@@ -148,6 +143,7 @@ $(document).ready(function () {
             $('#N_reglement').css('display', 'block'); 
             $('#num_reglement').css('display', 'none'); 
             $('#lettrage').css('display', 'none'); 
+            $('#reglement').css('display', 'none'); 
             $('#line_Reglement').css('display', 'none'); 
     });
    $('#factures').on('change', function() {
@@ -174,7 +170,6 @@ $(document).ready(function () {
                     $('#lettrage').css('display', 'block'); 
                     $('#reglement').css('display', 'block'); 
                      detail_reglement(selected); 
-                    
                     line_reglement(selected);
              
         });

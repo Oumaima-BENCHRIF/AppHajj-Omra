@@ -60,7 +60,17 @@ use Illuminate\Support\Facades\Session;
                 {{ csrf_field() }}
                 <div class="py-5 px-2  container">
                     <div class="form-inline">
+                    <div class="intro-y w5 px-1  @if ($errors->get('code_client')) has-error @endif">
+                            <label for="code_client" class="form-label mbt-2 text-size">Code client</label>
 
+                            <input type="text" disabled id="code_client" name="code_client" class="form-control py-1 @if ($errors->get('code_client')) is-invalid @endif" value='{{ $code_client }}'>
+
+                            @if ($errors->get('code_client'))
+                            @foreach ($errors->get('code_client') as $message)
+                            <li class="text-danger">{{ $message }}</li>
+                            @endforeach
+                            @endif
+                        </div>
                         <div class="intro-y w5 px-1  @if ($errors->get('compte')) has-error @endif">
                             <label for="compte" class="form-label mbt-2 text-size">Compte</label>
 
@@ -103,7 +113,10 @@ use Illuminate\Support\Facades\Session;
                             @endif
                         </div>
 
-                        <div class="intro-y w5 px-1  @if ($errors->get('contact_commercial')) has-error @endif">
+                        
+                    </div>
+               <div class="form-inline mt-2">
+               <div class="intro-y w5 px-1  @if ($errors->get('contact_commercial')) has-error @endif">
                             <label for="contact_commercial" class="form-label mbt-2 text-size">Contact commercial</label>
                             <input id="contact_commercial" name="contact_commercial" class="form-control py-1 @if($errors->get('contact_commercial')) is-invalid @endif" type="text" class="form-control" placeholder="Entrer contact commercial" required>
 
@@ -112,9 +125,7 @@ use Illuminate\Support\Facades\Session;
                             <li class="text-danger">{{$message}}</li>
                             @endforeach
                             @endif
-                        </div>
-                    </div>
-               <div class="form-inline mt-2">
+                  </div>
                         <div class="intro-y w5 px-1  @if ($errors->get('telephone_commercial')) has-error @endif">
                             <label for="telephone_commercial" class="form-label mbt-2 text-size">Telephone commercial</label>
                             <input id="telephone_commercial" name="telephone_commercial" type="text" class="form-control py-1 @if($errors->get('telephone_commercial')) is-invalid @endif" placeholder="Entrer telephone commercial" required>
@@ -161,7 +172,10 @@ use Illuminate\Support\Facades\Session;
                             @endif
                         </div>
 
-                        <div class="intro-y w5 px-1  @if ($errors->get('email_client')) has-error @endif">
+                        
+               </div>
+               <div class="form-inline mt-2">
+                  <div class="intro-y w5 px-1  @if ($errors->get('email_client')) has-error @endif">
                             <label for="email_client" class="form-label mbt-2 text-size">Email client</label>
                             <input id="email_client" name="email_client" type="text" class="form-control  py-1 @if($errors->get('email_client')) is-invalid @endif" placeholder="Entrer email client" required>
                             @if($errors->get('email_client'))
@@ -170,8 +184,6 @@ use Illuminate\Support\Facades\Session;
                             @endforeach
                             @endif
                         </div>
-               </div>
-               <div class="form-inline mt-2">
                         <div class="intro-y w5 px-1  @if ($errors->get('pays_client')) has-error @endif">
                             <label for="pays_client" class="form-label mbt-2 text-size">Pays client</label>
                             <input id="pays_client" name="pays_client" type="text" class="form-control  py-1 @if($errors->get('pays_client')) is-invalid @endif" placeholder="Entrer Pays client" required>
@@ -211,11 +223,12 @@ use Illuminate\Support\Facades\Session;
                             @endforeach
                             @endif
                         </div>
-
+                </div>
+                <div class="form-inline mt-2  justify-content-end  ">
                         <div class="intro-y w5 px-1 flex items-center justify-center sm:justify-end mt-5">
                             <button type="Submit" class="btn btn-primary w-full py-1 ml-2">Envoyer</button>
                         </div>
-                </div>
+</div>
             </form>
             @endif
     </div>
@@ -594,17 +607,21 @@ use Illuminate\Support\Facades\Session;
 </div>
 <!-- END: Modal Content -->
 
-<!-- BEGIN: Model Ajouter fiche client -->
+<!-- BEGIN: Modal update -->
+
+<!-- END: Modal Content -->
+
+<!-- BEGIN: Model situation fiche client -->
 <div id="example-tab-2" class="tab-pane leading-relaxed p-5" role="tabpanel" aria-labelledby="example-2-tab">
 
-    <div id="static-backdrop-modal-preview" class="modal" data-tw-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div id="header-footer-modal-preview2" class="modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-body px-5 py-10">
 
                     <!-- BEGIN: Modal Header -->
                     <div class="modal-header">
-                        <h2 class="font-medium text-base mr-auto">Ajouter fiche client</h2>
+                        <h2 class="font-medium text-base mr-auto">Situation Client</h2>
                         <div class="dropdown sm:hidden">
                             <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
                                 <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
@@ -649,128 +666,16 @@ use Illuminate\Support\Facades\Session;
                                     @endforeach
                                     @endif
                                 </div>
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_adresse_" class="form-label">Adresse</label>
-                                    <input id="_adresse_" name="adresse" type="text" class="form-control @if($errors->get('_adresse_')) is-invalid @endif" placeholder="Adresse">
-                                    @if($errors->get('_adresse_'))
-                                    @foreach($errors->get('_adresse_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
+                                <div class="intro-y col-span-12 ">
+                                <div class="overflow-x-auto scrollbar-hidden">
+                                  <div id="listFacture" class="mt-5 table-report--tabulator"></div>
                                 </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_C_postal_" class="form-label">C postal</label>
-                                    <input id="_C_postal_" name="C_postal" type="text" class="form-control @if($errors->get('_C_postal_')) is-invalid @endif" placeholder="C postal">
-
-                                    @if($errors->get('_C_postal_'))
-                                    @foreach($errors->get('_C_postal_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
                                 </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_contact_commercial_" class="form-label">Contact commercial</label>
-                                    <input id="_contact_commercial_" name="contact_commercial" class="form-control @if($errors->get('_contact_commercial_')) is-invalid @endif" type="text" class="form-control" placeholder="Contact commercial">
-
-                                    @if($errors->get('_contact_commercial_'))
-                                    @foreach($errors->get('_contact_commercial_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
+                                <div class="intro-y col-span-12 ">
+                                <div class="overflow-x-auto scrollbar-hidden">
+                                  <div id="listeLittrage" class="mt-5 table-report--tabulator"></div>
                                 </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_telephone_commercial_" class="form-label">Telephone commercial</label>
-                                    <input id="_telephone_commercial_" name="telephone_commercial" type="text" class="form-control @if($errors->get('_telephone_commercial_')) is-invalid @endif" placeholder="Telephone commercial">
-                                    @if($errors->get('_telephone_commercial_'))
-                                    @foreach($errors->get('_telephone_commercial_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
                                 </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_mobile_commercial_" class="form-label">Mobile commercial</label>
-                                    <input id="_mobile_commercial_" name="mobile_commercial" type="text" class="form-control @if($errors->get('_mobile_commercial_')) is-invalid @endif" placeholder="Mobile commercial">
-                                    @if($errors->get('_mobile_commercial_'))
-                                    @foreach($errors->get('_mobile_commercial_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_ville_client_" class="form-label">Ville client</label>
-                                    <input id="_ville_client_" name="ville_client" type="text" class="form-control @if($errors->get('_ville_client_')) is-invalid @endif" placeholder="Ville client">
-                                    @if($errors->get('_ville_client_'))
-                                    @foreach($errors->get('_ville_client_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_tele_client_" class="form-label">Tele client</label>
-                                    <input id="_tele_client_" name="tele_client" type="text" class="form-control @if($errors->get('_tele_client_')) is-invalid @endif" placeholder="Tele client">
-                                    @if($errors->get('_tele_client_'))
-                                    @foreach($errors->get('_tele_client_') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="email_client" class="form-label">Email client</label>
-                                    <input id="email_client" name="email_client" type="text" class="form-control @if($errors->get('email_client')) is-invalid @endif" placeholder="Email client">
-                                    @if($errors->get('email_client'))
-                                    @foreach($errors->get('email_client') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="pays_client" class="form-label">Pays client</label>
-                                    <input id="pays_client_" name="pays_client" type="text" class="form-control @if($errors->get('pays_client')) is-invalid @endif" placeholder="Pays client">
-                                    @if($errors->get('pays_client'))
-                                    @foreach($errors->get('pays_client') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="fax_client" class="form-label">Fax client</label>
-                                    <input id="fax_client" name="fax_client" type="text" class="form-control @if($errors->get('fax_client')) is-invalid @endif" placeholder="Fax client">
-                                    @if($errors->get('fax_client'))
-                                    @foreach($errors->get('fax_client') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="marge_client" class="form-label">Marge client</label>
-                                    <input id="marge_client_" name="marge_client" type="text" class="form-control @if($errors->get('marge_client')) is-invalid @endif" placeholder="Marge client">
-                                    @if($errors->get('marge_client'))
-                                    @foreach($errors->get('marge_client') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                                <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="Remarques" class="form-label">Remarques</label>
-                                    <input id="Remarques" name="Remarques" type="text" class="form-control @if($errors->get('Remarques')) is-invalid @endif" placeholder="Remarques">
-                                    @if($errors->get('Remarques'))
-                                    @foreach($errors->get('Remarques') as $message)
-                                    <li class="text-danger">{{$message}}</li>
-                                    @endforeach
-                                    @endif
-                                </div>
-
                                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
                                     <button type="Submit" data-tw-dismiss="modal" class="btn btn-primary w-24">Envoyer</button>
@@ -786,8 +691,7 @@ use Illuminate\Support\Facades\Session;
 
 </div>
 
-<!-- END: Model Ajouter fiche client -->
-
+<!-- END: Model situation fiche client -->
 </div>
 <!-- END: gestion fiche client -->
 

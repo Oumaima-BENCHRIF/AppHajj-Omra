@@ -55,7 +55,7 @@ class G_reglementController extends Controller
     {
         $invoiceNumber = $request->input('invoice_number');
         
-        // Retrieve the total amount for the given invoice number from your database or any other data source
+        
         $facture = Factures::select('factures.*')
         ->where('numero_facture', $invoiceNumber)
         ->get();

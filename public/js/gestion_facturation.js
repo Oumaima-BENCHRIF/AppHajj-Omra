@@ -46,7 +46,7 @@ $(document).ready(function () {
         });
     })
     $("#print_facture").on("click",function()
-    { console.log()
+    { 
         let id=$('#_id').val();
   
         jQuery.ajax({
@@ -61,6 +61,13 @@ $(document).ready(function () {
                 console.log("Error:", error);
             }
         });
+    })
+     // ******Situation Facture******
+    $("#situation").on("click",function()
+    {
+        let id=document.getElementById('numfacture').value;
+        console.log(id);
+        Situation_facture( id);
     })
         // ******Delete Facture******
         $("#delet_facture").on("submit", function (e) {
@@ -262,9 +269,24 @@ function table_Facture() {
                             $(a)
                                 .find(".view")
                                 .on("click", function () {
+                                    jQuery.ajax({
+                                        url:
+                                            "/get_facture/" +
+                                            cell.getData().id,
+                                        type: "GET", // Le nom du fichier indiqué dans le formulaire
+                                        dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                                        // dataFilter: 'json', //forme data
+                                        success: function (responce) {
+                                            jQuery.each(
+                                                responce.facture,
+                                                function (key, item) {
                                     window.location.replace(
-                                        "/create_facture/" + cell.getData().fk_fiche
+                                        "/consult_facture/" + item.numero_facture
                                     );
+                                }
+                                );
+                                },
+                            });
                                 });
 
                             return a[0];
@@ -296,7 +318,114 @@ function table_Facture() {
     });
 }
 });
+function Situation_facture(value) {
+    jQuery.ajax({
+      url: "/sitation_fact/" + value,
+      type: "GET", // Le nom du fichier indiqué dans le formulaire
+      dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+    // dataFilter: 'json', //forme data
+    success: function (responce) {
+        // Je récupère la réponse du fichier PHP
+        $tabledata = "";
+        jQuery.each(responce.ligne_lettrage, function (key, item) {
+            $tabledata = responce.ligne_lettrage;
+            document.getElementById('T_Facture').value=responce.facture.Total;
+            document.getElementById('R_Facture').value=responce.facture.Total-responce.facture.Total_regler;
+            console.log(responce);
+        });
+        var table = new Tabulator("#S_facture", {
+            printAsHtml: true,
+            printStyled: true,
+            // height: 220,
+            data: $tabledata,
+            layout: "fitColumns",
+            pagination: "local",
+            paginationSize: 5,
+            printHeader:
+                '<div class="center intro-x w-10 h-10 image-fit">\n <img alt="Midone - HTML Admin Template" class="rounded-full " src="dist/images/download.jpg">\n  </div>  <h1 style=\'color:#92400e; margin-left:10px;\'>عمرة رمضان موسم 2023 </h1>    \n ',
+            printFooter:
+                "<h3>28,Bd Hassane Bnou Tabit - Hay Ezzahraa - Berrchid - 26100 - Maroc Tél.:05 22 32 80 50/52 - Fax: 05 22 32 55 11 - E-mail: info@almaqamtrips.com</h3>",
 
+            paginationSizeSelector: [10, 20, 30, 40],
+            placeholder: "Aucun enregistrements correspondants trouvés",
+            tooltips: true,
+            columns: [
+              
+                {
+                    title: "numero facture",
+                    minWidth: 100,
+                    field: "num_factures",
+                    sorter: "string",
+                    hozAlign: "left",
+                    vertAlign: "middle",
+                    print: false,
+                    download: false,
+                },
+                {
+                    title: "Code client",
+                    minWidth: 100,
+                    responsive: 0,
+                    field: "Code_clt",
+                    sorter: "string",
+                    vertAlign: "middle",
+                    col: "red",
+                    print: false,
+                    download: false,
+             
+                },
+                {
+                    title: "nummero reglement",
+                    minWidth: 100,
+                    field: "num_reglement",
+                    sorter: "string",
+                    hozAlign: "left",
+                    vertAlign: "middle",
+                    print: false,
+                    download: false,
+                },
+                {
+                    title: "date lettrage",
+                    field: "Date_Let",
+                    minWidth: 100,
+                    sorter: "string",
+                    vertAlign: "middle",
+                    print: false,
+                    download: false,
+                },
+                {
+                    title: "Acompte",
+                    field: "Acompte",
+                    minWidth: 100,
+                    responsive: 0,
+                    sorter: "string",
+                    cssClass:"total",
+                    print: false,
+                    download: false,
+                },
+            ],
+           
+        });
+        // Redraw table onresize
+        window.addEventListener("resize", () => {
+            // table.redraw();
+            // createIcons({
+            //     icons,
+            //     "stroke-width": 1.5,
+            //     nameAttr: "data-lucide",
+            // });
+        });
+        // Filter function
+        function filterHTMLForm() {
+            let field = $("#tabulator-html-filter-field").val();
+            let type = $("#tabulator-html-filter-type").val();
+            let value = $("#tabulator-html-filter-value").val();
+            table.setFilter(field, type, value);
+        }
+        
+    },
+});
+
+}
 function permission(){
   var permiDelete =document.getElementById('permiDelete').value;
    if(permiDelete!=1)

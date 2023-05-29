@@ -66,30 +66,30 @@ button.hidden {
                 {{ csrf_field() }}
                <div class="form-inline">
                 <div class="w50 intro-y mr-2">
-                  @foreach($data2 as $info)
+                 
                   <input type="hidden" id="id_fiche" name="id_fiche" value="{{$id}}"> 
                  <table class="table-info  w-full mt-10">
                  <tr class="tbl">
-                 <input type="hidden" id="numfichier" name="numfichier" value="{{$info->num_fichier}}"> 
-                 <td class="tbl"> Code Client</td> <td  class="tbl">{{$info->num_fichier}}</td>
+                 <input type="hidden" id="numfichier" name="numfichier" value="{{$code_client}}"> 
+                 <td class="tbl"> Code Client</td> <td  class="tbl">{{$code_client}}</td>
                  </tr>
                  <tr class="tbl">
-        <td class="tbl"> Facture N°</td> <td id='numfacture' class="tbl">{{$numfacture}}
+        <td class="tbl"> Facture N°</td> <td   class="tbl">{{$numfacture}}
             <input type="hidden" id="numfacture" name="numfacture" value="{{$numfacture}}">
          </td>
         </tr>
        <tr class="tbl"> 
-           <td class="tbl">Dossier N°</td> <td id='numdossier' class="tbl"> @foreach($numdossier as $num){{$num->num_dossier}} @endforeach
-            <input type="hidden" name="num_dossier" value="{{$num->num_dossier}}"></td>
+           <td class="tbl">Dossier N°</td> <td id='numdossier' class="tbl"> {{$numdossier}}
+            <input type="hidden" name="num_dossier" value="{{$numdossier}}"></td>
            </tr>
        <tr class="tbl">
-           <td class="tbl">Bon de Commande</td> <td  class="tbl">{{$info->bon_commande}}
-           <input type="hidden" id="bon_commande" name="bon_commande" value="{{$info->bon_commande}}"> 
+           <td class="tbl">Bon de Commande</td> <td  class="tbl">{{$bon_commande}}
+           <input type="hidden" id="bon_commande" name="bon_commande" value="{{$bon_commande}}"> 
            </td>
            </tr>
        <tr class="tbl">
-          <td class="tbl" >Date</td> <td  class="tbl">{{$info->date_fiche_inscription}}
-          <input type="hidden" id="date_fiche_inscription" name="date_fiche_inscription" value="{{$info->date_fiche_inscription}}"> 
+          <td class="tbl" >Date</td> <td  class="tbl">{{$date}}
+          <input type="hidden" id="date_fiche_inscription" name="date_fiche_inscription" value="{{$date}}"> 
           </td>
           </tr >
        <tr>
@@ -97,16 +97,16 @@ button.hidden {
     </tr>
     
   </table> 
-  @endforeach
+  
     </div>
 
  <div class="w50 intro-y info ml-2 text-center" style="margin-bottom: auto; margin-top: 4.5%;">
     <div class="py-2">
-    @foreach($societe as $info)
-     <p  id='nom_c' class="center mb-1">{{$info->nom}}</p><input type="hidden" id="nom" name="nom" value="{{$info->nom}}"> 
-       <p id='adresse_s'  class="center mb-1">{{$info->adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$info->adresse}}"> 
-       <p  id="ville_c" class="center">{{$info->ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$info->ville_client}}"> 
-       @endforeach
+    
+     <p  id='nom_c' class="center mb-1">{{$nom}}</p><input type="hidden" id="nom" name="nom" value="{{$nom}}"> 
+       <p id='adresse_s'  class="center mb-1">{{$adresse}}</p><input type="hidden" id="adresse" name="adresse" value="{{$adresse}}"> 
+       <p  id="ville_c" class="center">{{$ville_client}}</p><input type="hidden" id="ville_client" name="ville_client" value="{{$ville_client}}"> 
+     
     </div>
   
     <div style="clear: both;"></div>
@@ -128,21 +128,22 @@ button.hidden {
 
         <tbody>
             <tr>
-            <td class="editable" data-field="désignation"> {{ $programme->nom_programme }}  {{ $programme->type_programme }}</td>
-            <input type="hidden" id="designation" name="designation" value="{{ $programme->nom_programme }}  {{ $programme->type_programme }}"> 
-              <td class="editable" data-field="arrives">{{ $programme->date_retour }} </td>
-              <input type="hidden" id="date_retour" name="date_retour" value="{{$programme->date_retour}}"> 
-              <td  class="editable" data-field="departs">{{ $programme->date_depart }}</td>
-              <input type="hidden" id="date_depart" name="date_depart" value="{{$programme->date_depart}}"> 
+            <td class="editable" data-field="désignation"> {{ $designation}}</td>
+            <input type="hidden" id="designation" name="designation" value="{{ $designation}}"> 
+              <td class="editable" data-field="arrives">{{ $date_retour }} </td>
+              <input type="hidden" id="date_retour" name="date_retour" value="{{ $date_retour }}"> 
+              <td  class="editable" data-field="departs">{{ $date_depart }}</td>
+              <input type="hidden" id="date_depart" name="date_depart" value="{{ $date_depart }}"> 
               <td class="editable" data-field="total"></td>
             </tr>
+       
         @foreach($Detail_Fiche as $table)
           
           <tr>
-              <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_client }} {{ $table->prenom_client}}</td>
+              <td style="padding-left: 40px;" class="editable" data-field="désignation"> {{ $table->nom_complet }}</td>
               <td class="editable" data-field="arrives"></td>
               <td class="editable" data-field="departs"></td>
-              <td class="editable" data-field="total"> {{ $table->Totale_prg}}</td>
+              <td class="editable" data-field="total"> {{ $table->prix }}</td>
             
            
           </tr>
@@ -168,17 +169,74 @@ button.hidden {
     </form>
     
     @if($exist==false)   
-    <a id='print' class="btn btn-primary hidden" >Print</a>
+    <a id='print' class="btn btn-primary hidden" >Imprimer</a>
       
       @endif  
       @if($exist==true)  
+      <button href="javascript:;" id='situation' data-tw-toggle="modal" data-tw-target="#Situation_Facture_Modal" class="btn btn-outline-success ">
+                        <span class=" h-5 flex items-center justify-center">
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                            Situation Facture
+                            </div>
+                        </span>
+                    </button>
       
-      <a id='print'  class="btn btn-primary"  >Print</a>
+      <a id='print'  class="btn btn-primary"  >Imprimer</a>
+    
       @endif 
       </form>
      
     </div>
    </div>
+   <!-- BEGIN: Situation Facture Modal  -->
+<div id="example-tab-2" class="tab-pane leading-relaxed p-5" role="tabpanel" aria-labelledby="example-2-tab">
+    <div id="Situation_Facture_Modal" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <!-- BEGIN: Modal Header -->
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Situation Facture</h2>
+                    <div class="dropdown sm:hidden">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown">
+                            <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
+                        </a>
+                        <div class="dropdown-menu w-40">
+                            <ul class="dropdown-content">
+                                <li>
+                                    <a href="javascript:;" class="dropdown-item">
+                                        <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Docs
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Modal Header -->
+                <!-- BEGIN: Modifier  Modal Body -->
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12 sm:col-span-6">
+                            <label for="T_Facture" class="form-label">Total Facture</label>
+                            <input type="text" id="T_Facture" name="T_Facture" class="form-control" disabled>
+                        </div>
+
+                        <div class="col-span-12 sm:col-span-6">
+                            <label for="R_Facture" class="form-label">Reste sur Facture</label>
+                            <input type='text' class="form-control" id="R_Facture" name="R_Facture" disabled />
+                        </div>
+                        <div class="col-span-12 ">
+                        <div class="overflow-x-auto scrollbar-hidden">
+                        <div id="S_facture" class="mt-5 table-report--tabulator"></div>
+                       </div>
+                       </div>
+                    </div>
+
+                    <!-- END: Modal Body -->
+                   
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Situation Facture Modal -->
 </div>
 @if($exist==false) 
 @if (Auth::user()->permissions->contains('name','Update_facture'))

@@ -29,7 +29,7 @@ Route::controller(AuthController::class)->middleware('loggedin')->group(function
 Route::middleware('auth')->group(function () {
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
   Route::controller(PageController::class)->group(function () {
-    Route::get('/', 'dashboardOverview1')->name('dashboard-overview-1');
+    Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('Dashboard.index');
 
 
     // hotel_transports
@@ -97,11 +97,12 @@ Route::middleware('auth')->group(function () {
    Route::GET('/generate/{id}','App\Http\Controllers\FactureController@print')->name('generate.print');
    Route::GET('/generate_facture/{id}','App\Http\Controllers\update_facturesController@print')->name('facture.print');
    Route::get('/facturation', 'App\Http\Controllers\Liste_facturesController@index')->name('facturation.index');
+   Route::get('/sitation_fact/{id}', 'App\Http\Controllers\FactureController@sitation_fact')->name('fsitation_fact');
    Route::get('/facturation_List', 'App\Http\Controllers\Liste_facturesController@Liste_factures')->name('facturation.liste');
    Route::post('facturation_store', 'App\Http\Controllers\FactureController@store')->name('facturation.store');
    Route::post('gestion_facture_Delete', 'App\Http\Controllers\update_facturesController@destroy')->name('gestion_facture.delete');
    Route::post('edit_facture', 'App\Http\Controllers\update_facturesController@update')->name('gestion_facture.edite');
-  
+   Route::GET('/consult_facture/{id}', 'App\Http\Controllers\FactureController@consult_facture')->name('facturation.consult');
    //gestion_reglement
    Route::get('/reglement', 'App\Http\Controllers\G_reglementController@index')->name('reglement.index');
    Route::get('List_jornal', 'App\Http\Controllers\G_reglementController@liste_jornal')->name('liste_jornal');
@@ -137,9 +138,8 @@ Route::middleware('auth')->group(function () {
     Route::get('fiche_clients_infos/{id}', 'App\Http\Controllers\Fiche_clientsController@infos')->name('fiche_client.infos');
     Route::post('fiche_clients_Delete', 'App\Http\Controllers\Fiche_clientsController@destroy')->name('fiche_client.delete');
     Route::get('/rech_fiche_client', 'App\Http\Controllers\Fiche_clientsController@rechercher_fiche')->name('fiche_client.rech');
-
-    // 
-    //gestion gestion_fiche_client
+    Route::get('/situation_client', 'App\Http\Controllers\Fiche_clientsController@rsituation_client')->name('situation_client');
+    
 
     Route::get('/To', 'App\Http\Controllers\TosController@index')->name('To.index')->middleware('checkPermission:G.To');
 

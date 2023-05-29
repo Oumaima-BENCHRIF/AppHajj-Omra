@@ -80,9 +80,7 @@ class Gestion_UtilisateursController extends Controller
                 if (!empty($address)) {
                     $query->where('users.address', 'LIKE', $address . '%');
                 }
-                if ('Sélectionner Privilège' != $privilege) {
-                    $query->where('users.privilege', 'LIKE', $privilege . '%');
-                }
+
                 if (!empty('Sélectionner Ville')) {
                     $query->where('users.ville', 'LIKE', $ville . '%');
                 }
@@ -134,18 +132,21 @@ class Gestion_UtilisateursController extends Controller
                     'errors' => $validator->messages(),
                 ]);
             } else {
+                $userLogin = Auth::user(); 
                 $User = new User();
-       
+    
                 $User->name = $request->input('name');
                 $User->password = $request->input('mot_passe');
                 $User->gender = $request->input('gender');
                 $User->email = $request->input('email');
-                $User->privilege = $request->input('privilege');
-                $User->ville = $request->input('ville');
-                
+                // $User->privilege = $request->input('privilege');
+                $User->ville = $request->input('ville');   
                 $User->adress = $request->input('adress');
-                $User->	phone = $request->input('phone');
-               
+                $User->phone = $request->input('phone');
+                $User->id_Agence = $userLogin->	id_Agence;
+                $User->baseName = $userLogin->	baseName;
+                $User->id_Succursales = $userLogin->id_Succursales;
+                // dd($User);
                 $User->save();
                 $user = User::where('email',$User->email)->first();
                 $permissions = $user->permissions;

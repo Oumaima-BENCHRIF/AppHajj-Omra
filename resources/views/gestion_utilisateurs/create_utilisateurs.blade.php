@@ -122,7 +122,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="mt-3 @if ($errors->get('privilege')) has-error @endif">
+                                    <!-- <div class="mt-3 @if ($errors->get('privilege')) has-error @endif">
                                         <label for="privilege" class="form-label">Privilège</label>
                                         <select id="privilege" name="privilege" value="{{old('privilege')}}" data-search="true" class="tom-select w-full @if ($errors->get('privilege')) is-invalid @endif">
                                             <option value="privilege" disabled selected hidden>Sélectionner Privilège</option>
@@ -135,7 +135,7 @@
                                         <li class="text-danger">{{ $message }}</li>
                                         @endforeach
                                         @endif
-                                    </div>
+                                    </div> -->
                                     <!-- gender -->
                                     <div class="mt-3 @if ($errors->get('gender')) has-error @endif">
                                         <label for="gender" class="form-label">Le genre</label>
@@ -234,7 +234,17 @@
                                 <div class="col-span-12 mt-3">
                                     <h2>Liste des permissions</h2>
                                     <div class="input-form mt-3 @if ($errors->get('permission')) has-error @endif">
-                                <div class="row ">
+                                    <div class="row">
+                                <div class="col-md-12">
+                                   <div class="form-check">
+                                   <input class="form-check-input" onClick="toggle(this)" type="checkbox" id="select-all-checkbox">
+                                   <label class="form-check-label" for="select-all-checkbox">
+                                   Select All
+                                   </label>
+                                 </div>
+                                 </div>
+                                 </div>
+                                    <div class="row ">
                                   @php $i = 0; @endphp
                                   @foreach ($permissions as $permission)
                                  <div class="col-md-4">
@@ -281,8 +291,11 @@
 </div>
 @endsection
 @section('jqscripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{{URL::asset('js/Gestion_utilisateur.js')}}"></script>
+
 <script>
+    
     function myFunction() {
         var x = document.getElementById("myInput");
         if (x.type === "password") {
@@ -300,6 +313,14 @@
             x.type = "password";
         }
     }
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+   
+ 
+    function toggle(source) {
+       
+  checkboxes = document.getElementsByName('permissions[]');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+    }
 </script>
 @endsection

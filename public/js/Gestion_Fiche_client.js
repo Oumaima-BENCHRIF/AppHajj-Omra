@@ -30,6 +30,17 @@ function liste_fiche_client() {
                 tooltips: true,
                 columns: [
                     {
+                        title: "Code client",
+                        minWidth: 100,
+                        responsive: 0,
+                        field: "Code_client",
+                        sorter: "string",
+                        vertAlign: "middle",
+                        col: "red",
+                        print: false,
+                        download: false,
+                    },
+                    {
                         title: "Compte",
                         minWidth: 100,
                         responsive: 0,
@@ -58,46 +69,6 @@ function liste_fiche_client() {
                         hozAlign: "left",
                         hozAlign: "center",
                         vertAlign: "middle",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Compt postal",
-                        field: "C_postal",
-                        minWidth: 100,
-                        sorter: "string",
-                        hozAlign: "center",
-                        vertAlign: "middle",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Contact commercial",
-                        field: "contact_commercial",
-                        minWidth: 100,
-                        sorter: "string",
-                        hozAlign: "center",
-                        vertAlign: "middle",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Téléphone commercial",
-                        field: "telephone_commercial",
-                        minWidth: 100,
-                        responsive: 0,
-                        sorter: "number",
-                        hozAlign: "center",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Mobile commercial",
-                        field: "mobile_commercial",
-                        minWidth: 100,
-                        responsive: 0,
-                        sorter: "number",
-                        hozAlign: "center",
                         print: false,
                         download: false,
                     },
@@ -132,38 +103,8 @@ function liste_fiche_client() {
                         download: false,
                     },
                     {
-                        title: "Pays client",
-                        field: "pays_client",
-                        minWidth: 100,
-                        responsive: 0,
-                        sorter: "number",
-                        hozAlign: "center",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Fax client",
-                        field: "fax_client",
-                        minWidth: 100,
-                        responsive: 0,
-                        sorter: "number",
-                        hozAlign: "center",
-                        print: false,
-                        download: false,
-                    },
-                    {
                         title: "Marge client",
                         field: "marge_client",
-                        minWidth: 100,
-                        responsive: 0,
-                        sorter: "number",
-                        hozAlign: "center",
-                        print: false,
-                        download: false,
-                    },
-                    {
-                        title: "Remarque",
-                        field: "Remarques",
                         minWidth: 100,
                         responsive: 0,
                         sorter: "number",
@@ -183,7 +124,10 @@ function liste_fiche_client() {
                         formatter(cell, formatterParams) {
                             let a =
                             $(`<div class="flex lg:justify-center items-center">
-                                   
+                           
+                            <a class="view flex items-center text-success tooltip mr-3" data-tw-target="#header-footer-modal-preview2" title="Consulter">
+                                <svg xmlns="http://www.w3.org/2000/svg " width="24 " height="24 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
+                            </a>  
                             <button  class="edit text-primary flex items-center mr-3 tooltip" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview">
                             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' icon-name='check-square' data-lucide='check-square' class='lucide lucide-check-square w-4 h-4 mr-2'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'></path></svg>\n
                             </button>
@@ -242,13 +186,20 @@ function liste_fiche_client() {
                                         },
                                     });
                                 });
-
-                            $(a)
+                                $(a)
                                 .find(".view")
                                 .on("click", function () {
-                                    window.location.replace(
-                                        "/liste_prog/" + cell.getData().id
-                                    );
+                                    jQuery.ajax({
+                                        url:
+                                            "/fiche_clients_infos/" +
+                                            cell.getData().id,
+                                        type: "GET", // Le nom du fichier indiqué dans le formulaire
+                                        dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                                        // dataFilter: 'json', //forme data
+                                        success: function (responce) {
+                                           
+                                        },
+                                    });
                                 });
 
                             return a[0];
