@@ -125,7 +125,7 @@ function liste_fiche_client() {
                             let a =
                             $(`<div class="flex lg:justify-center items-center">
                            
-                            <a class="view flex items-center text-success tooltip mr-3" data-tw-target="#header-footer-modal-preview2" title="Consulter">
+                            <a class="view flex items-center text-success tooltip mr-3"  data-tw-toggle="modal" href="javascript:;" data-tw-target="#header-footer-modal-preview2" title="Consulter">
                                 <svg xmlns="http://www.w3.org/2000/svg " width="24 " height="24 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " icon-name="eye " data-lucide="eye " class="lucide lucide-eye w-4 h-4 mr-1 "><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z "></path><circle cx="12 " cy="12 " r="3 "></circle></svg>
                             </a>  
                             <button  class="edit text-primary flex items-center mr-3 tooltip" title="Modifier" href="javascript:;" data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview">
@@ -191,8 +191,8 @@ function liste_fiche_client() {
                                 .on("click", function () {
                                     jQuery.ajax({
                                         url:
-                                            "/fiche_clients_infos/" +
-                                            cell.getData().id,
+                                            "/situation_client/" +
+                                            cell.getData().Code_client,
                                         type: "GET", // Le nom du fichier indiqué dans le formulaire
                                         dataType: "json", // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                                         // dataFilter: 'json', //forme data

@@ -61,13 +61,16 @@ button.hidden {
             <div class="py-5 px-5  mt-5">
                 <div class="font-medium text-center text-lg">Gestion facturation</div>
             </div>
-            
+            <!-- <img id="logoAgence" src="">   -->
             <form id="Add_facture" name="Add_facture" action="{{ url('facturation_store') }}" method="post">
                 {{ csrf_field() }}
                <div class="form-inline">
+               
+              
                 <div class="w50 intro-y mr-2">
-                 
+               
                   <input type="hidden" id="id_fiche" name="id_fiche" value="{{$id}}"> 
+                  <!-- <input type="hidden" id="LOGO" name="LOGO" value="{{$logo->logo}}">  -->
                  <table class="table-info  w-full mt-10">
                  <tr class="tbl">
                  <input type="hidden" id="numfichier" name="numfichier" value="{{$code_client}}"> 

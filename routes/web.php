@@ -138,7 +138,7 @@ Route::middleware('auth')->group(function () {
     Route::get('fiche_clients_infos/{id}', 'App\Http\Controllers\Fiche_clientsController@infos')->name('fiche_client.infos');
     Route::post('fiche_clients_Delete', 'App\Http\Controllers\Fiche_clientsController@destroy')->name('fiche_client.delete');
     Route::get('/rech_fiche_client', 'App\Http\Controllers\Fiche_clientsController@rechercher_fiche')->name('fiche_client.rech');
-    Route::get('/situation_client', 'App\Http\Controllers\Fiche_clientsController@rsituation_client')->name('situation_client');
+    Route::get('/situation_client', 'App\Http\Controllers\Fiche_clientsController@situation_client')->name('situation_client');
     
 
     Route::get('/To', 'App\Http\Controllers\TosController@index')->name('To.index')->middleware('checkPermission:G.To');

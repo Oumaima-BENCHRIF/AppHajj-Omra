@@ -31,13 +31,15 @@ $(document).ready(function () {
     $("#print").on("click",function()
     { 
         let id=$('#id_fiche').val();
-     
+        let LOGO=$('#LOGO').val();console.log(LOGO).
         jQuery.ajax({
             url: "/generate/"+id,
             type: "GET",
             data: id,
             success: function(response){
+                
                 window.location.href = "/generate/"+id;
+
             },
             error: function(xhr, status, error){
                 // handle any errors that occur during the AJAX request

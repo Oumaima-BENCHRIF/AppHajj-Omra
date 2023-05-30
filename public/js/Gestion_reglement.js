@@ -133,8 +133,14 @@ $(document).ready(function () {
     }
     });
     $("#reglement").on("click",function()
-    {      
-        let N_reglement=$('#N_reglement').val();
+    {   let N_reglement=0;
+   if ($('#N_reglement').css('display') === 'block'){
+        N_reglement=$('#N_reglement').val();
+    }else
+    {
+        N_reglement=$('#num_reglement').val();
+    }
+        
                 window.location.href = "/generate_re/"+N_reglement;
           
         });

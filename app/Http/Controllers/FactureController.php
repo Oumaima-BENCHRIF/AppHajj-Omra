@@ -22,6 +22,9 @@ use Symfony\Component\Console\Input\Input;
 use App\Models\Agents;
 use Attribute;
 use Illuminate\Support\Facades\DB;
+use App\Models\Agence;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class FactureController extends Controller
 {
@@ -159,7 +162,11 @@ class FactureController extends Controller
         foreach ($detail_factures as $key ) {
         $Total= $Total + $key->prix;
        }
-  
+       $userLogin = Auth::user(); 
+       $logo=Agence::select('agence.logo')
+       ->where('agence.id',$userLogin->	id_Agence)
+       ->First();
+      
        $id=1;
          return view('gestion_Facturation/create_facture',[
              'id'=>$id,
@@ -177,7 +184,8 @@ class FactureController extends Controller
              'date_depart'=>$facture->date_departs,
              'date_retour'=>$facture->date_Arrives,
              'exist'=>$exist,
-             'total'=>$Total
+             'total'=>$Total,
+             'logo'=>$logo
          ]);
     }
     public function sitation_fact($num)
@@ -200,15 +208,20 @@ class FactureController extends Controller
    
     public function print($id){ 
        $value=$id;
+       $userLogin = Auth::user(); 
+       $logo=Agence::select('agence.logo')
+       ->where('agence.id',$userLogin->	id_Agence)
+       ->first();
+      
        $info_facture=Factures::where('factures.deleted_at', '=', NULL)
        ->where('factures.fk_fiche',$value)->first();
        $id_fac=$info_facture->id;
-    
        $detail_facture=Detail_factures::where('detail_factures.FK_Facture',$id_fac)
        ->get();
         $pdf = PDF::loadView('myPDF',[
           'info_facture'=>$info_facture ,
-          'detail_facture'=>$detail_facture
+          'detail_facture'=>$detail_facture,
+          'logo'=>$logo->logo
         ]);
       
         return $pdf->download('facture.pdf');

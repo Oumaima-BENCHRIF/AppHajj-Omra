@@ -640,28 +640,28 @@ use Illuminate\Support\Facades\Session;
                     <!-- END: Modal Header -->
                     <!-- BEGIN: Modal Body -->
 
-                    <form action="{{ url('fiche_clients_Store') }}" method="post">
+              
                         {{ csrf_field() }}
                         <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
                             <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
 
                                 <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_compte_" class="form-label">Compte</label>
+                                    <label for="TOTAL" class="form-label">TOTAL FACTURES</label>
 
-                                    <input type="text" id="_compte_" name="compte" class="form-control @if ($errors->get('_compte_')) is-invalid @endif" placeholder="Entrer compte">
+                                    <input type="text" id="TOTAL" name="TOTAL" class="form-control @if ($errors->get('TOTAL')) is-invalid @endif" disabled>
 
-                                    @if ($errors->get('_compte_'))
-                                    @foreach ($errors->get('_compte_') as $message)
+                                    @if ($errors->get('TOTAL'))
+                                    @foreach ($errors->get('TOTAL') as $message)
                                     <li class="text-danger">{{ $message }}</li>
                                     @endforeach
                                     @endif
                                 </div>
 
                                 <div class="intro-y col-span-12 sm:col-span-6">
-                                    <label for="_nom_" class="form-label">Nom</label>
-                                    <input id="_nom_" name="nom" type="text" class="form-control @if($errors->get('_nom_')) is-invalid @endif" placeholder="Nom">
-                                    @if($errors->get('_nom_'))
-                                    @foreach($errors->get('_nom_') as $message)
+                                    <label for="RESTE" class="form-label">RESTE SUR LES FACTURES</label>
+                                    <input id="RESTE" name="RESTE" type="text" class="form-control @if($errors->get('RESTE')) is-invalid @endif" disabled>
+                                    @if($errors->get('RESTE'))
+                                    @foreach($errors->get('RESTE') as $message)
                                     <li class="text-danger">{{$message}}</li>
                                     @endforeach
                                     @endif
@@ -678,10 +678,10 @@ use Illuminate\Support\Facades\Session;
                                 </div>
                                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                                    <button type="Submit" data-tw-dismiss="modal" class="btn btn-primary w-24">Envoyer</button>
+                               
 
                                 </div>
-                    </form>
+                  
 
 
                 </div>

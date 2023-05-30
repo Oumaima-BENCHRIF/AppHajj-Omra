@@ -40,7 +40,7 @@
         width:15%;   
     }
     .logo img{
-        width:45px;
+        width:200px;
         height:45px;
         padding-top:30px;
     }
@@ -75,10 +75,7 @@
     }
     table tr td{
         font-size:13px;
-    
-       
     }
-   
     table{
         margin-top: 20px !important;
        
@@ -137,13 +134,13 @@
       
         border-collapse:collapse;
     }
-
-
-
-</style>
+</style> 
 <body>
-<div class="w-50  logo mt-10">
-<img src="https://www.nicesnippets.com/image/imgpsh_fullsize.png"> 
+<div class=" logo mt-10">
+<img src="{{ asset('build/assets/logo/.$logo.') }}"> 
+
+
+<!-- <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('build/assets/images/logo.svg') }}"> -->
     </div>  
 <div class="w-50 float-left  mt-10">
 
